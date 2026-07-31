@@ -925,3 +925,103 @@
     max-width:142px !important;
   }
 }
+
+
+/* =====================================================================
+   INTEL16 — REFUERZO DE CABECERA MÓVIL EN BLOG Y ARTÍCULOS
+   ===================================================================== */
+
+@media(max-width:820px){
+
+  .blog-page .site-header,
+  .blog-page .site-header.compact{
+    height:calc(104px + env(safe-area-inset-top,0px)) !important;
+    min-height:calc(104px + env(safe-area-inset-top,0px)) !important;
+    background:#fff !important;
+  }
+
+  .blog-page .shared-header-shell,
+  .blog-page .header-shell{
+    position:relative !important;
+    width:100% !important;
+    max-width:none !important;
+    height:104px !important;
+    min-height:104px !important;
+    margin:0 !important;
+    padding:0 !important;
+    display:block !important;
+  }
+
+  .blog-page .site-menu-button{
+    position:absolute !important;
+    left:12px !important;
+    right:auto !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+  }
+
+  .blog-page .shared-header-brand,
+  .blog-page .brand{
+    position:absolute !important;
+    left:50% !important;
+    right:auto !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+    width:136px !important;
+    max-width:136px !important;
+    height:82px !important;
+    max-height:82px !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+  }
+
+  .blog-page .shared-header-brand img,
+  .blog-page .brand img{
+    display:block !important;
+    width:136px !important;
+    max-width:136px !important;
+    height:76px !important;
+    max-height:76px !important;
+    margin:3px auto 0 !important;
+    object-fit:contain !important;
+    transform:none !important;
+  }
+
+  .blog-page .site-language-button{
+    position:absolute !important;
+    left:auto !important;
+    right:12px !important;
+    top:50% !important;
+    transform:translateY(-50%) !important;
+    white-space:nowrap !important;
+  }
+
+  .blog-page .site-menu-panel{
+    left:12px !important;
+    top:104px !important;
+  }
+
+  .blog-page main{
+    padding-top:calc(104px + env(safe-area-inset-top,0px)) !important;
+  }
+}
+
+@media(max-width:370px){
+  .blog-page .site-menu-label{
+    display:none !important;
+  }
+
+  .blog-page .site-menu-button{
+    width:40px !important;
+    justify-content:center !important;
+  }
+
+  .blog-page .shared-header-brand,
+  .blog-page .brand,
+  .blog-page .shared-header-brand img,
+  .blog-page .brand img{
+    width:128px !important;
+    max-width:128px !important;
+  }
+}

@@ -110,3 +110,15 @@ En móvil:
 
 Todos estos cambios están dentro de reglas `@media(max-width:820px)`.
 El diseño de PC no se ha modificado.
+
+
+## Corrección de cabecera móvil en intel16
+
+La barra blanca móvil utiliza posicionamiento independiente:
+
+- `.site-menu-button`: izquierda;
+- `.shared-header-brand`: centro;
+- `.site-language-button`: derecha.
+
+El logo tiene una caja de 82 px de alto con `overflow:hidden`, por lo que no
+puede sobresalir por debajo de la barra. Estos cambios no afectan al diseño PC.
