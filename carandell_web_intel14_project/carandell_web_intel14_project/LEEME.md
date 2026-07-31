@@ -1,0 +1,95 @@
+# Carandell Advocats — proyecto intel12
+
+## Abrir sin Internet
+
+1. Descomprime toda la carpeta.
+2. Abre `index.html` con Safari o Chrome.
+3. En VS Code: **File → Open Folder** y selecciona la carpeta completa.
+4. Guarda con `Cmd + S` y recarga el navegador.
+
+## Estructura
+
+```text
+index.html                         Página principal
+blog/index.html                    Inicio del blog
+blog/corte-suministros-....html    Artículo publicado
+css/home.css                       Portada, cabecera y estilos comunes
+css/blog.css                       Listado y artículos
+js/site-header.js                  Menú, idiomas y desplazamientos
+js/home.js                         Carruseles de la portada
+js/blog.js                         Cabecera del blog al hacer scroll
+assets/images/                     Fotos y logotipo
+plantillas/articulo-blog.html      Base de un artículo
+plantillas/tarjeta-blog.html       Base de una tarjeta
+```
+
+## Crear otro artículo
+
+1. Copia `plantillas/articulo-blog.html` dentro de `blog/`.
+2. Cámbiale el nombre.
+3. Copia la cabecera y el pie del artículo existente.
+4. Sustituye los textos marcados en mayúsculas.
+5. Copia `plantillas/tarjeta-blog.html` dentro de `blog/index.html`.
+6. Cambia sus enlaces para que apunten al nuevo artículo.
+
+## Añadir una imagen de portada
+
+Guárdala en `assets/images/blog/` y sustituye el marcador blanco por:
+
+```html
+<img src="../assets/images/blog/nombre-imagen.jpg"
+     alt="Descripción de la imagen">
+```
+
+## Revisión jurídica obligatoria
+
+Antes de publicar:
+
+- comprobar la normativa vigente;
+- consultar la resolución judicial original;
+- verificar tribunal, fecha, recurso y alcance;
+- no convertir un caso concreto en regla general;
+- validar el texto final con Maria.
+
+Sin conexión no cargarán Google Maps, Google Fonts, Instagram ni enlaces
+externos. La navegación local, estilos, fotos y artículos sí funcionarán.
+
+
+## Orden de las publicaciones del blog
+
+Las publicaciones están dentro de:
+
+```html
+<div class="blog-post-list">
+```
+
+Cada publicación es un bloque:
+
+```html
+<article class="blog-card">
+```
+
+Para añadir una nueva:
+
+1. Copia `plantillas/tarjeta-blog.html`.
+2. Pega el bloque dentro de `.blog-post-list`.
+3. Colócalo arriba del artículo anterior si es la publicación más reciente.
+4. Cambia fecha, categoría, título, resumen y enlaces.
+
+Las entradas aparecerán una debajo de otra y todas conservarán el mismo
+cuadro blanco. El listado no utiliza imágenes de portada.
+
+
+## Ancho del título de los artículos
+
+En `css/blog.css`, el bloque **INTEL14 — ANCHO DEL TÍTULO DEL ARTÍCULO**
+hace que el título superior llegue hasta la misma línea derecha que la tarjeta
+lateral de llamada.
+
+Para volver a limitarlo, modifica:
+
+```css
+.article-hero-no-cover h1 {
+  max-width: none;
+}
+```
