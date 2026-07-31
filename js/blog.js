@@ -2,37 +2,138 @@
    CARANDELL ADVOCATS — JAVASCRIPT DEL BLOG
    =====================================================================
 
-   Solo controla la cabecera en móvil:
-   - Se oculta al bajar.
-   - Reaparece al subir.
-   - El botón de llamada permanece siempre visible.
+   FUNCIONES EN MÓVIL
+   1. Ocultar la cabecera al bajar y recuperarla al subir.
+   2. Mantener visible la llamada flotante mientras no haya otra llamada
+      fija visible en pantalla.
+   3. Ocultar la llamada flotante cuando aparece:
+      - el panel negro de contacto del listado;
+      - la tarjeta dorada del artículo;
+      - el reclamo negro final del artículo;
+      - el teléfono del pie.
+
+   Los textos y estilos se modifican en HTML/CSS, no en este archivo.
    ===================================================================== */
 
 (function () {
   'use strict';
 
-  var header = document.getElementById('siteHeader');
-  var lastScroll = window.pageYOffset || 0;
-  var threshold = 14;
+  function ready(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback, false);
+    } else {
+      callback();
+    }
+  }
 
-  if (!header) return;
+  ready(function () {
+    var header = document.getElementById('siteHeader');
+    var floatingCall = document.querySelector('.blog-mobile-call');
+    var lastScroll = window.pageYOffset || 0;
+    var threshold = 14;
 
-  window.addEventListener('scroll', function () {
-    var currentScroll = window.pageYOffset || 0;
-    var isMobile = window.innerWidth <= 820;
+    /* ---------------------------------------------------------------
+       CABECERA MÓVIL
+       --------------------------------------------------------------- */
+    if (header) {
+      window.addEventListener('scroll', function () {
+        var currentScroll = window.pageYOffset || 0;
+        var isMobile = window.innerWidth <= 820;
 
-    if (!isMobile || currentScroll < 18) {
-      header.classList.remove('hidden-nav');
-      lastScroll = currentScroll;
-      return;
+        if (!isMobile || currentScroll < 18) {
+          header.classList.remove('hidden-nav');
+          lastScroll = currentScroll;
+          return;
+        }
+
+        if (currentScroll > lastScroll + threshold) {
+          header.classList.add('hidden-nav');
+          lastScroll = currentScroll;
+        } else if (currentScroll < lastScroll - threshold) {
+          header.classList.remove('hidden-nav');
+          lastScroll = currentScroll;
+        }
+      }, { passive: true });
     }
 
-    if (currentScroll > lastScroll + threshold) {
-      header.classList.add('hidden-nav');
-      lastScroll = currentScroll;
-    } else if (currentScroll < lastScroll - threshold) {
-      header.classList.remove('hidden-nav');
-      lastScroll = currentScroll;
+    /* ---------------------------------------------------------------
+       EVITAR DOS BOTONES DE LLAMADA A LA VEZ
+       --------------------------------------------------------------- */
+    if (!floatingCall) return;
+
+    var staticCallTargets = Array.prototype.slice.call(
+      document.querySelectorAll(
+        '.blog-ready-panel a[href^="tel:"], ' +
+        '.article-contact-card a[href^="tel:"], ' +
+        '.article-final-cta a[href^="tel:"], ' +
+        '.footer-contact-details'
+      )
+    );
+
+    function setFloatingCallSuppressed(suppressed) {
+      floatingCall.classList.toggle(
+        'is-suppressed-by-static',
+        Boolean(suppressed)
+      );
     }
-  }, { passive: true });
+
+    /* Alternativa para navegadores antiguos sin IntersectionObserver. */
+    function updateWithRectangles() {
+      if (window.innerWidth > 820) {
+        setFloatingCallSuppressed(false);
+        return;
+      }
+
+      var viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+
+      var staticCallIsVisible = staticCallTargets.some(function (target) {
+        var rectangle = target.getBoundingClientRect();
+        return rectangle.bottom > 0 && rectangle.top < viewportHeight;
+      });
+
+      setFloatingCallSuppressed(staticCallIsVisible);
+    }
+
+    if ('IntersectionObserver' in window && staticCallTargets.length) {
+      var visibility = staticCallTargets.map(function () {
+        return false;
+      });
+
+      try {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var targetIndex = staticCallTargets.indexOf(entry.target);
+            if (targetIndex !== -1) {
+              visibility[targetIndex] = entry.isIntersecting;
+            }
+          });
+
+          setFloatingCallSuppressed(
+            visibility.some(function (isVisible) {
+              return isVisible;
+            })
+          );
+        }, {
+          threshold:0.08
+        });
+
+        staticCallTargets.forEach(function (target) {
+          observer.observe(target);
+        });
+      } catch (error) {
+        window.addEventListener('scroll', updateWithRectangles, {
+          passive:true
+        });
+        window.addEventListener('resize', updateWithRectangles, false);
+        updateWithRectangles();
+      }
+    } else {
+      window.addEventListener('scroll', updateWithRectangles, {
+        passive:true
+      });
+      window.addEventListener('resize', updateWithRectangles, false);
+      updateWithRectangles();
+    }
+  });
 }());

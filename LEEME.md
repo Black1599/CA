@@ -93,3 +93,20 @@ Para volver a limitarlo, modifica:
   max-width: none;
 }
 ```
+
+
+## Ajustes móviles de intel15
+
+En móvil:
+
+- menú e idiomas se sitúan en los extremos de la barra blanca;
+- el logotipo permanece centrado;
+- el texto inicial de la portada es más compacto;
+- «Cómo llegar» está más cerca de la tarjeta de ubicación;
+- el inicio del blog no muestra «Últimas publicaciones»;
+- en los artículos, la tarjeta dorada aparece antes de la columna blanca;
+- el tiempo de lectura aproximada queda oculto;
+- la llamada flotante desaparece mientras haya otro botón de llamada visible.
+
+Todos estos cambios están dentro de reglas `@media(max-width:820px)`.
+El diseño de PC no se ha modificado.

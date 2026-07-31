@@ -776,3 +776,152 @@
     max-width:940px;
   }
 }
+
+
+/* =====================================================================
+   INTEL15 — BLOG Y ARTÍCULO, SOLO MÓVIL
+   =====================================================================
+
+   PC no se modifica. Este bloque:
+   - repite la distribución correcta de la cabecera porque blog.css se
+     carga después de home.css;
+   - elimina visualmente «Últimas publicaciones» en móvil;
+   - mueve la tarjeta dorada antes de la columna blanca del artículo;
+   - oculta el tiempo de lectura aproximada en móvil;
+   - permite ocultar la llamada flotante cuando aparece una llamada fija.
+   ===================================================================== */
+
+@media(max-width:820px){
+
+  /* ---------------------------------------------------------------
+     CABECERA EN TODAS LAS PÁGINAS DEL BLOG
+     --------------------------------------------------------------- */
+  .blog-page .shared-header-shell,
+  .blog-page .header-shell{
+    position:relative !important;
+    width:100% !important;
+    max-width:none !important;
+    height:110px !important;
+    min-height:110px !important;
+    padding:0 12px !important;
+    display:grid !important;
+    grid-template-columns:auto 1fr auto !important;
+    align-items:center !important;
+    justify-content:stretch !important;
+    box-sizing:border-box !important;
+  }
+
+  .blog-page .site-header,
+  .blog-page .site-header.compact{
+    min-height:110px !important;
+    height:calc(110px + env(safe-area-inset-top,0px)) !important;
+  }
+
+  .blog-page .site-menu-button{
+    grid-column:1 !important;
+    justify-self:start !important;
+    position:relative !important;
+    z-index:4 !important;
+  }
+
+  .blog-page .shared-header-brand,
+  .blog-page .brand{
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+    width:150px !important;
+    max-width:150px !important;
+    height:92px !important;
+    padding:0 !important;
+    z-index:2 !important;
+  }
+
+  .blog-page .shared-header-brand img,
+  .blog-page .brand img{
+    width:100% !important;
+    max-width:150px !important;
+    height:78px !important;
+    max-height:78px !important;
+    object-fit:contain !important;
+  }
+
+  .blog-page .site-language-button{
+    grid-column:3 !important;
+    justify-self:end !important;
+    position:relative !important;
+    z-index:4 !important;
+  }
+
+  .blog-page main{
+    padding-top:calc(110px + env(safe-area-inset-top,0px)) !important;
+  }
+
+  /* ---------------------------------------------------------------
+     PÁGINA DE INICIO DEL BLOG
+     --------------------------------------------------------------- */
+
+  /* En móvil se ocultan el título y el subtítulo del listado.
+     Las tarjetas ascienden automáticamente al desaparecer este bloque. */
+  .blog-list-section .blog-section-heading{
+    display:none !important;
+  }
+
+  .blog-list-section{
+    padding-top:4px !important;
+  }
+
+  /* ---------------------------------------------------------------
+     ARTÍCULO INDIVIDUAL
+     --------------------------------------------------------------- */
+
+  /* La tarjeta dorada pasa a mostrarse antes de la columna blanca.
+     El bloque negro final permanece dentro de la columna blanca. */
+  .article-layout-wide{
+    display:grid !important;
+  }
+
+  .article-layout-wide .article-contact-card{
+    order:-1 !important;
+    margin:0 0 22px !important;
+  }
+
+  .article-layout-wide .article-content{
+    order:1 !important;
+  }
+
+  /* En móvil no se muestra la estimación de lectura.
+     La información sigue en el HTML y permanece visible en PC. */
+  .article-meta span:last-child{
+    display:none !important;
+  }
+
+  /* Transición suave de la barra flotante de llamada. */
+  .blog-mobile-call{
+    transition:transform .25s ease,opacity .25s ease !important;
+  }
+
+  /* JavaScript añade esta clase cuando existe un botón fijo visible. */
+  .blog-mobile-call.is-suppressed-by-static{
+    transform:translateY(115%) !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }
+}
+
+@media(max-width:360px){
+  .blog-page .site-menu-label{
+    display:none !important;
+  }
+
+  .blog-page .site-menu-button{
+    width:42px !important;
+    justify-content:center !important;
+  }
+
+  .blog-page .shared-header-brand,
+  .blog-page .brand{
+    width:142px !important;
+    max-width:142px !important;
+  }
+}
