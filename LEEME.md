@@ -122,3 +122,17 @@ La barra blanca móvil utiliza posicionamiento independiente:
 
 El logo tiene una caja de 82 px de alto con `overflow:hidden`, por lo que no
 puede sobresalir por debajo de la barra. Estos cambios no afectan al diseño PC.
+
+
+## Tarjetas del blog en intel16.01
+
+Las tarjetas del listado ya no incluyen una descripción breve.
+
+Cada publicación muestra únicamente:
+
+1. categoría;
+2. fecha;
+3. título;
+4. enlace «Leer artículo».
+
+La plantilla `plantillas/tarjeta-blog.html` ya está preparada con este formato.

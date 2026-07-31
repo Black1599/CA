@@ -1025,3 +1025,19 @@
     max-width:128px !important;
   }
 }
+
+
+/* =====================================================================
+   INTEL16.01 — TARJETAS DEL BLOG SIN DESCRIPCIÓN PEQUEÑA
+   =====================================================================
+
+   Las tarjetas del listado muestran únicamente:
+   categoría, fecha, título y enlace.
+
+   Este margen evita que el enlace «Leer artículo» quede demasiado cerca
+   del título después de eliminar el párrafo descriptivo.
+   ===================================================================== */
+
+.blog-post-list .blog-card h3 + .blog-read-more{
+  margin-top:24px;
+}
