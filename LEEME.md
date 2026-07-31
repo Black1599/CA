@@ -145,3 +145,9 @@ La plantilla `plantillas/tarjeta-blog.html` ya está preparada con este formato.
   - `apple-touch-icon.png`
   - `android-chrome-192x192.png`
 - El favicon ya está enlazado en `index.html`, `blog/index.html` y `blog/corte-suministros-vivienda-ocupada.html`.
+
+## Favicon actualizado en intel16.03
+
+El favicon anterior se ha sustituido por el nuevo monograma negro «CA».
+Las rutas HTML no han cambiado, por lo que no es necesario modificar
+ninguna página individual.
