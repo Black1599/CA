@@ -160,10 +160,22 @@ HTML, CSS, JavaScript, imágenes, blog, pruebas, comandos y publicación.
 
 ## Actualización intel16.05
 
-- `assets/images/logo-carandell-hd.png`: ampliación del logo exacto. Para una
+- `assets/images/logo-carandell-vector.svg`: versión vectorial extraída del archivo original de Illustrator. Para una
   nitidez perfecta, conviene conseguir el original vectorial SVG/PDF/AI.
 - Todos los teléfonos muestran `683 176 820` y al pulsarlos copian
   `+34683176820`; la lógica está en `js/site-header.js`.
 - El menú muestra solo el icono, manteniendo `aria-label` para accesibilidad.
 - Se retiró el iframe de Google Maps; la tarjeta de ubicación sigue enlazando.
 - El fondo queda liso y la tarjeta de Instagram pasa a negro y dorado.
+
+
+## Actualización intel16.06
+
+- El logotipo principal utiliza `assets/images/logo-carandell-vector.svg`.
+  Es vectorial y no pierde nitidez al ampliarse.
+- El archivo original se conserva en
+  `assets/source/logo-carandell-original.ai`.
+- Google Maps vuelve a mostrarse en PC mediante una búsqueda exclusiva de
+  la dirección. No se consulta la ficha comercial ni sus reseñas.
+- Los botones de teléfono muestran únicamente `683 176 820`.
+  Al pulsarlos, el número continúa copiándose al portapapeles.

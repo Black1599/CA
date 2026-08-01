@@ -32,12 +32,11 @@
 <!-- Abre y cierra el menú inferior. -->
 <button aria-controls="siteMenu-home" aria-expanded="false" aria-label="Abrir menú de navegación" class="site-menu-button" type="button">
 <span aria-hidden="true" class="site-menu-icon"><i></i><i></i></span>
-
 </button>
 <!-- Desde la portada vuelve exactamente al inicio. -->
 <a aria-label="Carandell Advocats — Inicio" class="brand shared-header-brand" href="#top">
-<!-- IMAGEN HD: assets/images/logo-carandell-hd.png. Para sustituirla, guarda la nueva imagen en la misma carpeta y cambia el valor de src. -->
-<img alt="Carandell Advocats" decoding="async" src="assets/images/logo-carandell-hd.png"/>
+<!-- LOGO VECTORIAL: assets/images/logo-carandell-vector.svg. Proviene del archivo original de Illustrator y no pierde nitidez. -->
+<img alt="Carandell Advocats" decoding="async" src="assets/images/logo-carandell-vector.svg"/>
 </a>
 <!-- Selector provisional hasta implementar las traducciones. -->
 <button aria-label="Seleccionar idioma" class="site-language-button" type="button">
@@ -62,7 +61,7 @@
 <h1>Carandell Advocats es un despacho de abogados que brinda servicios de asesoramiento legal con un enfoque cercano, profesional y comprometido. Nos distinguimos por ofrecer soluciones jurídicas personalizadas, adaptadas a las necesidades específicas de cada cliente, con la máxima dedicación y rigor.</h1>
 <!-- TELÉFONO DE PC: al pulsar copia el número; no abre el marcador. -->
 <div class="hero-actions" id="heroContactActions">
-<!-- TELÉFONO: data-copy-phone activa la copia al portapapeles desde js/site-header.js. --><a aria-label="Copiar teléfono 683 176 820" class="button button-primary" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">Copiar teléfono · 683 176 820</a>
+<!-- TELÉFONO: data-copy-phone activa la copia al portapapeles desde js/site-header.js. --><a aria-label="Copiar teléfono 683 176 820" class="button button-primary" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">683 176 820</a>
 </div><!-- HORARIO: edita los textos de cada .schedule-row sin cambiar las clases. -->
 <div aria-label="Horario de oficina." class="hero-schedule">
 <div class="hero-schedule-heading">
@@ -104,7 +103,7 @@
 </div>
 <div class="hero-schedule-content"><div class="schedule-row"><span>Lunes a jueves</span><strong>10:00–13:00 · 16:00–18:00</strong></div><div class="schedule-row"><span>Viernes</span><strong>10:00–13:00</strong></div></div>
 </div><div class="hero-actions mobile-section-actions" id="mobileContactActions">
-<a aria-label="Copiar teléfono 683 176 820" class="button button-primary" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">Copiar teléfono · 683 176 820</a>
+<a aria-label="Copiar teléfono 683 176 820" class="button button-primary" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">683 176 820</a>
 </div></div></section></div><div class="desktop-trust-right"><section class="social-section reveal" id="instagram">
 <a aria-label="Abrir el perfil de Instagram de Carandell Advocats" class="instagram-profile-card" href="https://www.instagram.com/carandell.advocats/" rel="noopener" target="_blank">
 <div aria-hidden="true" class="instagram-symbol">
@@ -220,13 +219,13 @@
 <div><p class="eyebrow">Cómo llegar</p></div>
 </div>
 <a aria-label="Abrir Carandell Advocats en Google Maps" class="location-card" href="https://www.google.com/maps/search/?api=1&amp;query=Carandell+Advocats%2C+Carrer+Fontanills+41%2C+08320+El+Masnou%2C+Barcelona" rel="noopener" target="_blank">
-<div aria-hidden="false" aria-label="Fachada de Carandell Advocats" class="location-map-visual real-facade-photo" style="background-image:url('assets/images/fachada.jpg')">
-<!-- UBICACIÓN: la tarjeta abre Google Maps; no se incrusta el iframe para evitar avisos automáticos. -->
-<!-- IFRAME RETIRADO: evita avisos/reseñas automáticas de Google. La tarjeta completa sigue enlazando a Google Maps. --><div aria-hidden="true" class="location-pattern"></div><div aria-hidden="true" class="location-frame"></div><div class="location-pin"></div></div>
+<div aria-hidden="false" aria-label="Fachada de Carandell Advocats" class="location-map-visual real-facade-photo" style="background-image:url('assets/images/fachada.jpg')"><!-- MAPA DE GOOGLE: se consulta solo la dirección para mostrar la ubicación sin cargar la ficha comercial ni sus reseñas. --><iframe allowfullscreen="" class="desktop-map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Carrer%20Fontanills%2041%2C%2008320%20El%20Masnou%2C%20Barcelona&amp;z=17&amp;output=embed" title="Ubicación de Carandell Advocats en El Masnou"></iframe>
+
+<div aria-hidden="true" class="location-pattern"></div><div aria-hidden="true" class="location-frame"></div><div class="location-pin"></div></div>
 <div class="location-copy">
 <div>
-<!-- IMAGEN HD: assets/images/logo-carandell-hd.png. Para sustituirla, guarda la nueva imagen en la misma carpeta y cambia el valor de src. -->
-<img alt="Carandell Advocats" class="location-logo-image" decoding="async" src="assets/images/logo-carandell-hd.png"/><strong class="location-text-title">Carandell Advocats</strong><p>Carrer Fontanills, 41, Local 1<br/>08320 El Masnou, Barcelona</p></div>
+<!-- LOGO VECTORIAL: assets/images/logo-carandell-vector.svg. Proviene del archivo original de Illustrator y no pierde nitidez. -->
+<img alt="Carandell Advocats" class="location-logo-image" decoding="async" src="assets/images/logo-carandell-vector.svg"/><strong class="location-text-title">Carandell Advocats</strong><p>Carrer Fontanills, 41, Local 1<br/>08320 El Masnou, Barcelona</p></div>
 <span>Abrir en Google Maps ↗</span>
 </div>
 </a>
@@ -236,7 +235,7 @@
 <div class="footer-contact-details" id="contacto"><a aria-label="Copiar teléfono 683 176 820" data-copy-phone="+34683176820" href="#" title="Copiar teléfono"><span>Teléfono</span><strong>683 176 820</strong></a><a href="mailto:info@carandelladvocats"><span>Correo</span><strong>info@carandelladvocats</strong></a></div><div class="footer-legal"><span>© Carandell Advocats</span><span>Aviso legal · Privacidad · Cookies</span><a class="footer-blog-link" href="blog/index.html">Blog jurídico</a></div>
 </footer>
 <div aria-label="Contacto rápido" class="mobile-contact-bar">
-<a aria-label="Copiar teléfono 683 176 820" data-copy-phone="+34683176820" href="#" title="Copiar teléfono"><span>Copiar teléfono</span><strong>683 176 820</strong></a>
+<a aria-label="Copiar teléfono 683 176 820" data-copy-phone="+34683176820" href="#" title="Copiar teléfono"><strong>683 176 820</strong></a>
 </div>
 <div aria-hidden="true" aria-labelledby="reviewsModalTitle" aria-modal="true" class="modal" hidden="" id="reviewsModal" role="dialog">
 <div class="modal-backdrop" data-close-modal=""></div>
