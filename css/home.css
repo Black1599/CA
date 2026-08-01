@@ -4256,3 +4256,24 @@ main,
 [data-copy-phone]{
   cursor:pointer;
 }
+
+
+/* =====================================================================
+   INTEL16.07 — HORARIO EN DOS LÍNEAS Y TELÉFONO RESPONSIVE
+   ===================================================================== */
+
+/* Lunes a jueves:
+   - primera línea: horario de mañana;
+   - segunda línea: horario de tarde.
+   El salto evita una línea excesivamente larga y elimina el punto central. */
+.schedule-hours-two-lines{
+  display:block;
+  white-space:nowrap;
+  line-height:1.55 !important;
+}
+
+/* El comportamiento del enlace depende de JavaScript:
+   PC copia el número; móvil utiliza href="tel:..." para llamar. */
+[data-copy-phone]{
+  cursor:pointer;
+}

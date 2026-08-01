@@ -1,4 +1,4 @@
-Carandell Advocats - intel16.06
-- Logo vectorial desde Illustrator
-- Google Maps restaurado usando solo la dirección
-- Botones muestran únicamente 683 176 820
+Carandell Advocats - intel16.07
+- PC: los teléfonos copian el número
+- Móvil: los teléfonos abren la llamada
+- Horario de tarde situado debajo del horario de mañana

@@ -189,13 +189,34 @@
     if (brand) brand.addEventListener('click', goToAbsoluteTop, false);
 
 
-    /* Todos los controles con data-copy-phone copian el mismo número. */
+    /* ---------------------------------------------------------------
+       TELÉFONO SEGÚN EL DISPOSITIVO
+       ---------------------------------------------------------------
+
+       - Móvil (hasta 820 px): no se cancela el enlace tel:, por lo que el
+         sistema abre la pantalla de llamada.
+       - PC (más de 820 px): se cancela el enlace y se copia el número.
+
+       El texto visible del botón no cambia: siempre muestra 683 176 820.
+       --------------------------------------------------------------- */
     Array.prototype.forEach.call(
       document.querySelectorAll('[data-copy-phone]'),
       function (phoneControl) {
         phoneControl.addEventListener('click', function (event) {
+          var isMobileLayout = window.matchMedia
+            ? window.matchMedia('(max-width: 820px)').matches
+            : window.innerWidth <= 820;
+
+          /* En móvil dejamos actuar al href="tel:+34683176820". */
+          if (isMobileLayout) return;
+
+          /* En PC evitamos la llamada y copiamos el número. */
           event.preventDefault();
-          var phone = phoneControl.getAttribute('data-copy-phone') || '+34683176820';
+
+          var phone =
+            phoneControl.getAttribute('data-copy-phone') ||
+            '+34683176820';
+
           copyTextToClipboard(phone).then(function () {
             showPhoneCopiedMessage('Teléfono copiado: 683 176 820');
           }).catch(function () {

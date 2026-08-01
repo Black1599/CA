@@ -179,3 +179,41 @@ HTML, CSS, JavaScript, imágenes, blog, pruebas, comandos y publicación.
   la dirección. No se consulta la ficha comercial ni sus reseñas.
 - Los botones de teléfono muestran únicamente `683 176 820`.
   Al pulsarlos, el número continúa copiándose al portapapeles.
+
+
+## Actualización intel16.07
+
+### Comportamiento de los teléfonos
+
+Todos los botones siguen mostrando:
+
+```text
+683 176 820
+```
+
+- En PC, al pulsar se copia `+34683176820` al portapapeles.
+- En móvil, al pulsar se abre la llamada mediante `tel:+34683176820`.
+
+El comportamiento está programado en:
+
+```text
+js/site-header.js
+```
+
+Los enlaces conservan simultáneamente:
+
+```html
+href="tel:+34683176820"
+data-copy-phone="+34683176820"
+```
+
+### Horario
+
+El horario de lunes a jueves aparece en dos líneas:
+
+```text
+10:00–13:00
+16:00–18:00
+```
+
+Se ha eliminado el punto central entre ambos horarios.
