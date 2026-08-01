@@ -256,3 +256,10 @@ Llamar al 683 176 820
 - Ya no se copia el número al portapapeles.
 
 La función se controla desde `js/site-header.js`.
+
+
+## Actualización intel16.09
+
+- El cuadro de Instagram se ha dejado con el **diseño 1**: negro original, elegante y discreto.
+- Se mantiene el icono recto.
+- Se elimina la frase secundaria bajo `@carandell.advocats`.

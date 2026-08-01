@@ -4280,43 +4280,49 @@ main,
 
 
 /* =====================================================================
-   INTEL16.08 — INSTAGRAM NEGRO ORIGINAL Y TELÉFONOS
+   INTEL16.09 — INSTAGRAM DISEÑO 1 (NEGRO ORIGINAL) Y TELÉFONOS
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
    INSTAGRAM
-   Diseño elegido: versión negra original.
-   - fondo negro;
-   - detalles dorados;
-   - nombre de usuario blanco;
-   - icono dorado y completamente recto;
+   Diseño 1 elegido por el cliente:
+   - fondo negro elegante;
+   - resplandor dorado central muy sutil;
+   - icono recto;
+   - nombre de usuario en blanco;
    - sin frase secundaria.
    --------------------------------------------------------------------- */
 .instagram-profile-card{
-  background:var(--ink) !important;
+  background:linear-gradient(90deg,#0f0f10 0%,#17140f 22%,#3f341f 50%,#17140f 78%,#0f0f10 100%) !important;
   color:#fff !important;
   border:1px solid rgba(201,170,99,.58) !important;
-  box-shadow:0 20px 52px rgba(22,20,16,.18) !important;
+  box-shadow:0 18px 42px rgba(22,20,16,.16) !important;
 }
 
 .instagram-profile-card::before{
-  inset:-70% !important;
-  background:
-    radial-gradient(circle at 41% 48%,rgba(201,170,99,.25),transparent 20%),
-    radial-gradient(circle at 65% 53%,rgba(255,255,255,.08),transparent 18%)
-    !important;
-  transform:rotate(-8deg) !important;
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(201,170,99,.16) 48%,rgba(0,0,0,0) 100%) !important;
+  transform:none !important;
+  pointer-events:none !important;
 }
 
 .instagram-profile-card::after{
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important;
+  bottom:0 !important;
+  width:100% !important;
+  height:2px !important;
   background:linear-gradient(90deg,transparent,var(--gold),transparent) !important;
-  opacity:.72 !important;
+  opacity:.92 !important;
 }
 
 .instagram-symbol{
-  border:1px solid rgba(201,170,99,.64) !important;
-  border-radius:22px !important;
-  background:rgba(255,255,255,.035) !important;
+  border:1px solid rgba(201,170,99,.9) !important;
+  border-radius:18px !important;
+  background:transparent !important;
   color:var(--gold) !important;
   box-shadow:none !important;
   transform:none !important;
@@ -4334,24 +4340,32 @@ main,
   color:#fff !important;
 }
 
+.instagram-profile-copy small{
+  display:none !important;
+}
+
 .instagram-profile-action{
   color:#fff !important;
 }
 
-.instagram-profile-action b{
-  border-color:rgba(201,170,99,.70) !important;
+.instagram-profile-action span{
   color:#fff !important;
+}
+
+.instagram-profile-action b{
+  border:1px solid rgba(255,255,255,.82) !important;
+  color:#fff !important;
+  background:transparent !important;
 }
 
 .instagram-profile-card:hover{
   transform:translateY(-3px) !important;
-  box-shadow:0 25px 62px rgba(22,20,16,.24) !important;
+  box-shadow:0 24px 54px rgba(22,20,16,.22) !important;
 }
 
-/* La frase secundaria se ha retirado del HTML.
-   Esta regla evita que vuelva a ocupar espacio si se copia código antiguo. */
-.instagram-profile-copy small{
-  display:none !important;
+.instagram-profile-card:hover .instagram-profile-action b{
+  transform:translate(3px,-3px) !important;
+  background:rgba(255,255,255,.05) !important;
 }
 
 /* ---------------------------------------------------------------------

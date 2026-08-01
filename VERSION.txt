@@ -1,5 +1,5 @@
-Carandell Advocats - intel16.08
-- Instagram: diseño negro original con icono recto
-- Eliminada la frase secundaria de Instagram
-- Móvil: los botones de teléfono llaman
-- PC: los botones de teléfono quedan desactivados y solo son visuales
+Carandell Advocats - intel16.09
+- Cuadro de Instagram actualizado al diseño 1 (negro original)
+- Icono recto
+- Sin frase secundaria en Instagram
+- Botones de teléfono: móvil llama, PC visual
