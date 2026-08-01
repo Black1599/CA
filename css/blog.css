@@ -1,4 +1,26 @@
 /* =====================================================================
+   MINI GUÍA DE ESTE CSS DEL BLOG
+   =====================================================================
+
+   Este archivo se carga DESPUÉS de home.css. Por eso puede reutilizar la
+   paleta de colores y sobrescribir estilos generales para las páginas blog.
+
+   Bloques principales:
+     .blog-hero             portada del listado de publicaciones.
+     .blog-post-list        columna que apila las tarjetas.
+     .blog-card             cuadro blanco de cada publicación.
+     .blog-ready-panel      cuadro negro de contacto.
+     .article-hero          cabecera de un artículo.
+     .article-content       columna blanca de lectura.
+     .article-contact-card  tarjeta dorada de contacto.
+     .article-final-cta     reclamo negro al final del artículo.
+     .blog-mobile-call      barra de llamada fijada en móvil.
+
+   Reglas @media(max-width:820px) afectan únicamente a móvil.
+   Reglas @media(min-width:...) afectan únicamente a pantallas grandes.
+   ===================================================================== */
+
+/* =====================================================================
    CARANDELL ADVOCATS — ESTILOS DEL BLOG
    =====================================================================
 
@@ -1041,3 +1063,11 @@
 .blog-post-list .blog-card h3 + .blog-read-more{
   margin-top:24px;
 }
+
+
+/* INTEL16.05 — los antiguos botones de llamada ahora copian el teléfono. */
+.blog-ready-panel [data-copy-phone],
+.article-contact-card [data-copy-phone],
+.article-final-cta [data-copy-phone],
+.blog-mobile-call[data-copy-phone],
+.footer-contact-details [data-copy-phone]{cursor:pointer;}

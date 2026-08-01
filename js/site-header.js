@@ -1,4 +1,23 @@
 /* =====================================================================
+   MINI GUÍA PARA ENTENDER ESTE JAVASCRIPT
+   =====================================================================
+
+   JavaScript añade COMPORTAMIENTO a elementos que ya existen en el HTML.
+
+   Conceptos usados:
+     var nombre = ...             guarda un valor o un elemento.
+     function nombre() { ... }    agrupa instrucciones reutilizables.
+     document.querySelector(...)  busca un elemento por selector CSS.
+     addEventListener(...)        ejecuta código cuando ocurre un evento.
+     classList.add/remove/toggle  añade o quita clases que CSS puede detectar.
+     if (...) { ... }             ejecuta código solo si se cumple una condición.
+
+   Este archivo controla la cabecera compartida: menú, idioma, enlaces internos
+   y retorno exacto al inicio. No cambies nombres de clases sin actualizar HTML,
+   CSS y JavaScript al mismo tiempo.
+   ===================================================================== */
+
+/* =====================================================================
    CABECERA COMÚN — MENÚ, IDIOMAS Y DESPLAZAMIENTOS
    =====================================================================
 
@@ -15,6 +34,51 @@
     } else {
       callback();
     }
+  }
+
+  /* ------------------------------------------------------------------
+     TELÉFONO COPIABLE
+     Clipboard API copia el número; el método alternativo cubre navegadores
+     antiguos o archivos abiertos localmente.
+     ------------------------------------------------------------------ */
+  function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var temporaryInput = document.createElement('textarea');
+      temporaryInput.value = text;
+      temporaryInput.setAttribute('readonly', '');
+      temporaryInput.style.position = 'fixed';
+      temporaryInput.style.opacity = '0';
+      document.body.appendChild(temporaryInput);
+      temporaryInput.select();
+      try {
+        var copied = document.execCommand('copy');
+        document.body.removeChild(temporaryInput);
+        copied ? resolve() : reject(new Error('No se pudo copiar'));
+      } catch (error) {
+        document.body.removeChild(temporaryInput);
+        reject(error);
+      }
+    });
+  }
+
+  function showPhoneCopiedMessage(message) {
+    var toast = document.querySelector('.copy-phone-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'copy-phone-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    window.clearTimeout(showPhoneCopiedMessage.timer);
+    showPhoneCopiedMessage.timer = window.setTimeout(function () {
+      toast.classList.remove('is-visible');
+    }, 2200);
   }
 
   ready(function () {
@@ -123,6 +187,23 @@
     );
 
     if (brand) brand.addEventListener('click', goToAbsoluteTop, false);
+
+
+    /* Todos los controles con data-copy-phone copian el mismo número. */
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-copy-phone]'),
+      function (phoneControl) {
+        phoneControl.addEventListener('click', function (event) {
+          event.preventDefault();
+          var phone = phoneControl.getAttribute('data-copy-phone') || '+34683176820';
+          copyTextToClipboard(phone).then(function () {
+            showPhoneCopiedMessage('Teléfono copiado: 683 176 820');
+          }).catch(function () {
+            showPhoneCopiedMessage('Copia manualmente: 683 176 820');
+          });
+        }, false);
+      }
+    );
 
     if (languageButton) {
       languageButton.addEventListener('click', function () {

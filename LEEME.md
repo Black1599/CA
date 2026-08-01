@@ -151,3 +151,19 @@ La plantilla `plantillas/tarjeta-blog.html` ya está preparada con este formato.
 El favicon anterior se ha sustituido por el nuevo monograma negro «CA».
 Las rutas HTML no han cambiado, por lo que no es necesario modificar
 ninguna página individual.
+
+## Manual completo en PDF
+
+El archivo `MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf` explica el proyecto,
+HTML, CSS, JavaScript, imágenes, blog, pruebas, comandos y publicación.
+
+
+## Actualización intel16.05
+
+- `assets/images/logo-carandell-hd.png`: ampliación del logo exacto. Para una
+  nitidez perfecta, conviene conseguir el original vectorial SVG/PDF/AI.
+- Todos los teléfonos muestran `683 176 820` y al pulsarlos copian
+  `+34683176820`; la lógica está en `js/site-header.js`.
+- El menú muestra solo el icono, manteniendo `aria-label` para accesibilidad.
+- Se retiró el iframe de Google Maps; la tarjeta de ubicación sigue enlazando.
+- El fondo queda liso y la tarjeta de Instagram pasa a negro y dorado.

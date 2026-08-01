@@ -1,4 +1,16 @@
 /* =====================================================================
+   MINI GUÍA DEL JAVASCRIPT DEL BLOG
+   =====================================================================
+
+   Este archivo controla únicamente comportamientos de móvil del blog:
+     - la cabecera se esconde al bajar y vuelve al subir;
+     - la barra flotante de llamada se oculta si ya hay otro teléfono visible.
+
+   IntersectionObserver detecta cuándo un elemento entra en la pantalla.
+   updateWithRectangles() es una alternativa para navegadores antiguos.
+   ===================================================================== */
+
+/* =====================================================================
    CARANDELL ADVOCATS — JAVASCRIPT DEL BLOG
    =====================================================================
 
@@ -63,9 +75,9 @@
 
     var staticCallTargets = Array.prototype.slice.call(
       document.querySelectorAll(
-        '.blog-ready-panel a[href^="tel:"], ' +
-        '.article-contact-card a[href^="tel:"], ' +
-        '.article-final-cta a[href^="tel:"], ' +
+        '.blog-ready-panel [data-copy-phone], ' +
+        '.article-contact-card [data-copy-phone], ' +
+        '.article-final-cta [data-copy-phone], ' +
         '.footer-contact-details'
       )
     );

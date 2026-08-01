@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 
+<!-- =====================================================================
+     GUÍA DE LECTURA DE BLOG/INDEX.HTML
+     Este archivo muestra el listado de publicaciones del blog.
+     Las tarjetas nuevas se pegan dentro del contenedor blog-post-list.
+     Los comentarios como este no aparecen en la web.
+     ===================================================================== -->
 <html lang="es">
 <head>
+<!-- CODIFICACIÓN: UTF-8 permite mostrar correctamente acentos y eñes. -->
 <meta charset="utf-8"/>
+<!-- VIEWPORT: adapta la anchura del diseño al móvil. -->
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="#ffffff" name="theme-color"/>
 <!-- FAVICON: icono de pestaña y acceso directo en móviles. -->
 <link href="../assets/images/favicon-ca-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="../assets/images/apple-touch-icon.png" rel="apple-touch-icon"/>
 <link href="../assets/images/android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png"/>
-
+<!-- SEO: el contenido de title aparece en la pestaña y suele usarse en Google. -->
 <title>Blog jurídico | Carandell Advocats</title>
 <meta content="Artículos jurídicos de Carandell Advocats sobre vivienda, sucesiones, derecho laboral y otras cuestiones legales, explicados de forma clara y rigurosa." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -27,11 +35,12 @@
 <!-- Abre y cierra el menú inferior. -->
 <button aria-controls="siteMenu-blog" aria-expanded="false" aria-label="Abrir menú de navegación" class="site-menu-button" type="button">
 <span aria-hidden="true" class="site-menu-icon"><i></i><i></i></span>
-<span class="site-menu-label">Menú</span>
+
 </button>
 <!-- Desde la portada vuelve exactamente al inicio. -->
 <a aria-label="Carandell Advocats — Inicio" class="brand shared-header-brand" href="../index.html">
-<img alt="Carandell Advocats" src="../assets/images/logo-carandell.png"/>
+<!-- IMAGEN HD: ../assets/images/logo-carandell-hd.png. Para sustituirla, guarda la nueva imagen en la misma carpeta y cambia el valor de src. -->
+<img alt="Carandell Advocats" decoding="async" src="../assets/images/logo-carandell-hd.png"/>
 </a>
 <!-- Selector provisional hasta implementar las traducciones. -->
 <button aria-label="Seleccionar idioma" class="site-language-button" type="button">
@@ -49,6 +58,7 @@
 </div>
 </header>
 <!-- CONTENIDO PRINCIPAL DEL BLOG. -->
+<!-- CONTENIDO PRINCIPAL VISIBLE DE LA PÁGINA. -->
 <main>
 <!-- PORTADA DEL BLOG: explica el objetivo de los artículos. -->
 <section class="blog-hero">
@@ -70,14 +80,13 @@
 <div class="blog-card-body">
 <div class="blog-card-meta"><span>Vivienda y derecho penal</span><time datetime="2026-07-22">22 de julio de 2026</time></div>
 <h3><a href="corte-suministros-vivienda-ocupada.html">¿Puede el propietario cortar los suministros de una vivienda ocupada?</a></h3>
-
 <a class="blog-read-more" href="corte-suministros-vivienda-ocupada.html">Leer artículo <span aria-hidden="true">→</span></a>
 </div>
 </article></div><aside aria-label="Contacto con el despacho" class="blog-ready-panel">
 <span>¿Tienes una consulta?</span>
 <h3>Analizamos tu caso de forma individual.</h3>
 <p>Las consecuencias jurídicas dependen de los hechos, la documentación disponible y la finalidad de cada actuación.</p>
-<a href="tel:+34683176820">Llamar al 683 17 68 20</a>
+<!-- TELÉFONO: data-copy-phone activa la copia al portapapeles desde js/site-header.js. --><a aria-label="Copiar teléfono 683 176 820" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">Copiar teléfono · 683 176 820</a>
 </aside><!--
         AÑADIR UNA PUBLICACIÓN NUEVA:
         1. Copia un <article class="blog-card"> dentro de .blog-post-list.
@@ -90,7 +99,7 @@
 <!-- PIE DEL BLOG: contacto y enlaces esenciales. -->
 <footer class="site-footer site-footer-compact">
 <div class="footer-contact-details" id="contacto">
-<a href="tel:+34683176820"><span>Teléfono</span><strong>683 17 68 20</strong></a>
+<a aria-label="Copiar teléfono 683 176 820" data-copy-phone="+34683176820" href="#" title="Copiar teléfono"><span>Teléfono</span><strong>683 176 820</strong></a>
 <a href="mailto:info@carandelladvocats.com"><span>Correo</span><strong>info@carandelladvocats.com</strong></a>
 </div>
 <div class="footer-legal">
@@ -99,10 +108,12 @@
 <span>Aviso legal · Privacidad · Cookies</span>
 </div>
 </footer>
-<a aria-label="Llamar a Carandell Advocats" class="blog-mobile-call" href="tel:+34683176820">
-<span>Llamar al despacho<strong>683 17 68 20</strong></span>
+<a aria-label="Copiar teléfono 683 176 820" class="blog-mobile-call" data-copy-phone="+34683176820" href="#" title="Copiar teléfono">
+<span>Copiar teléfono<strong>683 176 820</strong></span>
 </a>
 <!-- Comportamiento de la cabecera del blog. -->
-<script defer="True" src="../js/site-header.js"></script><script defer="" src="../js/blog.js"></script>
+<!-- JAVASCRIPT COMPARTIDO: controla menú, idiomas y desplazamientos. -->
+<script defer="True" src="../js/site-header.js"></script><!-- JAVASCRIPT DEL BLOG: cabecera y barra de llamada móvil. -->
+<script defer="" src="../js/blog.js"></script>
 </body>
 </html>

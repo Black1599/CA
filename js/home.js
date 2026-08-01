@@ -1,4 +1,23 @@
 /* =====================================================================
+   MINI GUÍA DEL JAVASCRIPT DE LA PORTADA
+   =====================================================================
+
+   Este archivo controla:
+     - ocultar/mostrar la cabecera al desplazarse;
+     - evitar dos botones de llamada visibles a la vez;
+     - carrusel de reseñas;
+     - carrusel móvil de fotografías;
+     - comportamiento del logotipo al volver arriba.
+
+   Los tiempos están expresados en milisegundos:
+     1000 = 1 segundo, 2500 = 2,5 segundos, 4500 = 4,5 segundos.
+
+   Antes de modificar una función, busca en el HTML los ids o clases que usa.
+   Si un selector no encuentra el elemento, la función suele detenerse con
+   una condición como: if (!elemento) return;
+   ===================================================================== */
+
+/* =====================================================================
    CARANDELL ADVOCATS — JAVASCRIPT DE LA PÁGINA PRINCIPAL
    =====================================================================
 
