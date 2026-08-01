@@ -1,4 +1,5 @@
-Carandell Advocats - intel16.07
-- PC: los teléfonos copian el número
-- Móvil: los teléfonos abren la llamada
-- Horario de tarde situado debajo del horario de mañana
+Carandell Advocats - intel16.08
+- Instagram: diseño negro original con icono recto
+- Eliminada la frase secundaria de Instagram
+- Móvil: los botones de teléfono llaman
+- PC: los botones de teléfono quedan desactivados y solo son visuales

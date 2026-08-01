@@ -104,3 +104,42 @@ El horario de lunes a jueves aparece en dos líneas:
 ```
 
 Se ha eliminado el punto central entre ambos horarios.
+
+
+## Actualización intel16.08
+
+### Instagram
+
+Se utiliza el diseño negro original:
+
+- fondo negro;
+- icono de Instagram dorado y recto;
+- usuario en blanco;
+- detalles dorados;
+- sin la frase «Curiosidades y actualidad jurídica».
+
+El HTML del bloque está en `index.html`, dentro de:
+
+```html
+<section id="instagram">
+```
+
+Los estilos están al final de `css/home.css`, en el bloque:
+
+```css
+INTEL16.08 — INSTAGRAM NEGRO ORIGINAL Y TELÉFONOS
+```
+
+### Botones de teléfono
+
+Los botones recuperan el texto y la estética anterior:
+
+```text
+Llamar al 683 176 820
+```
+
+- En móvil, al pulsarlos se inicia la llamada.
+- En PC, el clic está desactivado; conservan únicamente el diseño y el hover.
+- Ya no se copia el número al portapapeles.
+
+La función se controla desde `js/site-header.js`.

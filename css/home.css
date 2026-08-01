@@ -4277,3 +4277,96 @@ main,
 [data-copy-phone]{
   cursor:pointer;
 }
+
+
+/* =====================================================================
+   INTEL16.08 — INSTAGRAM NEGRO ORIGINAL Y TELÉFONOS
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   INSTAGRAM
+   Diseño elegido: versión negra original.
+   - fondo negro;
+   - detalles dorados;
+   - nombre de usuario blanco;
+   - icono dorado y completamente recto;
+   - sin frase secundaria.
+   --------------------------------------------------------------------- */
+.instagram-profile-card{
+  background:var(--ink) !important;
+  color:#fff !important;
+  border:1px solid rgba(201,170,99,.58) !important;
+  box-shadow:0 20px 52px rgba(22,20,16,.18) !important;
+}
+
+.instagram-profile-card::before{
+  inset:-70% !important;
+  background:
+    radial-gradient(circle at 41% 48%,rgba(201,170,99,.25),transparent 20%),
+    radial-gradient(circle at 65% 53%,rgba(255,255,255,.08),transparent 18%)
+    !important;
+  transform:rotate(-8deg) !important;
+}
+
+.instagram-profile-card::after{
+  background:linear-gradient(90deg,transparent,var(--gold),transparent) !important;
+  opacity:.72 !important;
+}
+
+.instagram-symbol{
+  border:1px solid rgba(201,170,99,.64) !important;
+  border-radius:22px !important;
+  background:rgba(255,255,255,.035) !important;
+  color:var(--gold) !important;
+  box-shadow:none !important;
+  transform:none !important;
+}
+
+.instagram-symbol svg{
+  stroke:var(--gold) !important;
+}
+
+.instagram-profile-copy>span{
+  color:var(--gold) !important;
+}
+
+.instagram-profile-copy strong{
+  color:#fff !important;
+}
+
+.instagram-profile-action{
+  color:#fff !important;
+}
+
+.instagram-profile-action b{
+  border-color:rgba(201,170,99,.70) !important;
+  color:#fff !important;
+}
+
+.instagram-profile-card:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 25px 62px rgba(22,20,16,.24) !important;
+}
+
+/* La frase secundaria se ha retirado del HTML.
+   Esta regla evita que vuelva a ocupar espacio si se copia código antiguo. */
+.instagram-profile-copy small{
+  display:none !important;
+}
+
+/* ---------------------------------------------------------------------
+   TELÉFONOS
+   En PC se mantienen los efectos visuales, pero el clic se cancela mediante
+   js/site-header.js. En móvil el enlace tel: inicia la llamada.
+   --------------------------------------------------------------------- */
+@media(min-width:821px){
+  [data-copy-phone]{
+    cursor:default !important;
+  }
+}
+
+@media(max-width:820px){
+  [data-copy-phone]{
+    cursor:pointer !important;
+  }
+}
