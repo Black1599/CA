@@ -1,6 +1,7 @@
-Carandell Advocats - ca10_08_06
-Base: ca10_08_05
-- Añadido nuevo artículo: ¿Qué es la legítima?
-- Contenido tomado del PDF BLOG_WEB(1).pdf
-- Conservadas las negritas señaladas en el documento
-- Añadido al listado del blog y a los archivos SEO/IA
+Carandell Advocats - ca10_08_07
+Base: ca10_08_06
+- Ajustado el cuadro dorado del artículo de Legítima
+- Nuevo texto del cuadro: «En Cataluña, tener derecho a la legítima…»
+- Eliminada la frase «La legítima puede satisfacerse de distintas formas...»
+- El cuadro dorado queda inmediatamente después del texto introductorio
+- Plantilla actualizada con esta regla de posición
