@@ -1,8 +1,5 @@
-Carandell Advocats - ca10_08_02
-Base: carandell_web_intel16_11_ai_seo_project
-- Eliminado el apartado Referencias jurídicas y sus enlaces
-- Eliminada la línea Revisión jurídica
-- Aviso informativo simplificado
-- CTA negra: Solicita una cita.
-- Tarjeta dorada: texto de contacto simplificado
-- Plantilla de artículos actualizada con los mismos criterios
+Carandell Advocats - ca10_08_03
+Corrección explícita de los archivos del blog.
+Archivos clave modificados:
+- blog/corte-suministros-vivienda-ocupada.html
+- plantillas/articulo-blog.html
