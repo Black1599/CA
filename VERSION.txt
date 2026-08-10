@@ -1,5 +1,8 @@
-Carandell Advocats - ca10_08_08
-Base: ca10_08_07
-- Único cambio: posición del cuadro dorado en el artículo de Legítima
-- El cuadro queda después del apartado «¿Quién tiene derecho a la legítima?»
-- No se modifican los demás artículos
+Carandell Advocats - ca10_08_09
+Base: ca10_08_08
+- Nuevo diseño del cuadro Horario de oficina en PC
+- Se mantiene el ancho máximo anterior de 650 px
+- Días ampliados a 18 px y con mayor peso visual
+- Horas ampliadas y colocadas en una sola línea para lunes-jueves
+- Mayor altura y menor separación visual entre día y horario
+- El diseño móvil no se modifica

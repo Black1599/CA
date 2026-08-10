@@ -1,0 +1,18 @@
+CA10_08_09 — HORARIO PC
+
+Archivos modificados:
+- index.html
+- css/home.css
+- VERSION.txt
+
+Cambios:
+- Solo se rediseña el horario de la portada en PC.
+- El ancho horizontal se mantiene en un máximo de 650 px.
+- «Lunes a jueves» y «Viernes» pasan a 18 px.
+- Las horas aumentan a aproximadamente 21 px.
+- Lunes a jueves se muestra:
+  10:00–13:00 · 16:00–18:00
+- Viernes:
+  10:00–13:00
+- Se incrementa ligeramente la altura del cuadro.
+- El bloque móvil sigue utilizando el HTML y CSS anteriores.

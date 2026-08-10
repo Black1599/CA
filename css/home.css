@@ -4451,3 +4451,117 @@ main,
     transition-duration:.01ms !important;
   }
 }
+
+
+/* =====================================================================
+   CA10_08_09 — REDISEÑO DEL HORARIO EN PC
+   ---------------------------------------------------------------------
+   Solo afecta al cuadro del horario de la portada en escritorio.
+   El ancho exterior se mantiene igual que en la versión anterior
+   (máximo 650 px). Se aumenta la altura, el tamaño de los días y el
+   tamaño de las horas para mejorar la lectura.
+   El horario móvil conserva el diseño anterior.
+   ===================================================================== */
+@media (min-width:821px){
+
+  .hero-copy > .hero-schedule.hero-schedule-pc-v3{
+    display:block !important;
+    width:100% !important;
+    max-width:650px !important;
+    min-height:0 !important;
+    height:auto !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+    padding:24px 27px 23px !important;
+    box-sizing:border-box !important;
+
+    background:rgba(255,255,255,.62) !important;
+    border:1px solid rgba(201,170,99,.62) !important;
+    box-shadow:0 12px 32px rgba(31,27,20,.045) !important;
+    overflow:visible !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-heading{
+    display:flex !important;
+    align-items:center !important;
+    width:100% !important;
+    gap:15px !important;
+    margin:0 0 21px !important;
+    padding:0 !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-heading span{
+    flex:0 0 auto !important;
+    color:var(--gold-dark) !important;
+    font-family:var(--sans) !important;
+    font-size:.82rem !important;
+    font-weight:650 !important;
+    line-height:1.2 !important;
+    letter-spacing:.15em !important;
+    text-transform:uppercase !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-heading i{
+    display:block !important;
+    flex:1 1 auto !important;
+    height:1px !important;
+    background:rgba(201,170,99,.58) !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-content{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:0 !important;
+    width:100% !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-row{
+    display:grid !important;
+    grid-template-columns:170px minmax(0,1fr) !important;
+    align-items:center !important;
+    gap:22px !important;
+    width:100% !important;
+    min-height:35px !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-row + .schedule-pc-v3-row{
+    margin-top:15px !important;
+    padding-top:15px !important;
+    border-top:1px solid rgba(201,170,99,.22) !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-day{
+    color:#5f5b54 !important;
+    font-family:var(--sans) !important;
+    font-size:1.125rem !important; /* 18 px */
+    font-weight:600 !important;
+    line-height:1.2 !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-times{
+    display:flex !important;
+    align-items:baseline !important;
+    justify-content:flex-end !important;
+    gap:13px !important;
+    min-width:0 !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-times strong{
+    margin:0 !important;
+    color:#151514 !important;
+    font-family:var(--serif) !important;
+    font-size:1.31rem !important; /* aprox. 21 px */
+    font-weight:500 !important;
+    line-height:1.1 !important;
+    letter-spacing:.005em !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-schedule-pc-v3 .schedule-pc-v3-dot{
+    color:var(--gold-dark) !important;
+    font-size:1.05rem !important;
+    line-height:1 !important;
+  }
+}
