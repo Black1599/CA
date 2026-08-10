@@ -1,5 +1,7 @@
-Carandell Advocats - intel16.12
-- Horario sustituido por la tarjeta horizontal aprobada
-- Versión WebP + PNG de respaldo
-- Texto del horario conservado para accesibilidad y SEO
-- Añadida guía docs/BLOG_NUEVO_POST_Y_EDICION.md
+Carandell Advocats - intel16.11 AI/SEO
+- OAI-SearchBot permitido en robots.txt
+- GPTBot bloqueado por defecto
+- sitemap.xml, llms.txt y llms-full.txt
+- canonical, Open Graph y Schema.org ampliado
+- ARIA, foco visible, skip link y estados accesibles para Atlas
+- Manual PDF actualizado con apéndice de IA/SEO
