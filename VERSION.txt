@@ -1,8 +1,6 @@
-Carandell Advocats - ca10_08_09
-Base: ca10_08_08
-- Nuevo diseño del cuadro Horario de oficina en PC
-- Se mantiene el ancho máximo anterior de 650 px
-- Días ampliados a 18 px y con mayor peso visual
-- Horas ampliadas y colocadas en una sola línea para lunes-jueves
-- Mayor altura y menor separación visual entre día y horario
-- El diseño móvil no se modifica
+Carandell Advocats - ca10_08_10
+Base: ca10_08_09
+- Ajuste exclusivo de la portada en PC
+- El cuadro del horario baja hasta alinearse con la base de la fotografía
+- El botón de llamada queda equidistante entre el texto principal y el horario
+- El diseño y comportamiento móvil no se modifican

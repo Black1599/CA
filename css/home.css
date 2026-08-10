@@ -4565,3 +4565,69 @@ main,
     line-height:1 !important;
   }
 }
+
+
+/* =====================================================================
+   CA10_08_10 — ALINEACIÓN VERTICAL DEL HORARIO EN PC
+   ---------------------------------------------------------------------
+   Objetivo:
+   - bajar el cuadro del horario hasta alinear su borde inferior con
+     el borde inferior de la fotografía de portada;
+   - colocar el botón de llamada a igual distancia visual entre el
+     final del texto principal y el inicio del horario;
+   - no modificar la versión móvil.
+
+   Se utiliza CSS Grid únicamente en la columna izquierda de la portada.
+   Las dos zonas flexibles de 1fr reparten exactamente el mismo espacio:
+   texto → botón y botón → horario.
+   ===================================================================== */
+@media (min-width:821px){
+
+  .hero-info .hero-copy{
+    display:grid !important;
+    grid-template-rows:
+      auto
+      auto
+      minmax(0,1fr)
+      auto
+      minmax(0,1fr)
+      auto !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    row-gap:16px !important;
+    justify-content:stretch !important;
+    align-content:stretch !important;
+    align-items:start !important;
+
+    /* El horario puede llegar exactamente hasta la base de la foto. */
+    padding-bottom:0 !important;
+  }
+
+  .hero-info .hero-copy > .eyebrow{
+    grid-row:1 !important;
+    margin:0 !important;
+  }
+
+  .hero-info .hero-copy > h1{
+    grid-row:2 !important;
+    margin:0 !important;
+  }
+
+  .hero-info .hero-copy > .hero-actions{
+    grid-row:4 !important;
+    align-self:center !important;
+    margin:0 !important;
+  }
+
+  .hero-info .hero-copy > .hero-schedule.hero-schedule-pc-v3{
+    grid-row:6 !important;
+    align-self:end !important;
+    margin:0 !important;
+  }
+
+  /* Esta línea auxiliar no forma parte del diseño mostrado en la
+     captura de PC y se elimina del cálculo vertical para que el
+     horario pueda quedar alineado con la fotografía. */
+  .hero-info .hero-copy > .desktop-hero-rule{
+    display:none !important;
+  }
+}
