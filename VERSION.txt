@@ -1,7 +1,5 @@
-Carandell Advocats - ca10_08_07
-Base: ca10_08_06
-- Ajustado el cuadro dorado del artículo de Legítima
-- Nuevo texto del cuadro: «En Cataluña, tener derecho a la legítima…»
-- Eliminada la frase «La legítima puede satisfacerse de distintas formas...»
-- El cuadro dorado queda inmediatamente después del texto introductorio
-- Plantilla actualizada con esta regla de posición
+Carandell Advocats - ca10_08_08
+Base: ca10_08_07
+- Único cambio: posición del cuadro dorado en el artículo de Legítima
+- El cuadro queda después del apartado «¿Quién tiene derecho a la legítima?»
+- No se modifican los demás artículos
