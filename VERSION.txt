@@ -1,8 +1,6 @@
-Carandell Advocats - ca10_08_05
-Base: ca10_08_04
-- Artículo de herencias: título en modo oración
-- Introducción ampliada con el texto indicado
-- Destacado dorado movido después del primer apartado y sustituido por un consejo breve
-- Párrafos largos del cuerpo justificados
-- Negritas del PDF reproducidas en el artículo de herencias
-- Actualizados el listado del blog y archivos HTML.MD/LLM afectados
+Carandell Advocats - ca10_08_06
+Base: ca10_08_05
+- Añadido nuevo artículo: ¿Qué es la legítima?
+- Contenido tomado del PDF BLOG_WEB(1).pdf
+- Conservadas las negritas señaladas en el documento
+- Añadido al listado del blog y a los archivos SEO/IA
