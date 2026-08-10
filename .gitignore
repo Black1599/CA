@@ -1,0 +1,18 @@
+# PyCharm / JetBrains: ajustes locales del IDE, no forman parte de la web.
+.idea/
+*.iml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales y copias
+*.tmp
+*.bak
+*.swp
+~$*
+
+# Carpetas de salida locales
+out/
+dist/

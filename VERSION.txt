@@ -1,5 +1,5 @@
-Carandell Advocats - intel16.09
-- Cuadro de Instagram actualizado al diseño 1 (negro original)
-- Icono recto
-- Sin frase secundaria en Instagram
-- Botones de teléfono: móvil llama, PC visual
+Carandell Advocats - intel16.12
+- Horario sustituido por la tarjeta horizontal aprobada
+- Versión WebP + PNG de respaldo
+- Texto del horario conservado para accesibilidad y SEO
+- Añadida guía docs/BLOG_NUEVO_POST_Y_EDICION.md
