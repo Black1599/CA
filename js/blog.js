@@ -1,4 +1,11 @@
 /* =====================================================================
+   [REF JS-BLOG-INDEX-01] MAPA DEL JAVASCRIPT DEL BLOG
+   =====================================================================
+     JS-BLOG-HEADER-01   cabecera móvil según la dirección del scroll
+     JS-BLOG-CALL-01     evita dos llamadas visibles a la vez
+   ===================================================================== */
+
+/* =====================================================================
    MINI GUÍA DEL JAVASCRIPT DEL BLOG
    =====================================================================
 
@@ -45,7 +52,7 @@
     var threshold = 14;
 
     /* ---------------------------------------------------------------
-       CABECERA MÓVIL
+       [REF JS-BLOG-HEADER-01] CABECERA MÓVIL
        --------------------------------------------------------------- */
     if (header) {
       window.addEventListener('scroll', function () {
@@ -69,7 +76,7 @@
     }
 
     /* ---------------------------------------------------------------
-       EVITAR DOS BOTONES DE LLAMADA A LA VEZ
+       [REF JS-BLOG-CALL-01] EVITAR DOS BOTONES DE LLAMADA A LA VEZ
        --------------------------------------------------------------- */
     if (!floatingCall) return;
 

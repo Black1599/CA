@@ -1,4 +1,16 @@
 /* =====================================================================
+   [REF JS-HOME-INDEX-01] MAPA DEL JAVASCRIPT DE PORTADA
+   =====================================================================
+     JS-HOME-HEADER-01       ocultar/mostrar cabecera en móvil
+     JS-HOME-STICKY-01       barra flotante de llamada
+     JS-HOME-REVIEWS-01      carrusel de reseñas
+     JS-HOME-CAROUSEL-01     carrusel de fotografías
+     JS-HOME-MODAL-01        ventana de reseñas
+
+   Para cambios de texto normalmente NO necesitas editar este archivo.
+   ===================================================================== */
+
+/* =====================================================================
    MINI GUÍA DEL JAVASCRIPT DE LA PORTADA
    =====================================================================
 
@@ -78,6 +90,7 @@
       if (event.clientY <= 28) header.classList.remove('hidden-nav');
     }, false);
 
+    /* [REF JS-HOME-STICKY-01] Elementos que deciden cuándo mostrar la llamada flotante. */
     var mobileContactBar = document.querySelector('.mobile-contact-bar');
     var heroContactActions = document.getElementById('heroContactActions');
     var mobileSectionContactActions = document.getElementById('mobileContactActions');
@@ -138,6 +151,7 @@
       updateStickyFallback();
     }
 
+    /* [REF JS-HOME-REVIEWS-01] Carrusel de reseñas: elementos, índice y temporizador. */
     var slides = Array.prototype.slice.call(document.querySelectorAll('.review-slide'));
     var dotsWrap = document.getElementById('reviewDots');
     var previousButton = document.getElementById('prevReview');
@@ -224,6 +238,7 @@
   'use strict';
 
   function initCarousel(){
+    /* [REF JS-HOME-CAROUSEL-01] Carrusel móvil de fotografías del despacho. */
     var carousel = document.getElementById('mobileOfficeCarousel');
     if (!carousel) return;
 

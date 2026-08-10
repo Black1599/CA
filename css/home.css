@@ -1,4 +1,24 @@
 /* =====================================================================
+   [REF CSS-HOME-INDEX-01] MAPA DE CSS DE LA PÁGINA PRINCIPAL
+   =====================================================================
+
+   Este archivo contiene estilos acumulados durante varias versiones.
+   CSS aplica la regla más específica o, si empatan, la que aparece después.
+
+   Referencias útiles para buscar con Ctrl+F:
+     CSS-HOME-VARS-01       colores, tipografías y variables
+     CSS-HOME-HEADER-01     cabecera, menú, logo e idiomas
+     CSS-HOME-HERO-01       portada y horario
+     CSS-HOME-MOBILE-01     ajustes de hasta 820 px
+     CSS-HOME-INSTAGRAM-01  diseño negro actual de Instagram
+     CSS-HOME-PHONE-01      cursor y comportamiento visual del teléfono
+
+   REGLA SEGURA:
+   Para cambiar solo textos, edita HTML y no CSS. Si necesitas diseño, añade
+   un bloque nuevo al final con un comentario y prueba PC + móvil.
+   ===================================================================== */
+
+/* =====================================================================
    MINI GUÍA PARA ENTENDER CSS
    =====================================================================
 
@@ -76,7 +96,8 @@
     button{color:inherit}
     img{display:block;max-width:100%}
 
-    .site-header{position:fixed;inset:0 0 auto;z-index:100;background:rgba(244,240,232,.9);backdrop-filter:blur(18px);transition:transform .4s ease,border-color .3s ease;background .3s ease;border-bottom:1px solid transparent}
+    /* [REF CSS-HOME-HEADER-01] Cabecera base. */
+.site-header{position:fixed;inset:0 0 auto;z-index:100;background:rgba(244,240,232,.9);backdrop-filter:blur(18px);transition:transform .4s ease,border-color .3s ease;background .3s ease;border-bottom:1px solid transparent}
     .site-header.compact{border-color:var(--line);background:rgba(244,240,232,.96)}
     .site-header.hidden-nav{transform:translateY(-105%)}
     .header-shell{width:min(1440px,calc(100% - 64px));height:150px;margin:auto;display:grid;grid-template-columns:1fr minmax(280px,420px) 1fr;align-items:center;gap:26px;transition:height .35s ease}
@@ -95,7 +116,8 @@
     .menu-toggle,.mobile-nav,.mobile-language{display:none}
     .language-switch{border:0;background:none;cursor:pointer;font-size:.68rem;letter-spacing:.08em}
 
-    .hero{width:min(1600px,100%);margin:auto;min-height:92vh;padding:198px max(5vw,40px) 62px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr);align-items:center;gap:clamp(40px,7vw,110px)}
+    /* [REF CSS-HOME-HERO-01] Estructura base de la portada. */
+.hero{width:min(1600px,100%);margin:auto;min-height:92vh;padding:198px max(5vw,40px) 62px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr);align-items:center;gap:clamp(40px,7vw,110px)}
     .hero-copy{padding-left:clamp(0px,4vw,68px);max-width:650px}
     .eyebrow{margin:0 0 1.2rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold-dark);font-weight:600}
     h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;margin:0}
@@ -226,7 +248,8 @@
       .hero{grid-template-columns:.92fr 1.08fr;gap:38px;padding-left:30px;padding-right:30px}
       .quick-grid{grid-template-columns:1fr 1fr} .review-card{grid-column:1/-1}
     }
-    @media(max-width:820px){
+    /* [REF CSS-HOME-MOBILE-01] Inicio de ajustes principales para móvil. */
+@media(max-width:820px){
       body{padding-bottom:68px}
       .site-header{background:rgba(244,240,232,.97)}
       .header-shell{height:90px;width:calc(100% - 28px);grid-template-columns:42px 1fr 52px;gap:8px}
@@ -1397,7 +1420,8 @@ img, svg, video, iframe { max-width:100%; }
 .desktop-only{display:none}
 
 @media(min-width:821px){
-  :root{
+  /* [REF CSS-HOME-VARS-01] Variables principales de color y tipografía. */
+:root{
     --pc-width:min(1440px,calc(100% - 72px));
     --pc-gap:28px;
   }
@@ -4280,7 +4304,7 @@ main,
 
 
 /* =====================================================================
-   INTEL16.09 — INSTAGRAM DISEÑO 1 (NEGRO ORIGINAL) Y TELÉFONOS
+   [REF CSS-HOME-INSTAGRAM-01] INTEL16.09 — INSTAGRAM DISEÑO 1 (NEGRO ORIGINAL) Y TELÉFONOS
    ===================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -4368,7 +4392,8 @@ main,
   background:rgba(255,255,255,.05) !important;
 }
 
-/* ---------------------------------------------------------------------
+/* [REF CSS-HOME-PHONE-01]
+   ---------------------------------------------------------------------
    TELÉFONOS
    En PC se mantienen los efectos visuales, pero el clic se cancela mediante
    js/site-header.js. En móvil el enlace tel: inicia la llamada.
@@ -4382,5 +4407,47 @@ main,
 @media(max-width:820px){
   [data-copy-phone]{
     cursor:pointer !important;
+  }
+}
+
+
+/* =====================================================================
+   [REF CSS-A11Y-AGENT-01] ACCESIBILIDAD PARA PERSONAS Y AGENTES IA
+   =====================================================================
+   - El enlace de salto aparece solo al recibir foco con teclado.
+   - :focus-visible muestra claramente qué control está seleccionado.
+   - aria-disabled se usa en PC para indicar que los teléfonos son visuales.
+   Estas mejoras ayudan a lectores de pantalla y al agente de ChatGPT Atlas.
+   ===================================================================== */
+.skip-link{
+  position:fixed;
+  left:16px;
+  top:12px;
+  z-index:5000;
+  padding:12px 16px;
+  background:#111;
+  color:#fff;
+  transform:translateY(-180%);
+  transition:transform .18s ease;
+}
+.skip-link:focus{
+  transform:translateY(0);
+}
+
+:where(a,button,[tabindex]):focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:4px;
+}
+
+[data-copy-phone][aria-disabled="true"]{
+  cursor:default !important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto !important;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
   }
 }

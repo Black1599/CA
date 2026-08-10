@@ -1,4 +1,15 @@
 /* =====================================================================
+   [REF JS-HEADER-INDEX-01] MAPA DE FUNCIONES COMPARTIDAS
+   =====================================================================
+     JS-HEADER-READY-01      espera a que el HTML esté preparado
+     JS-HEADER-MENU-01       abre/cierra el menú
+     JS-HEADER-SCROLL-01     desplazamientos internos
+     JS-HEADER-TOP-01        vuelve al principio exacto
+     JS-HEADER-PHONE-01      móvil llama; PC no ejecuta acción
+     JS-HEADER-LANGUAGE-01   aviso provisional de idiomas
+   ===================================================================== */
+
+/* =====================================================================
    MINI GUÍA PARA ENTENDER ESTE JAVASCRIPT
    =====================================================================
 
@@ -28,6 +39,7 @@
 (function () {
   'use strict';
 
+  /* [REF JS-HEADER-READY-01] Ejecuta callback cuando el DOM ya existe. */
   function ready(callback) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', callback, false);
@@ -36,50 +48,6 @@
     }
   }
 
-  /* ------------------------------------------------------------------
-     TELÉFONO COPIABLE
-     Clipboard API copia el número; el método alternativo cubre navegadores
-     antiguos o archivos abiertos localmente.
-     ------------------------------------------------------------------ */
-  function copyTextToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise(function (resolve, reject) {
-      var temporaryInput = document.createElement('textarea');
-      temporaryInput.value = text;
-      temporaryInput.setAttribute('readonly', '');
-      temporaryInput.style.position = 'fixed';
-      temporaryInput.style.opacity = '0';
-      document.body.appendChild(temporaryInput);
-      temporaryInput.select();
-      try {
-        var copied = document.execCommand('copy');
-        document.body.removeChild(temporaryInput);
-        copied ? resolve() : reject(new Error('No se pudo copiar'));
-      } catch (error) {
-        document.body.removeChild(temporaryInput);
-        reject(error);
-      }
-    });
-  }
-
-  function showPhoneCopiedMessage(message) {
-    var toast = document.querySelector('.copy-phone-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.className = 'copy-phone-toast';
-      toast.setAttribute('role', 'status');
-      toast.setAttribute('aria-live', 'polite');
-      document.body.appendChild(toast);
-    }
-    toast.textContent = message;
-    toast.classList.add('is-visible');
-    window.clearTimeout(showPhoneCopiedMessage.timer);
-    showPhoneCopiedMessage.timer = window.setTimeout(function () {
-      toast.classList.remove('is-visible');
-    }, 2200);
-  }
 
   ready(function () {
     var header = document.getElementById('siteHeader');
@@ -88,6 +56,7 @@
     var languageButton = document.querySelector('.site-language-button');
     var brand = document.querySelector('.shared-header-brand');
 
+    /* [REF JS-HEADER-MENU-01] Cambia el estado visual y accesible del menú. */
     function setMenu(open) {
       if (!menuButton || !menuPanel) return;
       menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -120,6 +89,7 @@
       });
     }
 
+    /* [REF JS-HEADER-SCROLL-01] Localiza una sección y se desplaza suavemente. */
     function scrollToElement(selector) {
       var target = document.querySelector(selector);
       if (!target) return false;
@@ -154,6 +124,7 @@
       }
     );
 
+    /* [REF JS-HEADER-TOP-01] Evita quedarse unos píxeles por debajo del inicio. */
     function goToAbsoluteTop(event) {
       var href = event.currentTarget.getAttribute('href') || '';
       if (href.charAt(0) !== '#') return;
@@ -190,32 +161,49 @@
 
 
     /* ---------------------------------------------------------------
-       TELÉFONO SEGÚN EL DISPOSITIVO
+       [REF JS-HEADER-PHONE-01] TELÉFONO SEGÚN EL DISPOSITIVO
        ---------------------------------------------------------------
+       Móvil: el enlace tel: abre una llamada.
+       PC: el enlace queda visualmente presente pero se marca como desactivado.
 
-       - Móvil (hasta 820 px): el enlace tel: funciona y abre la llamada.
-       - PC (más de 820 px): se cancela cualquier acción. El botón se
-         conserva únicamente como elemento visual y mantiene su efecto hover.
-
-       No se copia ningún número al portapapeles.
+       aria-disabled y tabindex permiten que lectores de pantalla y agentes
+       como ChatGPT Atlas entiendan el estado real del control.
        --------------------------------------------------------------- */
-    Array.prototype.forEach.call(
-      document.querySelectorAll('[data-copy-phone]'),
-      function (phoneControl) {
-        phoneControl.addEventListener('click', function (event) {
-          var isMobileLayout = window.matchMedia
-            ? window.matchMedia('(max-width: 820px)').matches
-            : window.innerWidth <= 820;
-
-          /* En móvil dejamos actuar al href="tel:+34683176820". */
-          if (isMobileLayout) return;
-
-          /* En PC el botón es solamente decorativo. */
-          event.preventDefault();
-        }, false);
-      }
+    var phoneControls = Array.prototype.slice.call(
+      document.querySelectorAll('[data-copy-phone]')
     );
 
+    function isMobilePhoneLayout() {
+      return window.matchMedia
+        ? window.matchMedia('(max-width: 820px)').matches
+        : window.innerWidth <= 820;
+    }
+
+    function updatePhoneAccessibilityState() {
+      var mobile = isMobilePhoneLayout();
+
+      phoneControls.forEach(function (phoneControl) {
+        if (mobile) {
+          phoneControl.removeAttribute('aria-disabled');
+          phoneControl.removeAttribute('tabindex');
+        } else {
+          phoneControl.setAttribute('aria-disabled', 'true');
+          phoneControl.setAttribute('tabindex', '-1');
+        }
+      });
+    }
+
+    phoneControls.forEach(function (phoneControl) {
+      phoneControl.addEventListener('click', function (event) {
+        if (isMobilePhoneLayout()) return;
+        event.preventDefault();
+      }, false);
+    });
+
+    updatePhoneAccessibilityState();
+    window.addEventListener('resize', updatePhoneAccessibilityState, false);
+
+    /* [REF JS-HEADER-LANGUAGE-01] Selector provisional: todavía no cambia idioma. */
     if (languageButton) {
       languageButton.addEventListener('click', function () {
         window.alert(

@@ -1,4 +1,17 @@
 /* =====================================================================
+   [REF CSS-BLOG-INDEX-01] MAPA DE CSS DEL BLOG
+   =====================================================================
+     CSS-BLOG-HERO-01       portada del blog
+     CSS-BLOG-LIST-01       tarjetas del listado
+     CSS-BLOG-ARTICLE-01    artículo y columna blanca
+     CSS-BLOG-CONTACT-01    tarjetas de contacto
+     CSS-BLOG-MOBILE-01     orden y tamaños en móvil
+
+   home.css se carga antes y blog.css después; por eso blog.css puede
+   sobrescribir estilos generales en las páginas del blog.
+   ===================================================================== */
+
+/* =====================================================================
    MINI GUÍA DE ESTE CSS DEL BLOG
    =====================================================================
 
@@ -81,6 +94,7 @@
 /* ---------------------------------------------------------------------
    2. PORTADA Y LISTADO DE PUBLICACIONES
    --------------------------------------------------------------------- */
+/* [REF CSS-BLOG-HERO-01] Portada del listado del blog. */
 .blog-hero{
   width:min(1360px,calc(100% - 64px));
   margin:0 auto;
@@ -135,6 +149,7 @@
   letter-spacing:.08em;
   text-transform:uppercase;
 }
+/* [REF CSS-BLOG-LIST-01] Rejilla de publicaciones y panel lateral. */
 .blog-grid{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -242,6 +257,7 @@
 /* ---------------------------------------------------------------------
    3. PÁGINA INDIVIDUAL DEL ARTÍCULO
    --------------------------------------------------------------------- */
+/* [REF CSS-BLOG-ARTICLE-01] Contenedor del artículo. */
 .article-page-main{
   padding-bottom:100px;
 }
@@ -332,18 +348,6 @@
   font-size:1.18rem;
   line-height:1.55;
 }
-.article-sources{
-  margin-top:3rem;
-  padding-top:2rem;
-  border-top:1px solid var(--line);
-}
-.article-sources h2{
-  font-size:1.7rem;
-}
-.article-sources a{
-  text-decoration:underline;
-  text-underline-offset:4px;
-}
 .article-disclaimer{
   margin-top:2.5rem;
   color:var(--muted) !important;
@@ -354,6 +358,7 @@
 /* ---------------------------------------------------------------------
    4. CONTACTO Y LLAMADA
    --------------------------------------------------------------------- */
+/* [REF CSS-BLOG-CONTACT-01] Tarjeta de contacto del artículo. */
 .article-contact-card{
   position:sticky;
   top:158px;
@@ -416,6 +421,7 @@
   }
 }
 
+/* [REF CSS-BLOG-MOBILE-01] Ajustes principales del blog en móvil. */
 @media(max-width:820px){
   .blog-page main{
     padding-top:calc(118px + env(safe-area-inset-top,0px)) !important;
