@@ -1,7 +1,8 @@
-Carandell Advocats - ca10_08_04
-Base: ca10_08_03
-- Añadido nuevo artículo sobre herencias en Cataluña
-- Texto del artículo conservado sin reescritura
-- Añadida tarjeta del nuevo artículo en blog/index.html
-- Añadido archivo HTML.MD del artículo
-- Actualizados blog/index.html.md, llms.txt, llms-full.txt y sitemap.xml
+Carandell Advocats - ca10_08_05
+Base: ca10_08_04
+- Artículo de herencias: título en modo oración
+- Introducción ampliada con el texto indicado
+- Destacado dorado movido después del primer apartado y sustituido por un consejo breve
+- Párrafos largos del cuerpo justificados
+- Negritas del PDF reproducidas en el artículo de herencias
+- Actualizados el listado del blog y archivos HTML.MD/LLM afectados

@@ -1077,3 +1077,12 @@
 .article-final-cta [data-copy-phone],
 .blog-mobile-call[data-copy-phone],
 .footer-contact-details [data-copy-phone]{cursor:pointer;}
+
+/* CA10_08_05 — JUSTIFICACIÓN DEL CUERPO DE LOS ARTÍCULOS
+   Se justifican únicamente los párrafos directos de lectura.
+   No afecta al destacado dorado, al aviso informativo ni a las tarjetas CTA. */
+.article-content > p:not(.article-highlight):not(.article-disclaimer){
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
