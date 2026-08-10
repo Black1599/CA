@@ -1,7 +1,8 @@
-Carandell Advocats - ca10_08_01
-Fecha: 10/08/2026
-- Eliminado el apartado Referencias jurídicas del artículo actual y de la plantilla
+Carandell Advocats - ca10_08_02
+Base: carandell_web_intel16_11_ai_seo_project
+- Eliminado el apartado Referencias jurídicas y sus enlaces
 - Eliminada la línea Revisión jurídica
-- Disclaimer reducido a contenido informativo y asesoramiento individualizado
-- Tarjeta dorada: texto de cita simplificado
-- CTA negra: título "Solicita una cita."
+- Aviso informativo simplificado
+- CTA negra: Solicita una cita.
+- Tarjeta dorada: texto de contacto simplificado
+- Plantilla de artículos actualizada con los mismos criterios

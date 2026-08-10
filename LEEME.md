@@ -51,11 +51,14 @@ Consulta el manual antes de modificar CSS o JavaScript.
 - Busca las referencias `SEO-AI-*`, `CSS-A11Y-AGENT-01` y `JS-HEADER-PHONE-01`.
 
 
-## Versión ca10_08_01
+## ca10_08_02 — simplificación de artículos
 
-Primera versión con nomenclatura por fecha. Cambios principales del blog:
+En los artículos del blog:
 
-- eliminado el apartado de referencias jurídicas de artículos y plantilla;
-- eliminada la línea de revisión jurídica de la cabecera;
-- aviso informativo simplificado;
-- textos de las tarjetas de contacto actualizados.
+- no se muestra el bloque «Referencias jurídicas» ni enlaces de fuentes;
+- la cabecera muestra únicamente fecha de publicación y lectura aproximada;
+- el aviso final es «Contenido informativo. No sustituye el asesoramiento jurídico individualizado.»;
+- la tarjeta negra usa «Solicita una cita.»;
+- la tarjeta dorada usa «Explica brevemente la situación por teléfono y solicita una cita.».
+
+Estos mismos criterios están aplicados a `plantillas/articulo-blog.html`.

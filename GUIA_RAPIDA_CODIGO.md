@@ -47,23 +47,14 @@ Puedes crear ramas y commits sin Internet. Solo necesitas conexión para
 - Busca las referencias `SEO-AI-*`, `CSS-A11Y-AGENT-01` y `JS-HEADER-PHONE-01`.
 
 
-## Blog - criterio desde ca10_08_01
+## ca10_08_02 — simplificación de artículos
 
-Los artículos ya no muestran un apartado de **Referencias jurídicas** ni enlaces a jurisprudencia al final del texto.
+En los artículos del blog:
 
-En la cabecera del artículo se muestran únicamente:
+- no se muestra el bloque «Referencias jurídicas» ni enlaces de fuentes;
+- la cabecera muestra únicamente fecha de publicación y lectura aproximada;
+- el aviso final es «Contenido informativo. No sustituye el asesoramiento jurídico individualizado.»;
+- la tarjeta negra usa «Solicita una cita.»;
+- la tarjeta dorada usa «Explica brevemente la situación por teléfono y solicita una cita.».
 
-- fecha de publicación;
-- lectura aproximada.
-
-El aviso final estándar es:
-
-`Contenido informativo. No sustituye el asesoramiento jurídico individualizado.`
-
-La tarjeta dorada utiliza el texto:
-
-`Explica brevemente la situación por teléfono y solicita una cita.`
-
-La llamada a la acción negra utiliza como título:
-
-`Solicita una cita.`
+Estos mismos criterios están aplicados a `plantillas/articulo-blog.html`.
