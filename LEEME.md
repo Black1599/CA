@@ -49,3 +49,13 @@ Consulta el manual antes de modificar CSS o JavaScript.
 - Guía detallada: `docs/SEO_IA_Y_ATLAS.md`.
 - Los HTML incluyen canonical, Open Graph, Schema.org y mejoras ARIA.
 - Busca las referencias `SEO-AI-*`, `CSS-A11Y-AGENT-01` y `JS-HEADER-PHONE-01`.
+
+
+## Versión ca10_08_01
+
+Primera versión con nomenclatura por fecha. Cambios principales del blog:
+
+- eliminado el apartado de referencias jurídicas de artículos y plantilla;
+- eliminada la línea de revisión jurídica de la cabecera;
+- aviso informativo simplificado;
+- textos de las tarjetas de contacto actualizados.

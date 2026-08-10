@@ -45,3 +45,25 @@ Puedes crear ramas y commits sin Internet. Solo necesitas conexión para
 - Guía detallada: `docs/SEO_IA_Y_ATLAS.md`.
 - Los HTML incluyen canonical, Open Graph, Schema.org y mejoras ARIA.
 - Busca las referencias `SEO-AI-*`, `CSS-A11Y-AGENT-01` y `JS-HEADER-PHONE-01`.
+
+
+## Blog - criterio desde ca10_08_01
+
+Los artículos ya no muestran un apartado de **Referencias jurídicas** ni enlaces a jurisprudencia al final del texto.
+
+En la cabecera del artículo se muestran únicamente:
+
+- fecha de publicación;
+- lectura aproximada.
+
+El aviso final estándar es:
+
+`Contenido informativo. No sustituye el asesoramiento jurídico individualizado.`
+
+La tarjeta dorada utiliza el texto:
+
+`Explica brevemente la situación por teléfono y solicita una cita.`
+
+La llamada a la acción negra utiliza como título:
+
+`Solicita una cita.`

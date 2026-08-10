@@ -1,7 +1,7 @@
-Carandell Advocats - intel16.11 AI/SEO
-- OAI-SearchBot permitido en robots.txt
-- GPTBot bloqueado por defecto
-- sitemap.xml, llms.txt y llms-full.txt
-- canonical, Open Graph y Schema.org ampliado
-- ARIA, foco visible, skip link y estados accesibles para Atlas
-- Manual PDF actualizado con apéndice de IA/SEO
+Carandell Advocats - ca10_08_01
+Fecha: 10/08/2026
+- Eliminado el apartado Referencias jurídicas del artículo actual y de la plantilla
+- Eliminada la línea Revisión jurídica
+- Disclaimer reducido a contenido informativo y asesoramiento individualizado
+- Tarjeta dorada: texto de cita simplificado
+- CTA negra: título "Solicita una cita."
