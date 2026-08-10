@@ -1,5 +1,7 @@
-Carandell Advocats - ca10_08_03
-Corrección explícita de los archivos del blog.
-Archivos clave modificados:
-- blog/corte-suministros-vivienda-ocupada.html
-- plantillas/articulo-blog.html
+Carandell Advocats - ca10_08_04
+Base: ca10_08_03
+- Añadido nuevo artículo sobre herencias en Cataluña
+- Texto del artículo conservado sin reescritura
+- Añadida tarjeta del nuevo artículo en blog/index.html
+- Añadido archivo HTML.MD del artículo
+- Actualizados blog/index.html.md, llms.txt, llms-full.txt y sitemap.xml
