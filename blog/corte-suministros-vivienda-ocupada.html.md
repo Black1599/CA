@@ -16,4 +16,4 @@ La STS 394/2024, de 14 de mayo, confirmó una absolución porque los hechos decl
 
 Antes de solicitar una baja o adoptar cualquier medida deben valorarse la titularidad de los contratos, la relación jurídica entre las partes, las resoluciones existentes, las comunicaciones previas y la prueba disponible.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.

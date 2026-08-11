@@ -32,4 +32,4 @@ Por ello, tener derecho a la legítima no permite exigir automáticamente una pa
 
 La pretensión para reclamar la legítima o su suplemento prescribe, con carácter general, a los diez años desde el fallecimiento. La ley contempla determinados supuestos en los que este plazo puede quedar suspendido.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.

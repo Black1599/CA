@@ -34,4 +34,4 @@ El **Impuesto sobre Sucesiones y Donaciones** debe presentarse, con carácter ge
 
 Durante los cinco primeros meses puede solicitarse una prórroga por otros seis meses. Esta ampliación permite disponer de más tiempo para tramitar la herencia, aunque conlleva el devengo de intereses de demora una vez finalizado el plazo inicial.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.

@@ -28,6 +28,8 @@ Artículos breves para comprender cuestiones legales habituales antes de tomar u
 
 ## Publicaciones
 
+- [Divorcio o ruptura de pareja estable](https://black1599.github.io/CA/blog/divorcio-o-ruptura-de-pareja-estable.html): La ruptura de una relación puede exigir la adopción de decisiones importantes sobre los hijos, la vivienda familiar, las prestaciones económicas y los bienes de titularidad común.
+- [¿Qué ocurre con las mascotas tras el divorcio en Cataluña?](https://black1599.github.io/CA/blog/mascotas-tras-divorcio-en-cataluna.html): Tras una separación o divorcio, también puede ser necesario decidir quién cuidará de los animales de compañía, cómo se organizará su convivencia y quién asumirá sus gastos.
 - [¿Qué es la legítima?](https://black1599.github.io/CA/blog/que-es-la-legitima-en-cataluna.html): La legítima es el derecho que la ley reconoce a determinadas personas a recibir un valor patrimonial de la sucesión.
 - [¿Qué hacer al recibir una herencia en Cataluña?](https://black1599.github.io/CA/blog/que-hacer-al-recibir-una-herencia-en-cataluna.html): Recibir una herencia exige realizar una serie de trámites civiles, fiscales y administrativos.
 - [¿Puede el propietario cortar los suministros de una vivienda ocupada?](https://black1599.github.io/CA/blog/corte-suministros-vivienda-ocupada.html): vivienda, derecho penal y posible delito de coacciones.
@@ -57,7 +59,7 @@ La STS 394/2024, de 14 de mayo, confirmó una absolución porque los hechos decl
 
 Antes de solicitar una baja o adoptar cualquier medida deben valorarse la titularidad de los contratos, la relación jurídica entre las partes, las resoluciones existentes, las comunicaciones previas y la prueba disponible.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
 
 
 ---
@@ -78,7 +80,7 @@ Antes de aceptar y repartir la herencia es fundamental conocer su contenido. Deb
 
 El Impuesto sobre Sucesiones y Donaciones debe presentarse, con carácter general, dentro de los seis meses siguientes al fallecimiento. Durante los cinco primeros meses puede solicitarse una prórroga por otros seis meses. Esta ampliación permite disponer de más tiempo para tramitar la herencia, aunque conlleva el devengo de intereses de demora una vez finalizado el plazo inicial.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
 
 
 ---
@@ -117,4 +119,85 @@ Por ello, tener derecho a la legítima no permite exigir automáticamente una pa
 
 La pretensión para reclamar la legítima o su suplemento prescribe, con carácter general, a los diez años desde el fallecimiento. La ley contempla determinados supuestos en los que este plazo puede quedar suspendido.
 
-Contenido informativo. No sustituye el asesoramiento jurídico individualizado.
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
+
+
+---
+
+# Divorcio o ruptura de pareja estable
+
+FAMILIA
+
+La ruptura de una relación puede exigir la adopción de decisiones importantes sobre **los hijos, la vivienda familiar, las prestaciones económicas y los bienes de titularidad común**.
+
+## Procedimiento de mutuo acuerdo
+
+Cuando existe acuerdo, las partes pueden establecer las medidas que regirán después del divorcio, la separación o la ruptura de la pareja estable.
+
+Si existen hijos comunes sujetos a la potestad parental, el convenio regulador debe incluir un **plan de parentalidad** que regule, entre otras cuestiones, la guarda, el lugar de residencia de los hijos, las estancias y comunicaciones con cada progenitor y la forma de ejercer las responsabilidades parentales.
+
+También deben determinarse los **alimentos de los hijos**, tanto respecto de sus necesidades ordinarias como extraordinarias, así como la forma en que serán asumidos por cada progenitor.
+
+Además, cuando proceda, deberán regularse otras cuestiones derivadas de la ruptura, como:
+
+- El uso de la vivienda familiar.
+- Las prestaciones o compensaciones económicas entre las partes.
+- La liquidación del régimen económico matrimonial, en caso de matrimonio.
+- La división de los bienes de titularidad común.
+- Cualquier otra medida necesaria para ordenar las consecuencias personales y patrimoniales de la ruptura.
+
+Cuando existen hijos menores no emancipados u otros supuestos en los que legalmente se exige intervención judicial, las medidas correspondientes deben someterse a **aprobación judicial**.
+
+Cuando no se requiere intervención judicial, los acuerdos pueden formalizarse, según el caso, ante el **letrado de la Administración de Justicia o ante notario**, con los requisitos establecidos legalmente.
+
+En Cataluña, muchas de estas cuestiones pueden resolverse de mutuo acuerdo mediante un convenio regulador, evitando que sea la autoridad judicial quien deba decidir sobre ellas.
+
+## Procedimiento contencioso
+
+**Cuando no es posible alcanzar un acuerdo**, será necesario acudir a la **vía judicial** para que se determinen las medidas que deben regir tras la ruptura.
+
+Cada parte podrá formular sus pretensiones y aportar las pruebas que considere necesarias. La autoridad judicial resolverá atendiendo a las circunstancias del caso y, cuando existan hijos menores, **atendiendo prioritariamente a su interés superior**.
+
+Entre otras cuestiones, podrán establecerse judicialmente la guarda de los hijos, el régimen de estancias y comunicaciones, los alimentos, el uso de la vivienda familiar y las prestaciones o compensaciones económicas que correspondan.
+
+## Medidas provisionales
+
+En determinadas situaciones puede ser necesario regular algunos aspectos **antes de que finalice el procedimiento**.
+
+Las medidas provisionales permiten establecer temporalmente la guarda de los hijos, los alimentos, el uso de la vivienda familiar y otras medidas necesarias mientras se tramita el procedimiento judicial.
+
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
+
+
+---
+
+# ¿Qué ocurre con las mascotas tras el divorcio en Cataluña?
+
+FAMILIA
+
+Tras una separación o divorcio, también puede ser necesario decidir **quién cuidará de los animales de compañía, cómo se organizará su convivencia y quién asumirá sus gastos**.
+
+## Si existe acuerdo
+
+Los cónyuges pueden incluir en el convenio regulador medidas sobre los animales de compañía, entre ellas:
+
+- Con quién permanecerá el animal.
+- Si su cuidado corresponderá a uno o a ambos cónyuges.
+- Los períodos de convivencia y cuidado con cada uno.
+- El reparto de los gastos asociados a su alimentación, atención veterinaria y demás necesidades.
+
+Los acuerdos deben respetar el **bienestar del animal**. Si las medidas propuestas resultan gravemente perjudiciales para este, la autoridad judicial puede adoptar las medidas que correspondan.
+
+Los animales no son considerados jurídicamente como simples cosas. La normativa reconoce su especial protección y exige que las decisiones que les afecten tengan en cuenta su bienestar.
+
+## Si no existe acuerdo
+
+Si los cónyuges no alcanzan un acuerdo, la autoridad judicial puede confiar el cuidado del animal **a uno o a ambos**, establecer la forma en que podrá permanecer en compañía de cada uno y determinar el reparto de los gastos asociados a su cuidado.
+
+Para adoptar estas decisiones deben tenerse en cuenta **el interés de los miembros de la familia y el bienestar del animal**, **con independencia de quién figure formalmente como propietario.**
+
+Las circunstancias concretas de cada caso, como la relación del animal con cada persona y sus necesidades de cuidado, pueden resultar relevantes para determinar la solución más adecuada.
+
+Las medidas adoptadas respecto del animal también pueden modificarse posteriormente si se alteran gravemente sus circunstancias.
+
+Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
