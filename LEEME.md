@@ -1,64 +1,67 @@
-# Carandell Advocats - intel16.10 documentada
+# Carandell Advocats
 
-Esta versión mantiene el diseño y comportamiento de **intel16.09** y añade:
+Proyecto web estático de Carandell Advocats, preparado para editarse con PyCharm y publicarse mediante GitHub Pages.
 
-- comentarios con códigos de referencia dentro de HTML, CSS y JavaScript;
-- manual PDF actualizado para Windows, PyCharm, Git y dominio propio;
-- `.gitignore` para no subir la configuración local de PyCharm;
-- `.editorconfig` para conservar UTF-8, sangría y saltos de línea;
-- guías de apoyo dentro de `docs/`.
-
-## Abrir sin conexión en PyCharm
+## Abrir el proyecto en PyCharm
 
 1. Abre PyCharm.
-2. **File > Open** y selecciona la carpeta completa.
+2. Ve a **File > Open** y selecciona la carpeta completa del proyecto.
 3. Abre `index.html`.
-4. **View > Open in Browser** o `Alt+F2`.
-5. Guarda con `Ctrl+S`.
+4. Usa **Open in Browser** o `Alt+F2` para previsualizar la web.
+5. Guarda los cambios con `Ctrl+S`.
 
-No hace falta Python para ejecutar esta web. PyCharm puede servirla mediante su
-servidor web integrado. Sin conexión no cargarán Google Maps, Google Fonts ni
-enlaces externos.
+No hace falta Python para ejecutar la web. Sin conexión pueden dejar de cargar Google Maps, Google Fonts y otros recursos externos.
 
 ## Archivos principales
 
 - `index.html`: página principal.
-- `blog/index.html`: listado del blog.
-- `blog/*.html`: artículos.
-- `css/home.css`: diseño general.
-- `css/blog.css`: diseño del blog.
-- `js/site-header.js`: menú, desplazamientos, idiomas y teléfono.
-- `js/home.js`: carruseles y elementos de portada.
-- `js/blog.js`: cabecera y llamada móvil del blog.
-- `assets/images/`: imágenes, logo y favicon.
-- `assets/source/`: archivo original del logo.
-- `plantillas/`: bloques para crear publicaciones.
-- `docs/`: referencias y comandos.
-- `MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf`: manual completo.
+- `blog/index.html`: listado de publicaciones.
+- `blog/*.html`: artículos publicados.
+- `blog/*.html.md`: versión textual de los artículos.
+- `css/home.css`: estilos generales y portada.
+- `css/blog.css`: estilos del blog y artículos.
+- `js/site-header.js`: menú, idiomas y comportamiento del teléfono.
+- `js/home.js`: interacciones de la portada.
+- `js/blog.js`: comportamiento específico del blog.
+- `assets/images/`: fotografías, logo y favicon.
+- `assets/source/`: archivos fuente de diseño.
+- `plantillas/articulo-blog.html`: plantilla maestra de artículo.
+- `plantillas/tarjeta-blog.html`: plantilla de tarjeta del listado.
+- `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`: archivos auxiliares de rastreo y contenido estructurado.
+- `docs/`: documentación breve de mantenimiento.
+- `MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf`: manual técnico completo.
 
-## Regla para editar textos
+## Historial de cambios
 
-Busca el texto con `Ctrl+F`, cambia únicamente el contenido visible y conserva
-las etiquetas (`<h1>`, `<p>`, `<a>`, etc.), las clases y los identificadores.
-Consulta el manual antes de modificar CSS o JavaScript.
-
-
-## Actualización intel16.11 - SEO para IA y Atlas
-
-- Archivos nuevos: `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`.
-- Guía detallada: `docs/SEO_IA_Y_ATLAS.md`.
-- Los HTML incluyen canonical, Open Graph, Schema.org y mejoras ARIA.
-- Busca las referencias `SEO-AI-*`, `CSS-A11Y-AGENT-01` y `JS-HEADER-PHONE-01`.
+El proyecto no necesita archivos `VERSION.txt` ni `CAMBIOS_*.txt`. Git ya conserva el historial mediante commits, ramas y etiquetas. Para consultar cambios usa `git log` o el historial de Git de PyCharm.
 
 
-## ca10_08_02 — simplificación de artículos
+## Compatibilidad de navegadores
 
-En los artículos del blog:
+El objetivo del proyecto es funcionar en navegadores modernos mantenidos:
 
-- no se muestra el bloque «Referencias jurídicas» ni enlaces de fuentes;
-- la cabecera muestra únicamente fecha de publicación y lectura aproximada;
-- el aviso final es «Contenido informativo. No sustituye el asesoramiento jurídico individualizado.»;
-- la tarjeta negra usa «Solicita una cita.»;
-- la tarjeta dorada usa «Explica brevemente la situación por teléfono y solicita una cita.».
+- PC/Mac: Chrome, Edge, Firefox y Safari.
+- iPhone/iPad: Safari y navegadores basados en WebKit.
+- Android: Chrome y navegadores modernos equivalentes.
 
-Estos mismos criterios están aplicados a `plantillas/articulo-blog.html`.
+El CSS incluye fallbacks para `100dvh`, áreas seguras de iPhone (`safe-area`), `backdrop-filter` de Safari y otros comportamientos móviles. El JavaScript evita depender exclusivamente de `IntersectionObserver` y mantiene alternativas para desplazamientos.
+
+Antes de publicar cambios de diseño prueba, como mínimo, 375 px, 390 px, 820 px, 1366/1440 px y un escritorio grande. La emulación de Chrome/Edge ayuda, pero para validar Safari conviene abrir la web en un iPhone/iPad o Mac real cuando el cambio afecte a cabecera fija, viewport, carruseles o barras inferiores.
+
+## Crear un nuevo artículo
+
+1. Copia `plantillas/articulo-blog.html` dentro de `blog/`.
+2. Renómbralo con una URL clara, en minúsculas y separada por guiones.
+3. Sustituye todos los campos marcados como **CAMBIAR**.
+4. Cambia `robots` de `noindex,nofollow` a `index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1`.
+5. Actualiza título, descripción, canonical, Open Graph y Schema.org.
+6. Añade la tarjeta con `plantillas/tarjeta-blog.html` en `blog/index.html`.
+7. Crea la versión `.html.md` del artículo.
+8. Actualiza `blog/index.html.md`, `sitemap.xml`, `llms.txt` y `llms-full.txt`.
+9. Prueba el artículo en PC y móvil antes del commit.
+
+El aviso estándar de los artículos es:
+
+> Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
+
+Consulta el manual PDF para el procedimiento detallado.

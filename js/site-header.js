@@ -94,7 +94,12 @@
       var target = document.querySelector(selector);
       if (!target) return false;
       if (header) header.classList.remove('hidden-nav');
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      try {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        /* Fallback para navegadores que solo aceptan la firma clásica. */
+        target.scrollIntoView(true);
+      }
       return true;
     }
 

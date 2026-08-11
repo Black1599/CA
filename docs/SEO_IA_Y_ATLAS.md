@@ -47,7 +47,7 @@ Cuando exista dominio propio, usa PyCharm:
 1. `Ctrl + Shift + R`.
 2. Busca `https://black1599.github.io/CA/`.
 3. Sustituye por `https://www.DOMINIO.es/`.
-4. Revisa `robots.txt`, `sitemap.xml`, `llms.txt` y los tres HTML.
+4. Revisa `robots.txt`, `sitemap.xml`, `llms.txt` y todos los HTML públicos.
 5. Haz commit y push.
 
 ## Etiquetas para Atlas

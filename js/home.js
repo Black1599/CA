@@ -349,7 +349,7 @@
    Se conserva el orden porque varios comportamientos dependen de él.
    ------------------------------------------------------------------ */
 /* ================================================================
-   INTEL10 — el logotipo vuelve al inicio real de la página
+   EL LOGOTIPO VUELVE AL INICIO REAL DE LA PÁGINA
    ================================================================ */
 (function () {
   'use strict';

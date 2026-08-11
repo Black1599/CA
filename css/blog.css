@@ -528,6 +528,7 @@
     bottom:0;
     z-index:1200;
     min-height:76px;
+    padding:12px 20px;
     padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));
     align-items:center;
     justify-content:center;
@@ -555,7 +556,7 @@
 
 
 /* =====================================================================
-   INTEL12 — AJUSTES DEL LISTADO Y DEL ARTÍCULO
+   AJUSTES DEL LISTADO Y DEL ARTÍCULO
    ===================================================================== */
 
 .blog-page .shared-header-shell{
@@ -698,7 +699,7 @@
 
 
 /* =====================================================================
-   INTEL13 — LISTADO DE PUBLICACIONES SIN HUECO DE IMAGEN
+   LISTADO DE PUBLICACIONES SIN HUECO DE IMAGEN
    =====================================================================
 
    ESTRUCTURA:
@@ -773,7 +774,7 @@
 
 
 /* =====================================================================
-   INTEL14 — ANCHO DEL TÍTULO DEL ARTÍCULO
+   ANCHO DEL TÍTULO DEL ARTÍCULO
    =====================================================================
 
    El bloque superior del artículo ocupa ahora el mismo ancho total que:
@@ -807,7 +808,7 @@
 
 
 /* =====================================================================
-   INTEL15 — BLOG Y ARTÍCULO, SOLO MÓVIL
+   BLOG Y ARTÍCULO, SOLO MÓVIL
    =====================================================================
 
    PC no se modifica. Este bloque:
@@ -956,7 +957,7 @@
 
 
 /* =====================================================================
-   INTEL16 — REFUERZO DE CABECERA MÓVIL EN BLOG Y ARTÍCULOS
+   REFUERZO DE CABECERA MÓVIL EN BLOG Y ARTÍCULOS
    ===================================================================== */
 
 @media(max-width:820px){
@@ -1056,7 +1057,7 @@
 
 
 /* =====================================================================
-   INTEL16.01 — TARJETAS DEL BLOG SIN DESCRIPCIÓN PEQUEÑA
+   TARJETAS DEL BLOG SIN DESCRIPCIÓN PEQUEÑA
    =====================================================================
 
    Las tarjetas del listado muestran únicamente:
@@ -1071,18 +1072,19 @@
 }
 
 
-/* INTEL16.05 — los antiguos botones de llamada ahora copian el teléfono. */
+/* Botones de teléfono: en móvil llaman; en PC quedan visualmente desactivados. */
 .blog-ready-panel [data-copy-phone],
 .article-contact-card [data-copy-phone],
 .article-final-cta [data-copy-phone],
 .blog-mobile-call[data-copy-phone],
 .footer-contact-details [data-copy-phone]{cursor:pointer;}
 
-/* CA10_08_05 — JUSTIFICACIÓN DEL CUERPO DE LOS ARTÍCULOS
+/* JUSTIFICACIÓN DEL CUERPO DE LOS ARTÍCULOS
    Se justifican únicamente los párrafos directos de lectura.
    No afecta al destacado dorado, al aviso informativo ni a las tarjetas CTA. */
 .article-content > p:not(.article-highlight):not(.article-disclaimer){
   text-align:justify;
   text-justify:inter-word;
+  -webkit-hyphens:auto;
   hyphens:auto;
 }
