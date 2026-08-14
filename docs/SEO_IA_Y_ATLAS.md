@@ -2,19 +2,19 @@
 
 ## Qué se ha añadido
 
-- `robots.txt`: permite `OAI-SearchBot` para ChatGPT Search y bloquea `GPTBot` para entrenamiento.
-- `sitemap.xml`: lista las páginas públicas.
-- `llms.txt`: resumen experimental en Markdown para sistemas de IA.
-- `llms-full.txt`: contexto textual ampliado.
+- `public/robots.txt`: permite `OAI-SearchBot` para ChatGPT Search y bloquea `GPTBot` para entrenamiento.
+- `public/sitemap.xml`: lista las páginas públicas.
+- `public/llms.txt`: resumen experimental en Markdown para sistemas de IA.
+- `public/llms-full.txt`: contexto textual ampliado.
 - versiones `.md` de las páginas principales.
 - URL canonical, Open Graph, metadatos para compartir y Schema.org.
 - etiquetas ARIA, enlace para saltar al contenido, foco visible y estados accesibles.
 
 ## Importante: qué está confirmado y qué es experimental
 
-OpenAI recomienda permitir `OAI-SearchBot` en `robots.txt` para poder aparecer en resultados, resúmenes y fragmentos de ChatGPT. También recomienda etiquetas ARIA claras para que el agente de ChatGPT Atlas entienda botones, menús y formularios.
+OpenAI recomienda permitir `OAI-SearchBot` en `public/robots.txt` para poder aparecer en resultados, resúmenes y fragmentos de ChatGPT. También recomienda etiquetas ARIA claras para que el agente de ChatGPT Atlas entienda botones, menús y formularios.
 
-`llms.txt` no es un requisito oficial de OpenAI. Es una propuesta abierta de llmstxt.org. Se incluye porque es barata de mantener y puede resultar útil, pero no garantiza posicionamiento ni citas.
+`public/llms.txt` no es un requisito oficial de OpenAI. Es una propuesta abierta de llmstxt.org. Se incluye porque es barata de mantener y puede resultar útil, pero no garantiza posicionamiento ni citas.
 
 ## Política elegida para los rastreadores
 
@@ -34,10 +34,10 @@ La web actual está en una subcarpeta:
 
 `https://black1599.github.io/CA/`
 
-Los buscadores consultan normalmente `robots.txt` en la raíz del host (`https://black1599.github.io/robots.txt`), no en `/CA/robots.txt`. Por tanto:
+Los buscadores consultan normalmente `public/robots.txt` en la raíz del host (`https://black1599.github.io/robots.txt`), no en `/CA/robots.txt`. Por tanto:
 
 - el archivo incluido funcionará correctamente al usar un dominio propio conectado a este proyecto;
-- mientras la web siga en `/CA/`, la ausencia de un bloqueo general en la raíz normalmente permite el rastreo, pero el `robots.txt` del proyecto no gobierna todo `black1599.github.io`;
+- mientras la web siga en `/CA/`, la ausencia de un bloqueo general en la raíz normalmente permite el rastreo, pero el `public/robots.txt` del proyecto no gobierna todo `black1599.github.io`;
 - otra solución es publicar la web desde el repositorio de usuario `black1599.github.io`.
 
 ## Cambiar al dominio definitivo
@@ -47,7 +47,7 @@ Cuando exista dominio propio, usa PyCharm:
 1. `Ctrl + Shift + R`.
 2. Busca `https://black1599.github.io/CA/`.
 3. Sustituye por `https://www.DOMINIO.es/`.
-4. Revisa `robots.txt`, `sitemap.xml`, `llms.txt` y todos los HTML públicos.
+4. Revisa `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt` y todos los HTML públicos.
 5. Haz commit y push.
 
 ## Etiquetas para Atlas

@@ -3,7 +3,7 @@
 ## Abrir la web
 
 1. Abre la carpeta completa con **File > Open**.
-2. Abre `index.html`.
+2. Abre `public/index.html`.
 3. Pulsa **Alt+F2** y elige Chrome o Edge.
 4. Guarda con **Ctrl+S**.
 
