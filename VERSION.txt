@@ -1,7 +1,0 @@
-Carandell Advocats - ca11_08_01
-Base: ca10_08_10
-- Nuevo aviso informativo aplicado a todos los artículos del blog
-- Añadido artículo: Divorcio o ruptura de pareja estable
-- Añadido artículo: ¿Qué ocurre con las mascotas tras el divorcio en Cataluña?
-- Contenido y negritas tomados del documento BLOG WEB.docx
-- Actualizados listado del blog, archivos HTML.MD, llms.txt, llms-full.txt y sitemap.xml
