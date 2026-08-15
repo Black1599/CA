@@ -4660,36 +4660,52 @@ main,
     padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
-/* =====================================================================
-   HORARIO — DÍAS Y HORAS EXACTAMENTE IGUALES
-   ===================================================================== */
 
-/* PC */
+/* =====================================================================
+   AJUSTES FINALES SOLICITADOS — SOLO PC
+   ===================================================================== */
 @media(min-width:821px){
 
+  /* ---------------------------------------------------------------
+     HORARIO: días y horas con exactamente el mismo aspecto.
+     Las horas usan una clase propia para evitar estilos heredados de
+     <strong> y garantizar que no vuelva a aparecer la tipografía serif.
+     --------------------------------------------------------------- */
   .hero-schedule-desktop .schedule-desktop-day,
-  .hero-schedule-desktop .schedule-desktop-times strong{
+  .hero-schedule-desktop .schedule-desktop-hour{
+    color:#151514 !important;
     font-family:var(--sans) !important;
     font-size:1.125rem !important;
     font-weight:600 !important;
     font-style:normal !important;
     line-height:1.2 !important;
     letter-spacing:0 !important;
-    color:#151514 !important;
+    white-space:nowrap !important;
   }
-}
 
-/* Móvil */
-@media(max-width:820px){
+  /* ---------------------------------------------------------------
+     PIE DE LA HOME: «Aviso legal · Privacidad · Cookies» centrado
+     exactamente en el eje horizontal. Solo afecta a la página inicial.
+     --------------------------------------------------------------- */
+  body:not(.blog-page) .site-footer-compact .footer-legal{
+    display:grid !important;
+    grid-template-columns:1fr auto 1fr !important;
+    align-items:center !important;
+    width:100% !important;
+    gap:18px !important;
+  }
 
-  .hero-schedule .schedule-row span,
-  .hero-schedule .schedule-row strong{
-    font-family:var(--sans) !important;
-    font-size:.82rem !important;
-    font-weight:600 !important;
-    font-style:normal !important;
-    line-height:1.45 !important;
-    letter-spacing:0 !important;
-    color:#151514 !important;
+  body:not(.blog-page) .site-footer-compact .footer-legal > span:first-child{
+    justify-self:start !important;
+  }
+
+  body:not(.blog-page) .site-footer-compact .footer-legal > span:nth-child(2){
+    justify-self:center !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+  }
+
+  body:not(.blog-page) .site-footer-compact .footer-blog-link{
+    justify-self:end !important;
   }
 }

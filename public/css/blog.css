@@ -1188,3 +1188,57 @@
     line-height:1.01 !important;
   }
 }
+
+/* =====================================================================
+   PANELES DE CONTACTO ARRASTRADOS CON EL SCROLL — SOLO PC
+   ===================================================================== */
+@media(min-width:981px){
+
+  /* PORTADA DEL BLOG:
+     el cuadro negro acompaña el scroll y queda limitado por .blog-grid.
+     Al llegar al final de la última publicación, el propio contenedor
+     detiene el sticky automáticamente. */
+  .blog-list-section,
+  .blog-grid{
+    overflow:visible !important;
+  }
+
+  .blog-grid{
+    align-items:start !important;
+  }
+
+  .blog-grid .blog-ready-panel{
+    position:-webkit-sticky !important;
+    position:sticky !important;
+    top:154px !important;
+    align-self:start !important;
+    height:max-content !important;
+  }
+
+  /* ARTÍCULOS:
+     la tarjeta dorada acompaña el scroll. blog.js la congela en la
+     posición exacta en la que se encuentra cuando el CTA negro final
+     empieza a entrar en pantalla. */
+  .article-layout-wide{
+    position:relative !important;
+    overflow:visible !important;
+    align-items:start !important;
+  }
+
+  .article-layout-wide .article-contact-card{
+    position:-webkit-sticky !important;
+    position:sticky !important;
+    top:154px !important;
+    align-self:start !important;
+    z-index:2;
+  }
+
+  .article-layout-wide .article-contact-card.is-sticky-stopped{
+    position:absolute !important;
+    top:var(--article-contact-stop-top,0px) !important;
+    right:0 !important;
+    left:auto !important;
+    margin:0 !important;
+  }
+}
+
