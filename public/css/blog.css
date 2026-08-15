@@ -1158,3 +1158,33 @@
     width:max-content !important;
   }
 }
+
+/* =====================================================================
+   TÍTULO PORTADA BLOG EN UNA SOLA LÍNEA
+   ===================================================================== */
+
+@media(min-width:821px){
+
+  /* Mantiene el inicio actual a la izquierda y amplía el bloque
+     prácticamente hasta el margen derecho de la pantalla. */
+  .blog-page .blog-hero{
+    width:calc(100% - 80px) !important;
+    max-width:none !important;
+    margin-left:40px !important;
+    margin-right:40px !important;
+    display:block !important;
+  }
+
+  .blog-page .blog-hero > div{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .blog-page .blog-hero h1{
+    width:100% !important;
+    max-width:none !important;
+    white-space:nowrap !important;
+    font-size:clamp(2.45rem,3.8vw,4.6rem) !important;
+    line-height:1.01 !important;
+  }
+}
