@@ -1190,55 +1190,38 @@
 }
 
 /* =====================================================================
-   PANELES DE CONTACTO ARRASTRADOS CON EL SCROLL — SOLO PC
+   PANELES DE CONTACTO QUE ACOMPAÑAN EL SCROLL — SOLO PC
+   =====================================================================
+
+   El movimiento se controla desde js/blog.js con position:fixed.
+   Se evita depender de position:sticky porque varios estilos heredados
+   del proyecto pueden crear contextos de scroll distintos entre navegadores.
    ===================================================================== */
 @media(min-width:981px){
 
-  /* PORTADA DEL BLOG:
-     el cuadro negro acompaña el scroll y queda limitado por .blog-grid.
-     Al llegar al final de la última publicación, el propio contenedor
-     detiene el sticky automáticamente. */
+  /* Los dos contenedores actúan como límites verticales para sus paneles. */
   .blog-list-section,
-  .blog-grid{
+  .blog-grid,
+  .article-layout-wide{
     overflow:visible !important;
   }
 
-  .blog-grid{
-    align-items:start !important;
-  }
-
-  .blog-grid .blog-ready-panel{
-    position:-webkit-sticky !important;
-    position:sticky !important;
-    top:154px !important;
-    align-self:start !important;
-    height:max-content !important;
-  }
-
-  /* ARTÍCULOS:
-     la tarjeta dorada acompaña el scroll. blog.js la congela en la
-     posición exacta en la que se encuentra cuando el CTA negro final
-     empieza a entrar en pantalla. */
+  .blog-grid,
   .article-layout-wide{
     position:relative !important;
-    overflow:visible !important;
     align-items:start !important;
   }
 
+  /* Estado natural. JavaScript aplica fixed/absolute mediante estilos inline
+     cuando corresponde. */
+  .blog-grid .blog-ready-panel,
   .article-layout-wide .article-contact-card{
-    position:-webkit-sticky !important;
-    position:sticky !important;
-    top:154px !important;
-    align-self:start !important;
-    z-index:2;
-  }
-
-  .article-layout-wide .article-contact-card.is-sticky-stopped{
-    position:absolute !important;
-    top:var(--article-contact-stop-top,0px) !important;
-    right:0 !important;
+    position:relative !important;
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
     left:auto !important;
-    margin:0 !important;
+    align-self:start !important;
+    z-index:20 !important;
   }
 }
-
