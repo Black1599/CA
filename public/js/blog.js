@@ -76,13 +76,31 @@
     }
 
     /* ---------------------------------------------------------------
-       [REF JS-BLOG-STICKY-01] TARJETA DORADA DEL ARTÍCULO EN PC
+       [REF JS-BLOG-SCROLL-PANELS-01] PANELES QUE ACOMPAÑAN EL SCROLL EN PC
        ---------------------------------------------------------------
-       En escritorio la tarjeta sigue al usuario con position:sticky.
-       Cuando el CTA negro final empieza a entrar en el viewport, se fija
-       en la posición exacta que tenía en ese momento. Al volver hacia
-       arriba recupera el comportamiento sticky sin saltos visuales.
+       Se utiliza position:fixed controlado por JavaScript en vez de confiar
+       en position:sticky. De este modo el comportamiento no depende de los
+       overflow/transform heredados del resto de hojas de estilo.
+
+       PORTADA DEL BLOG
+       - el panel negro se mantiene visible mientras se recorre el listado;
+       - al llegar al final de la última publicación queda apoyado en la base
+         de .blog-grid.
+
+       ARTÍCULOS
+       - la tarjeta dorada se mantiene visible al hacer scroll;
+       - cuando el CTA negro final empieza a entrar en pantalla, la tarjeta
+         deja de seguir al usuario y queda fijada en ese punto del artículo;
+       - al volver hacia arriba recupera automáticamente el seguimiento.
        --------------------------------------------------------------- */
+    var DESKTOP_SCROLL_MIN = 981;
+    var PANEL_TOP = 154;
+
+    var blogGrid = document.querySelector('.blog-grid');
+    var blogReadyPanel = blogGrid
+      ? blogGrid.querySelector('.blog-ready-panel')
+      : null;
+
     var articleLayout = document.querySelector('.article-layout-wide');
     var articleContactCard = articleLayout
       ? articleLayout.querySelector('.article-contact-card')
@@ -90,64 +108,216 @@
     var articleFinalCta = articleLayout
       ? articleLayout.querySelector('.article-final-cta')
       : null;
-    var stickyStopActive = false;
-    var stickyFramePending = false;
 
-    function resetArticleStickyStop() {
-      if (!articleContactCard) return;
-      stickyStopActive = false;
-      articleContactCard.classList.remove('is-sticky-stopped');
-      articleContactCard.style.removeProperty('--article-contact-stop-top');
-      articleContactCard.style.removeProperty('width');
+    var blogPanelMetrics = null;
+    var articlePanelMetrics = null;
+    var articleStopTop = null;
+    var panelsFramePending = false;
+
+    function setImportantStyle(element, property, value) {
+      if (!element) return;
+      element.style.setProperty(property, value, 'important');
     }
 
-    function updateArticleStickyStop() {
-      stickyFramePending = false;
+    function removePanelInlineStyles(element) {
+      if (!element) return;
+      [
+        'position',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'width',
+        'margin',
+        'transform'
+      ].forEach(function (property) {
+        element.style.removeProperty(property);
+      });
+    }
 
-      if (!articleLayout || !articleContactCard || !articleFinalCta) return;
+    function resetBlogScrollPanel() {
+      removePanelInlineStyles(blogReadyPanel);
+      blogPanelMetrics = null;
+    }
 
-      /* El diseño pasa a una sola columna por debajo de 981 px. */
-      if (window.innerWidth < 981) {
-        resetArticleStickyStop();
+    function resetArticleScrollPanel() {
+      removePanelInlineStyles(articleContactCard);
+      articlePanelMetrics = null;
+      articleStopTop = null;
+    }
+
+    function capturePanelMetrics(container, panel) {
+      if (!container || !panel) return null;
+
+      /* Se mide siempre en estado natural. */
+      removePanelInlineStyles(panel);
+
+      var containerRect = container.getBoundingClientRect();
+      var panelRect = panel.getBoundingClientRect();
+
+      return {
+        width:panelRect.width,
+        leftOffset:panelRect.left - containerRect.left,
+        naturalTopOffset:panelRect.top - containerRect.top
+      };
+    }
+
+    function updateBlogScrollPanel() {
+      if (!blogGrid || !blogReadyPanel) return;
+
+      if (window.innerWidth < DESKTOP_SCROLL_MIN) {
+        resetBlogScrollPanel();
         return;
       }
 
+      if (!blogPanelMetrics) {
+        blogPanelMetrics = capturePanelMetrics(blogGrid, blogReadyPanel);
+      }
+
+      var gridRect = blogGrid.getBoundingClientRect();
+      var panelHeight = blogReadyPanel.offsetHeight;
+      var naturalViewportTop =
+        gridRect.top + blogPanelMetrics.naturalTopOffset;
+
+      /* Antes de que el panel alcance la parte superior, conserva su sitio. */
+      if (naturalViewportTop >= PANEL_TOP) {
+        removePanelInlineStyles(blogReadyPanel);
+        return;
+      }
+
+      /* Al llegar a la base del listado, queda apoyado en el final del grid. */
+      if (gridRect.bottom - panelHeight <= PANEL_TOP) {
+        setImportantStyle(blogReadyPanel, 'position', 'absolute');
+        setImportantStyle(blogReadyPanel, 'top', 'auto');
+        setImportantStyle(blogReadyPanel, 'bottom', '0px');
+        setImportantStyle(blogReadyPanel, 'left', 'auto');
+        setImportantStyle(blogReadyPanel, 'right', '0px');
+        setImportantStyle(
+          blogReadyPanel,
+          'width',
+          blogPanelMetrics.width + 'px'
+        );
+        return;
+      }
+
+      /* Tramo central: acompaña de verdad al usuario en la ventana. */
+      setImportantStyle(blogReadyPanel, 'position', 'fixed');
+      setImportantStyle(blogReadyPanel, 'top', PANEL_TOP + 'px');
+      setImportantStyle(blogReadyPanel, 'bottom', 'auto');
+      setImportantStyle(
+        blogReadyPanel,
+        'left',
+        (gridRect.left + blogPanelMetrics.leftOffset) + 'px'
+      );
+      setImportantStyle(blogReadyPanel, 'right', 'auto');
+      setImportantStyle(
+        blogReadyPanel,
+        'width',
+        blogPanelMetrics.width + 'px'
+      );
+    }
+
+    function updateArticleScrollPanel() {
+      if (!articleLayout || !articleContactCard || !articleFinalCta) return;
+
+      if (window.innerWidth < DESKTOP_SCROLL_MIN) {
+        resetArticleScrollPanel();
+        return;
+      }
+
+      if (!articlePanelMetrics) {
+        articlePanelMetrics = capturePanelMetrics(
+          articleLayout,
+          articleContactCard
+        );
+      }
+
+      var layoutRect = articleLayout.getBoundingClientRect();
+      var ctaRect = articleFinalCta.getBoundingClientRect();
       var viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
-      var ctaRectangle = articleFinalCta.getBoundingClientRect();
+      var naturalViewportTop =
+        layoutRect.top + articlePanelMetrics.naturalTopOffset;
 
-      if (!stickyStopActive && ctaRectangle.top < viewportHeight) {
-        var layoutRectangle = articleLayout.getBoundingClientRect();
-        var cardRectangle = articleContactCard.getBoundingClientRect();
-        var stopTop = cardRectangle.top - layoutRectangle.top;
-
-        articleContactCard.style.setProperty(
-          '--article-contact-stop-top',
-          Math.max(0, stopTop) + 'px'
-        );
-        articleContactCard.style.width = cardRectangle.width + 'px';
-        articleContactCard.classList.add('is-sticky-stopped');
-        stickyStopActive = true;
-      } else if (stickyStopActive && ctaRectangle.top >= viewportHeight) {
-        resetArticleStickyStop();
+      /* Al volver hacia arriba y desaparecer el CTA negro, se reactiva. */
+      if (articleStopTop !== null && ctaRect.top >= viewportHeight) {
+        articleStopTop = null;
       }
+
+      /* Antes de alcanzar la zona superior, la tarjeta permanece natural. */
+      if (naturalViewportTop >= PANEL_TOP && articleStopTop === null) {
+        removePanelInlineStyles(articleContactCard);
+        return;
+      }
+
+      /* En cuanto el CTA negro empieza a verse, congelamos la posición
+         documental exacta que tenía la tarjeta dorada. */
+      if (articleStopTop === null && ctaRect.top < viewportHeight) {
+        articleStopTop = Math.max(
+          articlePanelMetrics.naturalTopOffset,
+          PANEL_TOP - layoutRect.top
+        );
+      }
+
+      if (articleStopTop !== null) {
+        setImportantStyle(articleContactCard, 'position', 'absolute');
+        setImportantStyle(
+          articleContactCard,
+          'top',
+          articleStopTop + 'px'
+        );
+        setImportantStyle(articleContactCard, 'bottom', 'auto');
+        setImportantStyle(articleContactCard, 'left', 'auto');
+        setImportantStyle(articleContactCard, 'right', '0px');
+        setImportantStyle(
+          articleContactCard,
+          'width',
+          articlePanelMetrics.width + 'px'
+        );
+        return;
+      }
+
+      /* Tramo central del artículo: la tarjeta dorada acompaña el scroll. */
+      setImportantStyle(articleContactCard, 'position', 'fixed');
+      setImportantStyle(articleContactCard, 'top', PANEL_TOP + 'px');
+      setImportantStyle(articleContactCard, 'bottom', 'auto');
+      setImportantStyle(
+        articleContactCard,
+        'left',
+        (layoutRect.left + articlePanelMetrics.leftOffset) + 'px'
+      );
+      setImportantStyle(articleContactCard, 'right', 'auto');
+      setImportantStyle(
+        articleContactCard,
+        'width',
+        articlePanelMetrics.width + 'px'
+      );
     }
 
-    function requestArticleStickyUpdate() {
-      if (stickyFramePending) return;
-      stickyFramePending = true;
-      window.requestAnimationFrame(updateArticleStickyStop);
+    function updateDesktopScrollPanels() {
+      panelsFramePending = false;
+      updateBlogScrollPanel();
+      updateArticleScrollPanel();
     }
 
-    if (articleLayout && articleContactCard && articleFinalCta) {
-      window.addEventListener('scroll', requestArticleStickyUpdate, {
+    function requestDesktopScrollPanelsUpdate() {
+      if (panelsFramePending) return;
+      panelsFramePending = true;
+      window.requestAnimationFrame(updateDesktopScrollPanels);
+    }
+
+    if (blogReadyPanel || articleContactCard) {
+      window.addEventListener('scroll', requestDesktopScrollPanelsUpdate, {
         passive:true
       });
+
       window.addEventListener('resize', function () {
-        resetArticleStickyStop();
-        requestArticleStickyUpdate();
+        resetBlogScrollPanel();
+        resetArticleScrollPanel();
+        requestDesktopScrollPanelsUpdate();
       }, false);
-      updateArticleStickyStop();
+
+      updateDesktopScrollPanels();
     }
 
     /* ---------------------------------------------------------------
