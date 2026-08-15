@@ -76,6 +76,81 @@
     }
 
     /* ---------------------------------------------------------------
+       [REF JS-BLOG-STICKY-01] TARJETA DORADA DEL ARTÍCULO EN PC
+       ---------------------------------------------------------------
+       En escritorio la tarjeta sigue al usuario con position:sticky.
+       Cuando el CTA negro final empieza a entrar en el viewport, se fija
+       en la posición exacta que tenía en ese momento. Al volver hacia
+       arriba recupera el comportamiento sticky sin saltos visuales.
+       --------------------------------------------------------------- */
+    var articleLayout = document.querySelector('.article-layout-wide');
+    var articleContactCard = articleLayout
+      ? articleLayout.querySelector('.article-contact-card')
+      : null;
+    var articleFinalCta = articleLayout
+      ? articleLayout.querySelector('.article-final-cta')
+      : null;
+    var stickyStopActive = false;
+    var stickyFramePending = false;
+
+    function resetArticleStickyStop() {
+      if (!articleContactCard) return;
+      stickyStopActive = false;
+      articleContactCard.classList.remove('is-sticky-stopped');
+      articleContactCard.style.removeProperty('--article-contact-stop-top');
+      articleContactCard.style.removeProperty('width');
+    }
+
+    function updateArticleStickyStop() {
+      stickyFramePending = false;
+
+      if (!articleLayout || !articleContactCard || !articleFinalCta) return;
+
+      /* El diseño pasa a una sola columna por debajo de 981 px. */
+      if (window.innerWidth < 981) {
+        resetArticleStickyStop();
+        return;
+      }
+
+      var viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      var ctaRectangle = articleFinalCta.getBoundingClientRect();
+
+      if (!stickyStopActive && ctaRectangle.top < viewportHeight) {
+        var layoutRectangle = articleLayout.getBoundingClientRect();
+        var cardRectangle = articleContactCard.getBoundingClientRect();
+        var stopTop = cardRectangle.top - layoutRectangle.top;
+
+        articleContactCard.style.setProperty(
+          '--article-contact-stop-top',
+          Math.max(0, stopTop) + 'px'
+        );
+        articleContactCard.style.width = cardRectangle.width + 'px';
+        articleContactCard.classList.add('is-sticky-stopped');
+        stickyStopActive = true;
+      } else if (stickyStopActive && ctaRectangle.top >= viewportHeight) {
+        resetArticleStickyStop();
+      }
+    }
+
+    function requestArticleStickyUpdate() {
+      if (stickyFramePending) return;
+      stickyFramePending = true;
+      window.requestAnimationFrame(updateArticleStickyStop);
+    }
+
+    if (articleLayout && articleContactCard && articleFinalCta) {
+      window.addEventListener('scroll', requestArticleStickyUpdate, {
+        passive:true
+      });
+      window.addEventListener('resize', function () {
+        resetArticleStickyStop();
+        requestArticleStickyUpdate();
+      }, false);
+      updateArticleStickyStop();
+    }
+
+    /* ---------------------------------------------------------------
        [REF JS-BLOG-CALL-01] EVITAR DOS BOTONES DE LLAMADA A LA VEZ
        --------------------------------------------------------------- */
     if (!floatingCall) return;
