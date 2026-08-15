@@ -1,4 +1,4 @@
-name: Reorganizar proyecto y publicar Pages
+name: Limpiar proyecto y publicar Pages
 
 on:
   push:
@@ -23,88 +23,65 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v6
 
-      - name: Reorganizar proyecto
+      - name: Comprobar estructura nueva
         shell: bash
         run: |
           set -e
 
-          mkdir -p public
-          mkdir -p docs
-          mkdir -p project/templates
-          mkdir -p project/design
+          test -f public/index.html
+          test -d public/assets
+          test -d public/blog
+          test -d public/css
+          test -d public/js
+          test -f public/robots.txt
+          test -f public/sitemap.xml
+          test -f public/llms.txt
+          test -f public/llms-full.txt
 
-          # Mover la web pública
-          for item in \
-            index.html \
-            index.html.md \
-            blog \
-            css \
-            js \
-            robots.txt \
-            sitemap.xml \
-            llms.txt \
-            llms-full.txt \
-            .nojekyll
-          do
-            if [ -e "$item" ]; then
-              git mv "$item" public/
-            fi
-          done
+          test -d docs
+          test -d project/templates
+          test -d project/design
 
-          # Sacar el archivo fuente .ai de los recursos públicos
-          if [ -f "assets/source/logo-carandell-original.ai" ]; then
-            git mv "assets/source/logo-carandell-original.ai" \
-                   "project/design/logo-carandell-original.ai"
+          echo "La estructura nueva está completa."
+
+      - name: Limpiar estructura antigua
+        shell: bash
+        run: |
+          set -e
+
+          # Conservar .nojekyll dentro de la web pública
+          if [ -f ".nojekyll" ] && [ ! -f "public/.nojekyll" ]; then
+            cp .nojekyll public/.nojekyll
           fi
 
-          # Eliminar archivo auxiliar vacío del blog
-          if [ -f "assets/images/blog/LEEME.txt" ]; then
-            git rm "assets/images/blog/LEEME.txt"
-          fi
+          # Eliminar carpetas antiguas duplicadas de la raíz
+          git rm -rf --ignore-unmatch assets
+          git rm -rf --ignore-unmatch blog
+          git rm -rf --ignore-unmatch css
+          git rm -rf --ignore-unmatch js
+          git rm -rf --ignore-unmatch plantillas
 
-          rmdir assets/source 2>/dev/null || true
+          # Eliminar archivos web antiguos duplicados
+          git rm --ignore-unmatch index.html
+          git rm --ignore-unmatch index.html.md
+          git rm --ignore-unmatch robots.txt
+          git rm --ignore-unmatch sitemap.xml
+          git rm --ignore-unmatch llms.txt
+          git rm --ignore-unmatch llms-full.txt
+          git rm --ignore-unmatch .nojekyll
 
-          # Mover los assets de la web a public
-          if [ -d "assets" ]; then
-            git mv assets public/assets
-          fi
+          # Eliminar documentación antigua duplicada
+          git rm --ignore-unmatch GUIA_RAPIDA_CODIGO.md
+          git rm --ignore-unmatch LEEME.md
 
-          # Mover plantillas fuera de la web pública
-          if [ -d "plantillas" ]; then
-            for archivo in plantillas/*; do
-              if [ -e "$archivo" ]; then
-                git mv "$archivo" project/templates/
-              fi
-            done
-            rmdir plantillas 2>/dev/null || true
-          fi
+          # Eliminar archivos que ya habíamos decidido descartar
+          git rm --ignore-unmatch VERSION.txt
+          git rm --ignore-unmatch MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf
+          git rm --ignore-unmatch CAMBIOS_*.txt
 
-          # Mover guía a documentación
-          if [ -f "GUIA_RAPIDA_CODIGO.md" ]; then
-            git mv GUIA_RAPIDA_CODIGO.md docs/
-          fi
+          git add public/.nojekyll 2>/dev/null || true
 
-          # Renombrar documentación principal
-          if [ -f "LEEME.md" ] && [ ! -f "README.md" ]; then
-            git mv LEEME.md README.md
-          fi
-
-          # Eliminar archivos de versiones/cambios antiguos
-          for archivo in CAMBIOS_*.txt; do
-            if [ -e "$archivo" ]; then
-              git rm "$archivo"
-            fi
-          done
-
-          if [ -f "VERSION.txt" ]; then
-            git rm VERSION.txt
-          fi
-
-          if [ -f "MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf" ]; then
-            git rm MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf
-          fi
-
-      - name: Guardar reorganización
+      - name: Guardar limpieza
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -113,7 +90,7 @@ jobs:
           git add -A
 
           if ! git diff --cached --quiet; then
-            git commit -m "Reorganizar proyecto para despliegue"
+            git commit -m "Limpiar estructura antigua del proyecto"
             git push
           fi
 
