@@ -1,0 +1,143 @@
+name: Reorganizar proyecto y publicar Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v6
+
+      - name: Reorganizar proyecto
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p public
+          mkdir -p docs
+          mkdir -p project/templates
+          mkdir -p project/design
+
+          # Mover la web pública
+          for item in \
+            index.html \
+            index.html.md \
+            blog \
+            css \
+            js \
+            robots.txt \
+            sitemap.xml \
+            llms.txt \
+            llms-full.txt \
+            .nojekyll
+          do
+            if [ -e "$item" ]; then
+              git mv "$item" public/
+            fi
+          done
+
+          # Sacar el archivo fuente .ai de los recursos públicos
+          if [ -f "assets/source/logo-carandell-original.ai" ]; then
+            git mv "assets/source/logo-carandell-original.ai" \
+                   "project/design/logo-carandell-original.ai"
+          fi
+
+          # Eliminar archivo auxiliar vacío del blog
+          if [ -f "assets/images/blog/LEEME.txt" ]; then
+            git rm "assets/images/blog/LEEME.txt"
+          fi
+
+          rmdir assets/source 2>/dev/null || true
+
+          # Mover los assets de la web a public
+          if [ -d "assets" ]; then
+            git mv assets public/assets
+          fi
+
+          # Mover plantillas fuera de la web pública
+          if [ -d "plantillas" ]; then
+            for archivo in plantillas/*; do
+              if [ -e "$archivo" ]; then
+                git mv "$archivo" project/templates/
+              fi
+            done
+            rmdir plantillas 2>/dev/null || true
+          fi
+
+          # Mover guía a documentación
+          if [ -f "GUIA_RAPIDA_CODIGO.md" ]; then
+            git mv GUIA_RAPIDA_CODIGO.md docs/
+          fi
+
+          # Renombrar documentación principal
+          if [ -f "LEEME.md" ] && [ ! -f "README.md" ]; then
+            git mv LEEME.md README.md
+          fi
+
+          # Eliminar archivos de versiones/cambios antiguos
+          for archivo in CAMBIOS_*.txt; do
+            if [ -e "$archivo" ]; then
+              git rm "$archivo"
+            fi
+          done
+
+          if [ -f "VERSION.txt" ]; then
+            git rm VERSION.txt
+          fi
+
+          if [ -f "MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf" ]; then
+            git rm MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf
+          fi
+
+      - name: Guardar reorganización
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Reorganizar proyecto para despliegue"
+            git push
+          fi
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar web para GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+
+  desplegar:
+    needs: preparar
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Publicar GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
