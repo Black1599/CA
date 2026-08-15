@@ -4661,39 +4661,35 @@ main,
   }
 }
 /* =====================================================================
-   HORARIO — DÍAS Y HORAS CON LA MISMA TIPOGRAFÍA
+   HORARIO — DÍAS Y HORAS EXACTAMENTE IGUALES
    ===================================================================== */
 
 /* PC */
-.hero-schedule-desktop .schedule-desktop-day,
-.hero-schedule-desktop .schedule-desktop-times strong{
-  font-family:var(--sans) !important;
-  font-size:1.125rem !important;
-  font-weight:600 !important;
-  line-height:1.2 !important;
+@media(min-width:821px){
+
+  .hero-schedule-desktop .schedule-desktop-day,
+  .hero-schedule-desktop .schedule-desktop-times strong{
+    font-family:var(--sans) !important;
+    font-size:1.125rem !important;
+    font-weight:600 !important;
+    font-style:normal !important;
+    line-height:1.2 !important;
+    letter-spacing:0 !important;
+    color:#151514 !important;
+  }
 }
 
 /* Móvil */
 @media(max-width:820px){
+
   .hero-schedule .schedule-row span,
   .hero-schedule .schedule-row strong{
     font-family:var(--sans) !important;
     font-size:.82rem !important;
     font-weight:600 !important;
+    font-style:normal !important;
     line-height:1.45 !important;
-  }
-}
-
-@media (max-width:380px){
-  .modal-panel,
-  .reviews-panel{
-    max-height:calc(100vh - 14px);
-  }
-
-  @supports (height:100dvh){
-    .modal-panel,
-    .reviews-panel{
-      max-height:calc(100dvh - 14px);
-    }
+    letter-spacing:0 !important;
+    color:#151514 !important;
   }
 }
