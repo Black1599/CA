@@ -78,22 +78,20 @@
     /* ---------------------------------------------------------------
        [REF JS-BLOG-SCROLL-PANELS-01] PANELES QUE ACOMPAÑAN EL SCROLL EN PC
        ---------------------------------------------------------------
-       Se utiliza position:fixed controlado por JavaScript en vez de confiar
-       en position:sticky. De este modo el comportamiento no depende de los
-       overflow/transform heredados del resto de hojas de estilo.
+       El panel permanece en su columna y se desplaza verticalmente con
+       transform:translateY(). Esto evita los problemas que position:sticky
+       y position:fixed pueden tener con los estilos heredados del proyecto.
 
        PORTADA DEL BLOG
-       - el panel negro se mantiene visible mientras se recorre el listado;
-       - al llegar al final de la última publicación queda apoyado en la base
-         de .blog-grid.
+       - el panel negro acompaña el scroll;
+       - se detiene exactamente en la base de la última publicación.
 
        ARTÍCULOS
-       - la tarjeta dorada se mantiene visible al hacer scroll;
-       - cuando el CTA negro final empieza a entrar en pantalla, la tarjeta
-         deja de seguir al usuario y queda fijada en ese punto del artículo;
-       - al volver hacia arriba recupera automáticamente el seguimiento.
+       - la tarjeta dorada acompaña el scroll;
+       - se detiene cuando el CTA negro final empieza a entrar en pantalla;
+       - al volver hacia arriba recupera automáticamente su posición.
        --------------------------------------------------------------- */
-    var DESKTOP_SCROLL_MIN = 981;
+    var DESKTOP_SCROLL_MIN = 821;
     var PANEL_TOP = 154;
 
     var blogGrid = document.querySelector('.blog-grid');
@@ -111,55 +109,63 @@
 
     var blogPanelMetrics = null;
     var articlePanelMetrics = null;
-    var articleStopTop = null;
     var panelsFramePending = false;
 
-    function setImportantStyle(element, property, value) {
+    function clearPanelTransform(element) {
       if (!element) return;
-      element.style.setProperty(property, value, 'important');
+      element.style.removeProperty('transform');
+      element.style.removeProperty('will-change');
     }
 
-    function removePanelInlineStyles(element) {
+    function documentTop(element) {
+      var rect = element.getBoundingClientRect();
+      return rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
+    }
+
+    function captureBlogPanelMetrics() {
+      if (!blogGrid || !blogReadyPanel) return null;
+
+      clearPanelTransform(blogReadyPanel);
+
+      return {
+        naturalTop:documentTop(blogReadyPanel),
+        gridBottom:documentTop(blogGrid) + blogGrid.offsetHeight,
+        panelHeight:blogReadyPanel.offsetHeight
+      };
+    }
+
+    function captureArticlePanelMetrics() {
+      if (!articleLayout || !articleContactCard || !articleFinalCta) return null;
+
+      clearPanelTransform(articleContactCard);
+
+      return {
+        naturalTop:documentTop(articleContactCard),
+        layoutBottom:documentTop(articleLayout) + articleLayout.offsetHeight,
+        panelHeight:articleContactCard.offsetHeight,
+        ctaTop:documentTop(articleFinalCta)
+      };
+    }
+
+    function translatePanel(element, amount) {
       if (!element) return;
-      [
-        'position',
-        'top',
-        'right',
-        'bottom',
-        'left',
-        'width',
-        'margin',
-        'transform'
-      ].forEach(function (property) {
-        element.style.removeProperty(property);
-      });
+      var safeAmount = Math.max(0, Math.round(amount));
+      element.style.setProperty(
+        'transform',
+        'translate3d(0,' + safeAmount + 'px,0)',
+        'important'
+      );
+      element.style.setProperty('will-change', 'transform', 'important');
     }
 
     function resetBlogScrollPanel() {
-      removePanelInlineStyles(blogReadyPanel);
+      clearPanelTransform(blogReadyPanel);
       blogPanelMetrics = null;
     }
 
     function resetArticleScrollPanel() {
-      removePanelInlineStyles(articleContactCard);
+      clearPanelTransform(articleContactCard);
       articlePanelMetrics = null;
-      articleStopTop = null;
-    }
-
-    function capturePanelMetrics(container, panel) {
-      if (!container || !panel) return null;
-
-      /* Se mide siempre en estado natural. */
-      removePanelInlineStyles(panel);
-
-      var containerRect = container.getBoundingClientRect();
-      var panelRect = panel.getBoundingClientRect();
-
-      return {
-        width:panelRect.width,
-        leftOffset:panelRect.left - containerRect.left,
-        naturalTopOffset:panelRect.top - containerRect.top
-      };
     }
 
     function updateBlogScrollPanel() {
@@ -171,49 +177,28 @@
       }
 
       if (!blogPanelMetrics) {
-        blogPanelMetrics = capturePanelMetrics(blogGrid, blogReadyPanel);
+        blogPanelMetrics = captureBlogPanelMetrics();
       }
 
-      var gridRect = blogGrid.getBoundingClientRect();
-      var panelHeight = blogReadyPanel.offsetHeight;
-      var naturalViewportTop =
-        gridRect.top + blogPanelMetrics.naturalTopOffset;
+      var scrollY =
+        window.pageYOffset || document.documentElement.scrollTop || 0;
 
-      /* Antes de que el panel alcance la parte superior, conserva su sitio. */
-      if (naturalViewportTop >= PANEL_TOP) {
-        removePanelInlineStyles(blogReadyPanel);
-        return;
-      }
-
-      /* Al llegar a la base del listado, queda apoyado en el final del grid. */
-      if (gridRect.bottom - panelHeight <= PANEL_TOP) {
-        setImportantStyle(blogReadyPanel, 'position', 'absolute');
-        setImportantStyle(blogReadyPanel, 'top', 'auto');
-        setImportantStyle(blogReadyPanel, 'bottom', '0px');
-        setImportantStyle(blogReadyPanel, 'left', 'auto');
-        setImportantStyle(blogReadyPanel, 'right', '0px');
-        setImportantStyle(
-          blogReadyPanel,
-          'width',
-          blogPanelMetrics.width + 'px'
-        );
-        return;
-      }
-
-      /* Tramo central: acompaña de verdad al usuario en la ventana. */
-      setImportantStyle(blogReadyPanel, 'position', 'fixed');
-      setImportantStyle(blogReadyPanel, 'top', PANEL_TOP + 'px');
-      setImportantStyle(blogReadyPanel, 'bottom', 'auto');
-      setImportantStyle(
-        blogReadyPanel,
-        'left',
-        (gridRect.left + blogPanelMetrics.leftOffset) + 'px'
+      var desiredDocumentTop = Math.max(
+        blogPanelMetrics.naturalTop,
+        scrollY + PANEL_TOP
       );
-      setImportantStyle(blogReadyPanel, 'right', 'auto');
-      setImportantStyle(
+
+      var maximumDocumentTop =
+        blogPanelMetrics.gridBottom - blogPanelMetrics.panelHeight;
+
+      desiredDocumentTop = Math.min(
+        desiredDocumentTop,
+        maximumDocumentTop
+      );
+
+      translatePanel(
         blogReadyPanel,
-        'width',
-        blogPanelMetrics.width + 'px'
+        desiredDocumentTop - blogPanelMetrics.naturalTop
       );
     }
 
@@ -226,71 +211,47 @@
       }
 
       if (!articlePanelMetrics) {
-        articlePanelMetrics = capturePanelMetrics(
-          articleLayout,
-          articleContactCard
-        );
+        articlePanelMetrics = captureArticlePanelMetrics();
       }
 
-      var layoutRect = articleLayout.getBoundingClientRect();
-      var ctaRect = articleFinalCta.getBoundingClientRect();
+      var scrollY =
+        window.pageYOffset || document.documentElement.scrollTop || 0;
       var viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
-      var naturalViewportTop =
-        layoutRect.top + articlePanelMetrics.naturalTopOffset;
 
-      /* Al volver hacia arriba y desaparecer el CTA negro, se reactiva. */
-      if (articleStopTop !== null && ctaRect.top >= viewportHeight) {
-        articleStopTop = null;
-      }
-
-      /* Antes de alcanzar la zona superior, la tarjeta permanece natural. */
-      if (naturalViewportTop >= PANEL_TOP && articleStopTop === null) {
-        removePanelInlineStyles(articleContactCard);
-        return;
-      }
-
-      /* En cuanto el CTA negro empieza a verse, congelamos la posición
-         documental exacta que tenía la tarjeta dorada. */
-      if (articleStopTop === null && ctaRect.top < viewportHeight) {
-        articleStopTop = Math.max(
-          articlePanelMetrics.naturalTopOffset,
-          PANEL_TOP - layoutRect.top
-        );
-      }
-
-      if (articleStopTop !== null) {
-        setImportantStyle(articleContactCard, 'position', 'absolute');
-        setImportantStyle(
-          articleContactCard,
-          'top',
-          articleStopTop + 'px'
-        );
-        setImportantStyle(articleContactCard, 'bottom', 'auto');
-        setImportantStyle(articleContactCard, 'left', 'auto');
-        setImportantStyle(articleContactCard, 'right', '0px');
-        setImportantStyle(
-          articleContactCard,
-          'width',
-          articlePanelMetrics.width + 'px'
-        );
-        return;
-      }
-
-      /* Tramo central del artículo: la tarjeta dorada acompaña el scroll. */
-      setImportantStyle(articleContactCard, 'position', 'fixed');
-      setImportantStyle(articleContactCard, 'top', PANEL_TOP + 'px');
-      setImportantStyle(articleContactCard, 'bottom', 'auto');
-      setImportantStyle(
-        articleContactCard,
-        'left',
-        (layoutRect.left + articlePanelMetrics.leftOffset) + 'px'
+      var desiredDocumentTop = Math.max(
+        articlePanelMetrics.naturalTop,
+        scrollY + PANEL_TOP
       );
-      setImportantStyle(articleContactCard, 'right', 'auto');
-      setImportantStyle(
+
+      /*
+       * La tarjeta deja de avanzar en el instante en que la parte superior
+       * del CTA negro alcanza la parte inferior de la ventana.
+       */
+      var stopWhenCtaAppearsTop =
+        articlePanelMetrics.ctaTop - viewportHeight + PANEL_TOP;
+
+      var maximumInsideLayout =
+        articlePanelMetrics.layoutBottom - articlePanelMetrics.panelHeight;
+
+      var maximumDocumentTop = Math.min(
+        stopWhenCtaAppearsTop,
+        maximumInsideLayout
+      );
+
+      maximumDocumentTop = Math.max(
+        articlePanelMetrics.naturalTop,
+        maximumDocumentTop
+      );
+
+      desiredDocumentTop = Math.min(
+        desiredDocumentTop,
+        maximumDocumentTop
+      );
+
+      translatePanel(
         articleContactCard,
-        'width',
-        articlePanelMetrics.width + 'px'
+        desiredDocumentTop - articlePanelMetrics.naturalTop
       );
     }
 
@@ -306,16 +267,34 @@
       window.requestAnimationFrame(updateDesktopScrollPanels);
     }
 
-    if (blogReadyPanel || articleContactCard) {
-      window.addEventListener('scroll', requestDesktopScrollPanelsUpdate, {
-        passive:true
-      });
+    function recalculateDesktopScrollPanels() {
+      resetBlogScrollPanel();
+      resetArticleScrollPanel();
+      requestDesktopScrollPanelsUpdate();
+    }
 
-      window.addEventListener('resize', function () {
-        resetBlogScrollPanel();
-        resetArticleScrollPanel();
-        requestDesktopScrollPanelsUpdate();
-      }, false);
+    if (blogReadyPanel || articleContactCard) {
+      window.addEventListener(
+        'scroll',
+        requestDesktopScrollPanelsUpdate,
+        { passive:true }
+      );
+
+      window.addEventListener(
+        'resize',
+        recalculateDesktopScrollPanels,
+        false
+      );
+
+      window.addEventListener(
+        'load',
+        recalculateDesktopScrollPanels,
+        false
+      );
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(recalculateDesktopScrollPanels);
+      }
 
       updateDesktopScrollPanels();
     }
