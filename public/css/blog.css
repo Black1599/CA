@@ -1177,14 +1177,13 @@
    PANELES DE CONTACTO QUE ACOMPAÑAN EL SCROLL — SOLO PC
    =====================================================================
 
-   Se utiliza position:sticky nativo para que el movimiento sea fluido y
-   quede sincronizado con el scroll del navegador, sin translateY por frame.
+   Sistema de tres estados controlado por JavaScript:
+   1. posición normal al llegar al bloque;
+   2. position:fixed mientras acompaña el scroll;
+   3. position:absolute al alcanzar el límite final.
 
-   - Índice del blog: el panel negro acompaña el scroll y su propio
-     contenedor lo detiene al final de la última publicación.
-   - Artículos: la tarjeta dorada acompaña el scroll. Cuando el CTA negro
-     final entra en pantalla, JavaScript la fija una sola vez dentro del
-     artículo para que deje de avanzar sin producir tirones.
+   El panel NO se desplaza con transform/translateY en cada frame, por lo
+   que el seguimiento queda ligado al scroll nativo del navegador.
    ===================================================================== */
 @media(min-width:981px){
 
@@ -1200,22 +1199,11 @@
     align-items:start !important;
   }
 
-  .blog-grid .blog-ready-panel{
-    position:sticky !important;
-    top:154px !important;
-    right:auto !important;
-    bottom:auto !important;
-    left:auto !important;
-    align-self:start !important;
-    z-index:20 !important;
-    transform:none !important;
-    will-change:auto !important;
-    transition:none !important;
-  }
-
+  /* Estado inicial: el panel ocupa su columna normalmente. */
+  .blog-grid .blog-ready-panel,
   .article-layout-wide .article-contact-card{
-    position:sticky !important;
-    top:154px !important;
+    position:relative !important;
+    top:auto !important;
     right:auto !important;
     bottom:auto !important;
     left:auto !important;
@@ -1226,12 +1214,29 @@
     transition:none !important;
   }
 
-  .article-layout-wide .article-contact-card.is-scroll-frozen{
+  /* Estado de seguimiento: permanece inmóvil en la ventana y la página
+     se desplaza por debajo. JavaScript no actualiza su posición por frame. */
+  .blog-grid .blog-ready-panel.is-scroll-following,
+  .article-layout-wide .article-contact-card.is-scroll-following{
+    position:fixed !important;
+    top:154px !important;
+    left:var(--scroll-panel-left) !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:var(--scroll-panel-width) !important;
+    margin:0 !important;
+  }
+
+  /* Estado final: vuelve a formar parte geométricamente de su contenedor
+     y queda detenido exactamente en el límite calculado. */
+  .blog-grid .blog-ready-panel.is-scroll-stopped,
+  .article-layout-wide .article-contact-card.is-scroll-stopped{
     position:absolute !important;
-    top:var(--article-card-freeze-top) !important;
+    top:var(--scroll-panel-stop-top) !important;
     right:0 !important;
     bottom:auto !important;
     left:auto !important;
-    width:var(--article-card-freeze-width) !important;
+    width:var(--scroll-panel-width) !important;
+    margin:0 !important;
   }
 }
