@@ -520,37 +520,21 @@
   .article-contact-card{
     margin-bottom:24px;
   }
+  /* Barra fija de llamada: reutiliza exactamente el componente de la home.
+     home.css aporta altura, tipografía, espaciado, sombra y safe-area. */
   .blog-mobile-call{
-    display:flex;
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:1200;
-    min-height:76px;
-    padding:12px 20px;
-    padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));
-    align-items:center;
-    justify-content:center;
-    background:var(--ink);
-    color:#fff;
-    text-align:center;
-    box-shadow:0 -12px 30px rgba(0,0,0,.2);
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    z-index:1200 !important;
+    opacity:1 !important;
+    transform:none !important;
+    pointer-events:auto !important;
   }
-  .blog-mobile-call span{
-    display:block;
-    font-size:.58rem;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-  }
-  .blog-mobile-call strong{
-    display:block;
-    margin-top:3px;
-    font-size:1.05rem;
-    letter-spacing:.06em;
+  .blog-mobile-call a{
+    border-right:0 !important;
   }
   .blog-page .site-footer{
-    padding-bottom:105px !important;
+    padding-bottom:88px !important;
   }
 }
 
@@ -1193,13 +1177,12 @@
    PANELES DE CONTACTO QUE ACOMPAÑAN EL SCROLL — SOLO PC
    =====================================================================
 
-   El movimiento se controla desde js/blog.js con position:fixed.
-   Se evita depender de position:sticky porque varios estilos heredados
-   del proyecto pueden crear contextos de scroll distintos entre navegadores.
+   El movimiento se controla desde js/blog.js mediante translateY().
+   Los paneles permanecen dentro de su columna y el JavaScript limita
+   su recorrido para que nunca salgan de la sección correspondiente.
    ===================================================================== */
-@media(min-width:981px){
+@media(min-width:821px){
 
-  /* Los dos contenedores actúan como límites verticales para sus paneles. */
   .blog-list-section,
   .blog-grid,
   .article-layout-wide{
@@ -1212,8 +1195,6 @@
     align-items:start !important;
   }
 
-  /* Estado natural. JavaScript aplica fixed/absolute mediante estilos inline
-     cuando corresponde. */
   .blog-grid .blog-ready-panel,
   .article-layout-wide .article-contact-card{
     position:relative !important;
@@ -1223,5 +1204,6 @@
     left:auto !important;
     align-self:start !important;
     z-index:20 !important;
+    transition:none !important;
   }
 }
