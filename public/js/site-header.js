@@ -212,7 +212,7 @@
     if (languageButton) {
       languageButton.addEventListener('click', function () {
         window.alert(
-          'La versión completa en catalán e inglés se incorporará más adelante.'
+          'La versión completa en catalán se incorporará más adelante.'
         );
       }, false);
     }

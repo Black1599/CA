@@ -222,7 +222,7 @@
     var mobileLanguage = document.getElementById('mobileLanguage');
 
     function languageMessage(){
-      window.alert('La versión final estará disponible en español, catalán e inglés.');
+      window.alert('La versión final estará disponible en español y catalán.');
     }
 
     if (languageSwitch) languageSwitch.addEventListener('click', languageMessage, false);
