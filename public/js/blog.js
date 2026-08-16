@@ -76,29 +76,17 @@
     }
 
     /* ---------------------------------------------------------------
-       [REF JS-BLOG-SCROLL-PANELS-01] PANELES QUE ACOMPAÑAN EL SCROLL EN PC
+       [REF JS-BLOG-SCROLL-PANELS-01] PANELES DE CONTACTO EN PC
        ---------------------------------------------------------------
-       El panel permanece en su columna y se desplaza verticalmente con
-       transform:translateY(). Esto evita los problemas que position:sticky
-       y position:fixed pueden tener con los estilos heredados del proyecto.
+       El panel negro del índice utiliza position:sticky nativo de CSS.
+       Esto permite que el navegador lo mueva de forma totalmente fluida.
 
-       PORTADA DEL BLOG
-       - el panel negro acompaña el scroll;
-       - se detiene exactamente en la base de la última publicación.
-
-       ARTÍCULOS
-       - la tarjeta dorada acompaña el scroll;
-       - se detiene cuando el CTA negro final empieza a entrar en pantalla;
-       - al volver hacia arriba recupera automáticamente su posición.
+       En los artículos, la tarjeta dorada también utiliza sticky. Solo se
+       interviene una vez cuando el CTA negro final entra en pantalla:
+       entonces la tarjeta queda fijada en su posición dentro del artículo.
+       Al volver hacia arriba recupera automáticamente el sticky.
        --------------------------------------------------------------- */
-    var DESKTOP_SCROLL_MIN = 821;
-    var PANEL_TOP = 154;
-
-    var blogGrid = document.querySelector('.blog-grid');
-    var blogReadyPanel = blogGrid
-      ? blogGrid.querySelector('.blog-ready-panel')
-      : null;
-
+    var DESKTOP_SCROLL_MIN = 981;
     var articleLayout = document.querySelector('.article-layout-wide');
     var articleContactCard = articleLayout
       ? articleLayout.querySelector('.article-contact-card')
@@ -106,197 +94,69 @@
     var articleFinalCta = articleLayout
       ? articleLayout.querySelector('.article-final-cta')
       : null;
+    var articleCardFrozen = false;
+    var articleStopFramePending = false;
 
-    var blogPanelMetrics = null;
-    var articlePanelMetrics = null;
-    var panelsFramePending = false;
+    function clearArticleCardFreeze() {
+      if (!articleContactCard) return;
 
-    function clearPanelTransform(element) {
-      if (!element) return;
-      element.style.removeProperty('transform');
-      element.style.removeProperty('will-change');
+      articleContactCard.classList.remove('is-scroll-frozen');
+      articleContactCard.style.removeProperty('--article-card-freeze-top');
+      articleContactCard.style.removeProperty('--article-card-freeze-width');
+      articleCardFrozen = false;
     }
 
-    function documentTop(element) {
-      var rect = element.getBoundingClientRect();
-      return rect.top + (window.pageYOffset || document.documentElement.scrollTop || 0);
-    }
+    function updateArticleCardStop() {
+      articleStopFramePending = false;
 
-    function captureBlogPanelMetrics() {
-      if (!blogGrid || !blogReadyPanel) return null;
-
-      clearPanelTransform(blogReadyPanel);
-
-      return {
-        naturalTop:documentTop(blogReadyPanel),
-        gridBottom:documentTop(blogGrid) + blogGrid.offsetHeight,
-        panelHeight:blogReadyPanel.offsetHeight
-      };
-    }
-
-    function captureArticlePanelMetrics() {
-      if (!articleLayout || !articleContactCard || !articleFinalCta) return null;
-
-      clearPanelTransform(articleContactCard);
-
-      return {
-        naturalTop:documentTop(articleContactCard),
-        layoutBottom:documentTop(articleLayout) + articleLayout.offsetHeight,
-        panelHeight:articleContactCard.offsetHeight,
-        ctaTop:documentTop(articleFinalCta)
-      };
-    }
-
-    function translatePanel(element, amount) {
-      if (!element) return;
-      var safeAmount = Math.max(0, Math.round(amount));
-      element.style.setProperty(
-        'transform',
-        'translate3d(0,' + safeAmount + 'px,0)',
-        'important'
-      );
-      element.style.setProperty('will-change', 'transform', 'important');
-    }
-
-    function resetBlogScrollPanel() {
-      clearPanelTransform(blogReadyPanel);
-      blogPanelMetrics = null;
-    }
-
-    function resetArticleScrollPanel() {
-      clearPanelTransform(articleContactCard);
-      articlePanelMetrics = null;
-    }
-
-    function updateBlogScrollPanel() {
-      if (!blogGrid || !blogReadyPanel) return;
-
-      if (window.innerWidth < DESKTOP_SCROLL_MIN) {
-        resetBlogScrollPanel();
-        return;
-      }
-
-      if (!blogPanelMetrics) {
-        blogPanelMetrics = captureBlogPanelMetrics();
-      }
-
-      var scrollY =
-        window.pageYOffset || document.documentElement.scrollTop || 0;
-
-      var desiredDocumentTop = Math.max(
-        blogPanelMetrics.naturalTop,
-        scrollY + PANEL_TOP
-      );
-
-      var maximumDocumentTop =
-        blogPanelMetrics.gridBottom - blogPanelMetrics.panelHeight;
-
-      desiredDocumentTop = Math.min(
-        desiredDocumentTop,
-        maximumDocumentTop
-      );
-
-      translatePanel(
-        blogReadyPanel,
-        desiredDocumentTop - blogPanelMetrics.naturalTop
-      );
-    }
-
-    function updateArticleScrollPanel() {
       if (!articleLayout || !articleContactCard || !articleFinalCta) return;
 
       if (window.innerWidth < DESKTOP_SCROLL_MIN) {
-        resetArticleScrollPanel();
+        clearArticleCardFreeze();
         return;
       }
 
-      if (!articlePanelMetrics) {
-        articlePanelMetrics = captureArticlePanelMetrics();
-      }
-
-      var scrollY =
-        window.pageYOffset || document.documentElement.scrollTop || 0;
+      var ctaRect = articleFinalCta.getBoundingClientRect();
       var viewportHeight =
         window.innerHeight || document.documentElement.clientHeight;
+      var shouldFreeze = ctaRect.top <= viewportHeight;
 
-      var desiredDocumentTop = Math.max(
-        articlePanelMetrics.naturalTop,
-        scrollY + PANEL_TOP
-      );
+      if (shouldFreeze && !articleCardFrozen) {
+        var layoutRect = articleLayout.getBoundingClientRect();
+        var cardRect = articleContactCard.getBoundingClientRect();
+        var topInsideLayout = cardRect.top - layoutRect.top;
 
-      /*
-       * La tarjeta deja de avanzar en el instante en que la parte superior
-       * del CTA negro alcanza la parte inferior de la ventana.
-       */
-      var stopWhenCtaAppearsTop =
-        articlePanelMetrics.ctaTop - viewportHeight + PANEL_TOP;
-
-      var maximumInsideLayout =
-        articlePanelMetrics.layoutBottom - articlePanelMetrics.panelHeight;
-
-      var maximumDocumentTop = Math.min(
-        stopWhenCtaAppearsTop,
-        maximumInsideLayout
-      );
-
-      maximumDocumentTop = Math.max(
-        articlePanelMetrics.naturalTop,
-        maximumDocumentTop
-      );
-
-      desiredDocumentTop = Math.min(
-        desiredDocumentTop,
-        maximumDocumentTop
-      );
-
-      translatePanel(
-        articleContactCard,
-        desiredDocumentTop - articlePanelMetrics.naturalTop
-      );
-    }
-
-    function updateDesktopScrollPanels() {
-      panelsFramePending = false;
-      updateBlogScrollPanel();
-      updateArticleScrollPanel();
-    }
-
-    function requestDesktopScrollPanelsUpdate() {
-      if (panelsFramePending) return;
-      panelsFramePending = true;
-      window.requestAnimationFrame(updateDesktopScrollPanels);
-    }
-
-    function recalculateDesktopScrollPanels() {
-      resetBlogScrollPanel();
-      resetArticleScrollPanel();
-      requestDesktopScrollPanelsUpdate();
-    }
-
-    if (blogReadyPanel || articleContactCard) {
-      window.addEventListener(
-        'scroll',
-        requestDesktopScrollPanelsUpdate,
-        { passive:true }
-      );
-
-      window.addEventListener(
-        'resize',
-        recalculateDesktopScrollPanels,
-        false
-      );
-
-      window.addEventListener(
-        'load',
-        recalculateDesktopScrollPanels,
-        false
-      );
-
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(recalculateDesktopScrollPanels);
+        articleContactCard.style.setProperty(
+          '--article-card-freeze-top',
+          Math.max(0, topInsideLayout) + 'px'
+        );
+        articleContactCard.style.setProperty(
+          '--article-card-freeze-width',
+          cardRect.width + 'px'
+        );
+        articleContactCard.classList.add('is-scroll-frozen');
+        articleCardFrozen = true;
+      } else if (!shouldFreeze && articleCardFrozen) {
+        clearArticleCardFreeze();
       }
+    }
 
-      updateDesktopScrollPanels();
+    function requestArticleCardStopUpdate() {
+      if (articleStopFramePending) return;
+      articleStopFramePending = true;
+      window.requestAnimationFrame(updateArticleCardStop);
+    }
+
+    if (articleLayout && articleContactCard && articleFinalCta) {
+      window.addEventListener('scroll', requestArticleCardStopUpdate, {
+        passive:true
+      });
+      window.addEventListener('resize', function () {
+        clearArticleCardFreeze();
+        requestArticleCardStopUpdate();
+      }, false);
+      window.addEventListener('load', requestArticleCardStopUpdate, false);
+      requestArticleCardStopUpdate();
     }
 
     /* ---------------------------------------------------------------
