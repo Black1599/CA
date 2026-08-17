@@ -10,7 +10,7 @@ Información principal:
 
 ## Páginas principales
 
-- [Inicio](https://black1599.github.io/CA/index.html.md): presentación del despacho, horario, contacto y ubicación.
+- [Inicio](https://black1599.github.io/CA/index.html.md): presentación del despacho, perfil y formación de Maria Carandell, horario, contacto y ubicación.
 - [Blog jurídico](https://black1599.github.io/CA/blog/index.html.md): listado de publicaciones jurídicas breves.
 
 ## Publicaciones jurídicas

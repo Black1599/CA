@@ -14,13 +14,20 @@ Carandell Advocats es un despacho de abogados de El Masnou que ofrece asesoramie
 
 El despacho ofrece soluciones jurídicas personalizadas, adaptadas a las necesidades específicas de cada cliente, con dedicación y rigor.
 
+## Maria Carandell
+
+**Abogada y fundadora de Carandell Advocats**
+
+Graduada en Derecho por ESADE, completó su formación en la misma institución con el Máster Universitario en Abogacía y el Máster en Derecho Penal Económico y Corporate Compliance.
+
+Cuenta con formación y experiencia en Derecho Inmobiliario, así como con una sólida trayectoria como abogada de empresa en asuntos civiles, mercantiles y laborales. Esta visión multidisciplinar le permite ofrecer un asesoramiento jurídico cercano, riguroso y estratégico, adaptado a las necesidades de cada cliente.
+
 ## Navegación
 
 - [Blog jurídico](https://black1599.github.io/CA/blog/)
 - [Ubicación en Google Maps](https://www.google.com/maps/search/?api=1&query=Carandell+Advocats%2C+Carrer+Fontanills+41%2C+08320+El+Masnou%2C+Barcelona)
 
 ---
-
 # Blog jurídico de Carandell Advocats
 
 Artículos breves para comprender cuestiones legales habituales antes de tomar una decisión. El contenido se revisa con atención a la normativa y las circunstancias de cada caso.

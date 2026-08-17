@@ -399,3 +399,169 @@
     initLogoHomeLink();
   }
 }());
+
+/* [REF JS-HOME-MARIA-PROFILE-01] Carrusel de Maria: foto y formación. */
+/* Autoplay independiente en PC y móvil. Una interacción del usuario pausa
+   el carrusel; el siguiente scroll de página reactiva el movimiento. */
+(function(){
+  'use strict';
+
+  function initMariaProfileCarousels(){
+    var carousels = Array.prototype.slice.call(
+      document.querySelectorAll('[data-maria-profile-carousel]')
+    );
+    if (!carousels.length) return;
+
+    var instances = [];
+    var autoplayDelay = 6500;
+
+    function reducedMotion(){
+      return !!(window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+
+    carousels.forEach(function(carousel){
+      var slides = Array.prototype.slice.call(
+        carousel.querySelectorAll('[data-maria-profile-slide]')
+      );
+      var dots = Array.prototype.slice.call(
+        carousel.querySelectorAll('[data-maria-profile-dot]')
+      );
+      var previous = carousel.querySelector('.maria-profile-prev');
+      var next = carousel.querySelector('.maria-profile-next');
+
+      if (slides.length < 2) return;
+
+      var index = 0;
+      var timer = null;
+      var pausedByUser = false;
+      var touchStartX = 0;
+      var touchStartY = 0;
+
+      function applyState(){
+        slides.forEach(function(slide, slideIndex){
+          slide.classList.toggle('is-active', slideIndex === index);
+        });
+        dots.forEach(function(dot, dotIndex){
+          dot.classList.toggle('is-active', dotIndex === index);
+        });
+        carousel.classList.toggle(
+          'is-card-active',
+          slides[index] && slides[index].classList.contains('maria-profile-card')
+        );
+      }
+
+      function showSlide(newIndex){
+        index = (newIndex + slides.length) % slides.length;
+        applyState();
+      }
+
+      function clearTimer(){
+        window.clearInterval(timer);
+        timer = null;
+      }
+
+      function startTimer(){
+        clearTimer();
+        if (pausedByUser || document.hidden || reducedMotion()) return;
+        timer = window.setInterval(function(){
+          showSlide(index + 1);
+        }, autoplayDelay);
+      }
+
+      function pauseByUser(){
+        pausedByUser = true;
+        clearTimer();
+      }
+
+      function resumeAfterScroll(){
+        if (!pausedByUser) return;
+        pausedByUser = false;
+        startTimer();
+      }
+
+      function manualGo(newIndex){
+        showSlide(newIndex);
+        pauseByUser();
+      }
+
+      if (previous) {
+        previous.addEventListener('click', function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          manualGo(index - 1);
+        }, false);
+      }
+
+      if (next) {
+        next.addEventListener('click', function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          manualGo(index + 1);
+        }, false);
+      }
+
+      dots.forEach(function(dot, dotIndex){
+        dot.addEventListener('click', function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          manualGo(dotIndex);
+        }, false);
+      });
+
+      /* Pulsar o tocar el componente lo pausa aunque no se use un control. */
+      carousel.addEventListener('pointerdown', function(){
+        pauseByUser();
+      }, false);
+
+      carousel.addEventListener('touchstart', function(event){
+        if (!event.changedTouches || !event.changedTouches.length) return;
+        touchStartX = event.changedTouches[0].clientX;
+        touchStartY = event.changedTouches[0].clientY;
+        pauseByUser();
+      }, {passive:true});
+
+      carousel.addEventListener('touchend', function(event){
+        if (!event.changedTouches || !event.changedTouches.length) return;
+        var touchEndX = event.changedTouches[0].clientX;
+        var touchEndY = event.changedTouches[0].clientY;
+        var distanceX = touchEndX - touchStartX;
+        var distanceY = touchEndY - touchStartY;
+
+        /* Solo cambia de pestaña cuando el gesto es claramente horizontal. */
+        if (Math.abs(distanceX) < 42 || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+        showSlide(distanceX < 0 ? index + 1 : index - 1);
+      }, {passive:true});
+
+      applyState();
+      startTimer();
+
+      instances.push({
+        clearTimer: clearTimer,
+        startTimer: startTimer,
+        resumeAfterScroll: resumeAfterScroll
+      });
+    });
+
+    /* El primer scroll posterior a una pausa reactiva el autoplay solicitado. */
+    window.addEventListener('scroll', function(){
+      instances.forEach(function(instance){
+        instance.resumeAfterScroll();
+      });
+    }, {passive:true});
+
+    document.addEventListener('visibilitychange', function(){
+      instances.forEach(function(instance){
+        if (document.hidden) instance.clearTimer();
+        else instance.startTimer();
+      });
+    }, false);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMariaProfileCarousels, false);
+  } else {
+    initMariaProfileCarousels();
+  }
+})();
+
