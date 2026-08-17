@@ -177,7 +177,6 @@
         '<div class="ca-consent-banner-inner">' +
           '<div class="ca-consent-copy">' +
             '<span class="ca-consent-kicker">Privacidad</span>' +
-            '<strong>Tu privacidad, bajo tu control.</strong>' +
             '<p>Utilizamos cookies propias y de terceros para analizar el uso de la web y ofrecer determinados servicios. Puedes aceptar, rechazar o configurar su uso.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
