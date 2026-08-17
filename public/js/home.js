@@ -22,7 +22,7 @@
      - comportamiento del logotipo al volver arriba.
 
    Los tiempos están expresados en milisegundos:
-     1000 = 1 segundo, 2500 = 2,5 segundos, 4500 = 4,5 segundos.
+     1000 = 1 segundo, 2500 = 2,5 segundos, 4000 = 4 segundos.
 
    Antes de modificar una función, busca en el HTML los ids o clases que usa.
    Si un selector no encuentra el elemento, la función suele detenerse con
@@ -180,7 +180,7 @@
       window.clearInterval(reviewTimer);
       reviewTimer = window.setInterval(function(){
         showReview(reviewIndex + 1, false);
-      }, 4500);
+      }, 4000);
     }
 
     if (slides.length && dotsWrap) {
@@ -413,7 +413,7 @@
     if (!carousels.length) return;
 
     var instances = [];
-    var autoplayDelay = 6500;
+    var autoplayDelay = 4000;
 
     function reducedMotion(){
       return !!(window.matchMedia &&
