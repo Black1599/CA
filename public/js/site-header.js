@@ -218,3 +218,44 @@
     }
   });
 }());
+
+/* =====================================================================
+   [REF JS-HEADER-CONSENT-01] CARGA DEL GESTOR DE PRIVACIDAD
+   =====================================================================
+   Todas las páginas actuales cargan site-header.js. Desde aquí se añaden
+   consent.css y consent.js usando la propia ruta del script como referencia,
+   por lo que funciona tanto en GitHub Pages como en el futuro dominio/CDmon.
+   ===================================================================== */
+(function(){
+  'use strict';
+
+  var loader = document.currentScript;
+  if (!loader || !loader.src) return;
+
+  var consentScriptUrl;
+  var consentStyleUrl;
+
+  try {
+    consentScriptUrl = new URL('consent.js', loader.src).href;
+    consentStyleUrl = new URL('../css/consent.css', loader.src).href;
+  } catch (error) {
+    return;
+  }
+
+  if (!document.querySelector('link[data-ca-consent-style]')) {
+    var style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = consentStyleUrl;
+    style.setAttribute('data-ca-consent-style', '');
+    document.head.appendChild(style);
+  }
+
+  if (!document.querySelector('script[data-ca-consent-script]')) {
+    var script = document.createElement('script');
+    script.src = consentScriptUrl;
+    script.async = false;
+    script.setAttribute('data-ca-consent-script', '');
+    document.head.appendChild(script);
+  }
+}());
+

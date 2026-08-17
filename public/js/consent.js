@@ -1,0 +1,338 @@
+/* =====================================================================
+   CARANDELL ADVOCATS — GESTOR DE CONSENTIMIENTO
+   =====================================================================
+
+   ESTADO ACTUAL (agosto 2026)
+   - Google Maps: opcional. El iframe no se carga hasta que el usuario acepta
+     la categoría "Contenido externo".
+   - Google Analytics / GA4: NO instalado todavía.
+   - Meta Pixel: estructura preparada pero DESACTIVADA y sin Pixel ID.
+
+   IMPORTANTE PARA EL FUTURO
+   Si se añade un nuevo servicio o cambia una finalidad, incrementa
+   CONSENT_VERSION para volver a solicitar una decisión al usuario.
+   ===================================================================== */
+(function(){
+  'use strict';
+
+  var STORAGE_KEY = 'ca_consent_preferences';
+  var CONSENT_VERSION = 1;
+
+  /* Servicios previstos. Ningún recurso de Meta se carga mientras enabled=false. */
+  var SERVICE_CONFIG = {
+    googleMaps: {
+      enabled: true,
+      category: 'external'
+    },
+    metaPixel: {
+      enabled: false,
+      category: 'marketing',
+      pixelId: ''
+    }
+  };
+
+  var state = {
+    version: CONSENT_VERSION,
+    external: false,
+    analytics: false,
+    marketing: false,
+    decided: false,
+    updatedAt: null
+  };
+
+  var banner = null;
+  var settings = null;
+  var externalToggle = null;
+  var lastFocusedElement = null;
+
+  function safeParse(value){
+    try { return JSON.parse(value); }
+    catch (error) { return null; }
+  }
+
+  function readStoredState(){
+    var stored = null;
+    try { stored = safeParse(window.localStorage.getItem(STORAGE_KEY)); }
+    catch (error) { stored = null; }
+
+    if (!stored || stored.version !== CONSENT_VERSION || stored.decided !== true) {
+      return null;
+    }
+
+    return {
+      version: CONSENT_VERSION,
+      external: stored.external === true,
+      analytics: stored.analytics === true,
+      marketing: stored.marketing === true,
+      decided: true,
+      updatedAt: stored.updatedAt || null
+    };
+  }
+
+  function writeState(nextState){
+    state = {
+      version: CONSENT_VERSION,
+      external: nextState.external === true,
+      analytics: nextState.analytics === true,
+      marketing: nextState.marketing === true,
+      decided: true,
+      updatedAt: new Date().toISOString()
+    };
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (error) {
+      /* Si el navegador bloquea storage, la elección funciona durante esta página. */
+    }
+
+    applyConsent();
+    hideBanner();
+    closeSettings(false);
+
+    try {
+      window.dispatchEvent(new CustomEvent('ca:consentchange', {
+        detail: getPublicState()
+      }));
+    } catch (error) {
+      /* CustomEvent no está disponible en navegadores muy antiguos. */
+    }
+  }
+
+  function getPublicState(){
+    return {
+      version: state.version,
+      external: state.external,
+      analytics: state.analytics,
+      marketing: state.marketing,
+      decided: state.decided,
+      updatedAt: state.updatedAt
+    };
+  }
+
+  function hasConsent(category){
+    if (!state.decided) return false;
+    return state[category] === true;
+  }
+
+  /* ------------------------------------------------------------------
+     GOOGLE MAPS
+     ------------------------------------------------------------------ */
+  function updateGoogleMaps(){
+    var frames = Array.prototype.slice.call(
+      document.querySelectorAll('iframe[data-consent-service="google-maps"]')
+    );
+
+    frames.forEach(function(frame){
+      var allowed = SERVICE_CONFIG.googleMaps.enabled && hasConsent('external');
+      var source = frame.getAttribute('data-consent-src');
+
+      if (allowed && source) {
+        frame.classList.remove('is-consent-blocked');
+        if (frame.getAttribute('src') !== source) frame.setAttribute('src', source);
+      } else {
+        frame.classList.add('is-consent-blocked');
+        if (frame.getAttribute('src')) frame.removeAttribute('src');
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     META PIXEL — PREPARADO, PERO NO ACTIVO
+     ------------------------------------------------------------------
+     Cuando se decida utilizar Meta Ads:
+       1. introducir el Pixel ID;
+       2. cambiar enabled a true;
+       3. implementar/activar su loader;
+       4. actualizar Privacidad y Cookies;
+       5. incrementar CONSENT_VERSION.
+
+     La función queda como punto único de integración. Actualmente no crea
+     scripts, cookies, peticiones ni conexiones con Meta.
+     ------------------------------------------------------------------ */
+  function updateMetaPixel(){
+    if (!SERVICE_CONFIG.metaPixel.enabled) return;
+    if (!SERVICE_CONFIG.metaPixel.pixelId) return;
+    if (!hasConsent('marketing')) return;
+
+    /* Integración deliberadamente desactivada hasta disponer del Pixel ID
+       y de los textos legales definitivos para publicidad/marketing. */
+  }
+
+  function applyConsent(){
+    updateGoogleMaps();
+    updateMetaPixel();
+  }
+
+  /* ------------------------------------------------------------------
+     INTERFAZ
+     ------------------------------------------------------------------ */
+  function createInterface(){
+    if (document.getElementById('caConsentBanner')) return;
+
+    var bannerMarkup = '' +
+      '<section class="ca-consent-banner" id="caConsentBanner" aria-label="Preferencias de privacidad" hidden>' +
+        '<div class="ca-consent-banner-inner">' +
+          '<div class="ca-consent-copy">' +
+            '<span class="ca-consent-kicker">Privacidad</span>' +
+            '<strong>Tu privacidad, bajo tu control.</strong>' +
+            '<p>Utilizamos funciones técnicas necesarias y, solo con tu permiso, contenido externo de Google Maps. Puedes aceptar, rechazar o configurar tus preferencias.</p>' +
+          '</div>' +
+          '<div class="ca-consent-actions">' +
+            '<button class="ca-consent-button" data-consent-reject type="button">Rechazar</button>' +
+            '<button class="ca-consent-button" data-consent-accept type="button">Aceptar</button>' +
+            '<button class="ca-consent-button ca-consent-configure" data-consent-configure type="button">Configurar</button>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+
+    var settingsMarkup = '' +
+      '<div class="ca-consent-settings" id="caConsentSettings" role="dialog" aria-modal="true" aria-labelledby="caConsentSettingsTitle" hidden>' +
+        '<div class="ca-consent-settings-panel">' +
+          '<div class="ca-consent-settings-head">' +
+            '<div><span class="ca-consent-kicker">Privacidad</span><h2 id="caConsentSettingsTitle">Configurar preferencias</h2></div>' +
+            '<button class="ca-consent-close" data-consent-close type="button" aria-label="Cerrar configuración">×</button>' +
+          '</div>' +
+          '<div class="ca-consent-category">' +
+            '<div><h3>Funciones necesarias</h3><p>Permiten el funcionamiento básico del sitio y recordar tu elección de privacidad.</p></div>' +
+            '<span class="ca-consent-always-on">Siempre activas</span>' +
+          '</div>' +
+          '<div class="ca-consent-category">' +
+            '<div><h3>Contenido externo · Google Maps</h3><p>Permite cargar el mapa interactivo de Google en la página principal. Si lo rechazas, verás la imagen de la fachada y podrás abrir Google Maps mediante el enlace externo.</p></div>' +
+            '<label class="ca-consent-switch" aria-label="Permitir Google Maps">' +
+              '<input id="caConsentExternal" type="checkbox"/>' +
+              '<span aria-hidden="true"></span>' +
+            '</label>' +
+          '</div>' +
+          '<p class="ca-consent-settings-note">Google Analytics y Meta Pixel no están activos actualmente. Si en el futuro se incorporan nuevas finalidades o servicios, se actualizará esta configuración y se solicitará de nuevo el consentimiento cuando corresponda.</p>' +
+          '<div class="ca-consent-settings-actions">' +
+            '<button class="ca-consent-button ca-consent-configure" data-consent-settings-reject type="button">Rechazar opcionales</button>' +
+            '<button class="ca-consent-button" data-consent-save type="button">Guardar preferencias</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.body.insertAdjacentHTML('beforeend', bannerMarkup + settingsMarkup);
+    banner = document.getElementById('caConsentBanner');
+    settings = document.getElementById('caConsentSettings');
+    externalToggle = document.getElementById('caConsentExternal');
+
+    var accept = banner.querySelector('[data-consent-accept]');
+    var reject = banner.querySelector('[data-consent-reject]');
+    var configure = banner.querySelector('[data-consent-configure]');
+    var close = settings.querySelector('[data-consent-close]');
+    var save = settings.querySelector('[data-consent-save]');
+    var rejectSettings = settings.querySelector('[data-consent-settings-reject]');
+
+    accept.addEventListener('click', function(){
+      writeState({ external:true, analytics:false, marketing:false });
+    }, false);
+
+    reject.addEventListener('click', function(){
+      writeState({ external:false, analytics:false, marketing:false });
+    }, false);
+
+    configure.addEventListener('click', openSettings, false);
+    close.addEventListener('click', function(){ closeSettings(true); }, false);
+
+    rejectSettings.addEventListener('click', function(){
+      if (externalToggle) externalToggle.checked = false;
+      writeState({ external:false, analytics:false, marketing:false });
+    }, false);
+
+    save.addEventListener('click', function(){
+      writeState({
+        external: !!(externalToggle && externalToggle.checked),
+        analytics:false,
+        marketing:false
+      });
+    }, false);
+
+    settings.addEventListener('click', function(event){
+      if (event.target === settings) closeSettings(true);
+    }, false);
+
+    document.addEventListener('keydown', function(event){
+      if (event.key === 'Escape' && settings && !settings.hidden) {
+        closeSettings(true);
+      }
+    }, false);
+  }
+
+  function showBanner(){
+    if (!banner) return;
+    banner.hidden = false;
+    document.body.classList.add('ca-consent-open');
+  }
+
+  function hideBanner(){
+    if (!banner) return;
+    banner.hidden = true;
+    document.body.classList.remove('ca-consent-open');
+  }
+
+  function openSettings(){
+    if (!settings) return;
+    lastFocusedElement = document.activeElement;
+    if (externalToggle) externalToggle.checked = state.decided ? state.external : false;
+    settings.hidden = false;
+    document.body.classList.add('ca-consent-settings-open');
+    var close = settings.querySelector('[data-consent-close]');
+    if (close) close.focus();
+  }
+
+  function closeSettings(restoreFocus){
+    if (!settings) return;
+    settings.hidden = true;
+    document.body.classList.remove('ca-consent-settings-open');
+    if (restoreFocus && lastFocusedElement && lastFocusedElement.focus) {
+      lastFocusedElement.focus();
+    }
+  }
+
+  /* Convierte únicamente "Cookies" del texto actual del footer en un acceso
+     permanente al configurador. Aviso legal y Privacidad se enlazarán cuando
+     estén creadas sus páginas definitivas. */
+  function installFooterSettingsLinks(){
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.footer-legal span'),
+      function(element){
+        if ((element.textContent || '').trim() !== 'Aviso legal · Privacidad · Cookies') return;
+        element.innerHTML = 'Aviso legal <span aria-hidden="true">·</span> Privacidad <span aria-hidden="true">·</span> <button class="ca-cookie-settings-link" type="button" data-cookie-settings>Cookies</button>';
+      }
+    );
+
+    Array.prototype.forEach.call(
+      document.querySelectorAll('[data-cookie-settings]'),
+      function(button){ button.addEventListener('click', openSettings, false); }
+    );
+  }
+
+  function init(){
+    createInterface();
+    installFooterSettingsLinks();
+
+    var stored = readStoredState();
+    if (stored) {
+      state = stored;
+      hideBanner();
+    } else {
+      showBanner();
+    }
+
+    applyConsent();
+  }
+
+  /* API preparada para futuras integraciones (GA4, Meta Pixel, etc.). */
+  window.CAConsent = {
+    getPreferences: getPublicState,
+    hasConsent: hasConsent,
+    openSettings: openSettings,
+    services: SERVICE_CONFIG
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, false);
+  } else {
+    init();
+  }
+}());
