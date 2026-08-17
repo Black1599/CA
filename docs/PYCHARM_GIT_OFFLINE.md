@@ -30,7 +30,7 @@ git push -u origin texto-portada
 
 ```bash
 git diff
-git restore index.html
+git restore public/index.html
 ```
 
 ## Ver el historial

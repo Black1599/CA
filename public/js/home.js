@@ -5,7 +5,6 @@
      JS-HOME-STICKY-01       barra flotante de llamada
      JS-HOME-REVIEWS-01      carrusel de reseñas
      JS-HOME-CAROUSEL-01     carrusel de fotografías
-     JS-HOME-MODAL-01        ventana de reseñas
 
    Para cambios de texto normalmente NO necesitas editar este archivo.
    ===================================================================== */
@@ -37,8 +36,7 @@
    1. La cabecera que aparece y desaparece al hacer scroll.
    2. El carrusel de fotografías en móvil.
    3. El carrusel de reseñas.
-   4. La ventana de reseñas y otros elementos interactivos.
-   5. El retorno exacto al inicio al pulsar el logotipo.
+   4. El carrusel de Maria y su formación.
 
    Recomendación: modifica un bloque cada vez y conserva una copia anterior.
    ===================================================================== */
@@ -218,15 +216,6 @@
       element.classList.add('visible');
     });
 
-    var languageSwitch = document.getElementById('languageSwitch');
-    var mobileLanguage = document.getElementById('mobileLanguage');
-
-    function languageMessage(){
-      window.alert('La versión final estará disponible en español y catalán.');
-    }
-
-    if (languageSwitch) languageSwitch.addEventListener('click', languageMessage, false);
-    if (mobileLanguage) mobileLanguage.addEventListener('click', languageMessage, false);
   });
 })();
 
@@ -343,62 +332,6 @@
     initCarousel();
   }
 })();
-
-/* ------------------------------------------------------------------
-   BLOQUE ORIGINAL DE JAVASCRIPT 4
-   Se conserva el orden porque varios comportamientos dependen de él.
-   ------------------------------------------------------------------ */
-/* ================================================================
-   EL LOGOTIPO VUELVE AL INICIO REAL DE LA PÁGINA
-   ================================================================ */
-(function () {
-  'use strict';
-
-  function initLogoHomeLink() {
-    var logoLink = document.querySelector('.site-header .brand');
-    var header = document.getElementById('siteHeader');
-
-    if (!logoLink) return;
-
-    logoLink.addEventListener('click', function (event) {
-      event.preventDefault();
-
-      /* La cabecera debe reaparecer antes de iniciar el desplazamiento. */
-      if (header) {
-        header.classList.remove('hidden-nav');
-      }
-
-      /* Se elimina el ancla anterior para que el navegador no conserve
-         una posición desplazada respecto al inicio real. */
-      try {
-        history.replaceState(
-          null,
-          document.title,
-          window.location.pathname + window.location.search
-        );
-      } catch (error) {
-        /* En archivos locales antiguos puede no permitirse replaceState. */
-      }
-
-      /* scrollTo(0) evita el margen producido por enlazar con #inicio. */
-      try {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
-      } catch (error) {
-        window.scrollTo(0, 0);
-      }
-    }, false);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLogoHomeLink, false);
-  } else {
-    initLogoHomeLink();
-  }
-}());
 
 /* [REF JS-HOME-MARIA-PROFILE-01] Carrusel de Maria: foto y formación. */
 /* Autoplay independiente en PC y móvil. Una interacción del usuario pausa
