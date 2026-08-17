@@ -125,12 +125,15 @@
     frames.forEach(function(frame){
       var allowed = SERVICE_CONFIG.googleMaps.enabled && hasConsent('external');
       var source = frame.getAttribute('data-consent-src');
+      var visual = frame.closest ? frame.closest('.location-map-visual') : frame.parentNode;
 
       if (allowed && source) {
         frame.classList.remove('is-consent-blocked');
+        if (visual && visual.classList) visual.classList.remove('is-map-consent-blocked');
         if (frame.getAttribute('src') !== source) frame.setAttribute('src', source);
       } else {
         frame.classList.add('is-consent-blocked');
+        if (visual && visual.classList) visual.classList.add('is-map-consent-blocked');
         if (frame.getAttribute('src')) frame.removeAttribute('src');
       }
     });
@@ -175,7 +178,7 @@
           '<div class="ca-consent-copy">' +
             '<span class="ca-consent-kicker">Privacidad</span>' +
             '<strong>Tu privacidad, bajo tu control.</strong>' +
-            '<p>Utilizamos funciones técnicas necesarias y, solo con tu permiso, contenido externo de Google Maps. Puedes aceptar, rechazar o configurar tus preferencias.</p>' +
+            '<p>Utilizamos cookies propias y de terceros para analizar el uso de la web y ofrecer determinados servicios. Puedes aceptar, rechazar o configurar su uso.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
             '<button class="ca-consent-button" data-consent-reject type="button">Rechazar</button>' +
@@ -197,7 +200,7 @@
             '<span class="ca-consent-always-on">Siempre activas</span>' +
           '</div>' +
           '<div class="ca-consent-category">' +
-            '<div><h3>Contenido externo · Google Maps</h3><p>Permite cargar el mapa interactivo de Google en la página principal. Si lo rechazas, verás la imagen de la fachada y podrás abrir Google Maps mediante el enlace externo.</p></div>' +
+            '<div><h3>Contenido externo · Google Maps</h3><p>Permite cargar el mapa interactivo de Google en la página principal. Si lo rechazas, verás la representación estática de ubicación y podrás abrir Google Maps mediante el enlace externo.</p></div>' +
             '<label class="ca-consent-switch" aria-label="Permitir Google Maps">' +
               '<input id="caConsentExternal" type="checkbox"/>' +
               '<span aria-hidden="true"></span>' +
