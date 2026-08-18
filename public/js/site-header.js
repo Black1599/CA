@@ -3,7 +3,7 @@
    =====================================================================
      JS-HEADER-READY-01      espera a que el HTML esté preparado
      JS-HEADER-MENU-01       abre/cierra el menú
-     JS-HEADER-SCROLL-01     desplazamientos internos
+     JS-HEADER-CONTACT-01    ventana emergente de contacto
      JS-HEADER-TOP-01        vuelve al principio exacto
      JS-HEADER-PHONE-01      móvil llama; PC no ejecuta acción
      JS-HEADER-LANGUAGE-01   aviso provisional de idiomas
@@ -89,43 +89,130 @@
       });
     }
 
-    /* [REF JS-HEADER-SCROLL-01] Localiza una sección y se desplaza suavemente. */
-    function scrollToElement(selector) {
-      var target = document.querySelector(selector);
-      if (!target) return false;
-      if (header) header.classList.remove('hidden-nav');
-      try {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } catch (error) {
-        /* Fallback para navegadores que solo aceptan la firma clásica. */
-        target.scrollIntoView(true);
+    /* ---------------------------------------------------------------
+       [REF JS-HEADER-CONTACT-01] VENTANA EMERGENTE DE CONTACTO
+       ---------------------------------------------------------------
+       El enlace Contacto del menú abre la misma tarjeta en portada, blog
+       y artículos. No contiene formularios ni recoge datos personales.
+       --------------------------------------------------------------- */
+    var contactDialog = null;
+    var lastContactFocus = null;
+
+    function createContactDialog() {
+      if (document.getElementById('siteContactDialog')) {
+        contactDialog = document.getElementById('siteContactDialog');
+        return;
       }
-      return true;
+
+      var markup = '' +
+        '<div class="site-contact-dialog" id="siteContactDialog" role="dialog" aria-modal="true" aria-labelledby="siteContactDialogTitle" hidden>' +
+          '<div class="site-contact-dialog-backdrop" data-contact-close></div>' +
+          '<section class="site-contact-dialog-panel" aria-label="Datos de contacto de Carandell Advocats">' +
+            '<button class="site-contact-dialog-close" data-contact-close type="button" aria-label="Cerrar contacto">×</button>' +
+            '<header class="site-contact-dialog-head">' +
+              '<span class="site-contact-dialog-kicker">Contacto</span>' +
+              '<h2 id="siteContactDialogTitle">Carandell Advocats</h2>' +
+              '<p>Atención directa con el despacho.</p>' +
+            '</header>' +
+            '<div class="site-contact-dialog-list">' +
+              '<div class="site-contact-dialog-item">' +
+                '<span>Teléfono</span>' +
+                '<strong>683 176 820</strong>' +
+                '<a class="site-contact-dialog-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="Llamar al 683 176 820" title="Llamar al 683 176 820">Llamar</a>' +
+              '</div>' +
+              '<div class="site-contact-dialog-item">' +
+                '<span>Correo</span>' +
+                '<strong>info@carandelladvocats.com</strong>' +
+                '<a class="site-contact-dialog-action" href="mailto:info@carandelladvocats.com" aria-label="Enviar un correo electrónico a info@carandelladvocats.com">Enviar correo</a>' +
+              '</div>' +
+              '<div class="site-contact-dialog-item site-contact-dialog-schedule">' +
+                '<span>Horario de oficina</span>' +
+                '<div><strong>Lunes a jueves</strong><b>10:00–13:00 · 16:00–18:00</b></div>' +
+                '<div><strong>Viernes</strong><b>10:00–13:00</b></div>' +
+                '<small>Atención con cita previa.</small>' +
+              '</div>' +
+            '</div>' +
+          '</section>' +
+        '</div>';
+
+      document.body.insertAdjacentHTML('beforeend', markup);
+      contactDialog = document.getElementById('siteContactDialog');
+
+      Array.prototype.forEach.call(
+        contactDialog.querySelectorAll('[data-contact-close]'),
+        function (control) {
+          control.addEventListener('click', function () {
+            closeContactDialog(true);
+          }, false);
+        }
+      );
+
+      contactDialog.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeContactDialog(true);
+          return;
+        }
+
+        if (event.key !== 'Tab') return;
+
+        var focusable = Array.prototype.slice.call(
+          contactDialog.querySelectorAll('button:not([disabled]), a[href]:not([tabindex="-1"])')
+        ).filter(function (element) {
+          return element.offsetParent !== null;
+        });
+
+        if (!focusable.length) return;
+
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }, false);
     }
 
-    /* Contacto en la portada:
-       PC -> botón superior; móvil -> botón situado debajo del horario. */
-    Array.prototype.forEach.call(
-      document.querySelectorAll('[data-responsive-scroll]'),
-      function (link) {
-        link.addEventListener('click', function (event) {
-          var selector = window.innerWidth <= 820
-            ? link.getAttribute('data-mobile-target')
-            : link.getAttribute('data-desktop-target');
+    function openContactDialog(event) {
+      if (event) event.preventDefault();
+      createContactDialog();
+      if (!contactDialog) return;
 
-          if (selector && scrollToElement(selector)) event.preventDefault();
-        }, false);
+      lastContactFocus = event && event.currentTarget
+        ? event.currentTarget
+        : document.activeElement;
+
+      closeMenu();
+      if (header) header.classList.remove('hidden-nav');
+      contactDialog.hidden = false;
+      document.body.classList.add('site-contact-dialog-open');
+
+      var closeButton = contactDialog.querySelector('.site-contact-dialog-close');
+      if (closeButton) {
+        window.setTimeout(function () { closeButton.focus(); }, 0);
       }
-    );
+    }
 
-    /* Contacto dentro del blog -> datos de contacto del pie. */
+    function closeContactDialog(restoreFocus) {
+      if (!contactDialog || contactDialog.hidden) return;
+      contactDialog.hidden = true;
+      document.body.classList.remove('site-contact-dialog-open');
+
+      if (restoreFocus && lastContactFocus && lastContactFocus.focus) {
+        lastContactFocus.focus();
+      }
+    }
+
+    createContactDialog();
+
     Array.prototype.forEach.call(
-      document.querySelectorAll('[data-scroll-target]'),
+      document.querySelectorAll('[data-responsive-scroll], [data-scroll-target]'),
       function (link) {
-        link.addEventListener('click', function (event) {
-          var selector = link.getAttribute('data-scroll-target');
-          if (selector && scrollToElement(selector)) event.preventDefault();
-        }, false);
+        link.addEventListener('click', openContactDialog, false);
       }
     );
 
