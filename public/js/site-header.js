@@ -118,12 +118,11 @@
               '<div class="site-contact-dialog-item">' +
                 '<span>Teléfono</span>' +
                 '<strong>683 176 820</strong>' +
-                '<a class="site-contact-dialog-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="Llamar al 683 176 820" title="Llamar al 683 176 820">Llamar</a>' +
+                '<a class="site-contact-dialog-action site-contact-dialog-phone-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="Llamar al 683 176 820" title="Llamar al 683 176 820">Llamar</a>' +
               '</div>' +
-              '<div class="site-contact-dialog-item">' +
+              '<div class="site-contact-dialog-item site-contact-dialog-email-item">' +
                 '<span>Correo</span>' +
-                '<strong>info@carandelladvocats.com</strong>' +
-                '<a class="site-contact-dialog-action" href="mailto:info@carandelladvocats.com" aria-label="Enviar un correo electrónico a info@carandelladvocats.com">Enviar correo</a>' +
+                '<strong class="site-contact-dialog-email">info@carandelladvocats.com</strong>' +
               '</div>' +
               '<div class="site-contact-dialog-item site-contact-dialog-schedule">' +
                 '<span>Horario de oficina</span>' +

@@ -4929,6 +4929,22 @@ body.site-contact-dialog-open{
   display:none;
 }
 
+/* El botón de llamada del popup solo se muestra en móvil. */
+.site-contact-dialog-phone-action{
+  display:none;
+}
+
+/* El correo ocupa una sola línea y ya no comparte espacio con un botón. */
+.site-contact-dialog-email-item{
+  grid-template-columns:minmax(0,1fr);
+}
+
+.site-contact-dialog-email{
+  white-space:nowrap;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+
 .site-contact-dialog-schedule{
   display:block;
   padding-bottom:0;
@@ -5002,6 +5018,15 @@ body.site-contact-dialog-open{
   .site-contact-dialog-action{
     min-height:40px;
     padding:0 12px;
+  }
+
+  .site-contact-dialog-phone-action{
+    display:inline-flex;
+  }
+
+  .site-contact-dialog-email{
+    font-size:clamp(.88rem,4.25vw,1.08rem);
+    letter-spacing:-.01em;
   }
 
   .site-contact-dialog-schedule>div{
