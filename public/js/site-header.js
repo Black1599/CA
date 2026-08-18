@@ -92,8 +92,8 @@
     /* ---------------------------------------------------------------
        [REF JS-HEADER-CONTACT-01] VENTANA EMERGENTE DE CONTACTO
        ---------------------------------------------------------------
-       El enlace Contacto del menú abre la misma tarjeta en portada, blog
-       y artículos. No contiene formularios ni recoge datos personales.
+       El enlace Contacto del menú, marcado con data-contact-popup, abre
+       la misma tarjeta en portada, blog y artículos. No contiene formularios ni recoge datos personales.
        --------------------------------------------------------------- */
     var contactDialog = null;
     var lastContactFocus = null;
@@ -210,7 +210,7 @@
     createContactDialog();
 
     Array.prototype.forEach.call(
-      document.querySelectorAll('[data-responsive-scroll], [data-scroll-target]'),
+      document.querySelectorAll('.site-menu-panel [data-contact-popup]'),
       function (link) {
         link.addEventListener('click', openContactDialog, false);
       }
