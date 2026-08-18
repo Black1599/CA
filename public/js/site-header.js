@@ -117,7 +117,7 @@
             '<div class="site-contact-dialog-list">' +
               '<div class="site-contact-dialog-item">' +
                 '<span>Teléfono</span>' +
-                '<strong>683 176 820</strong>' +
+                '<strong class="site-contact-dialog-phone">683 176 820</strong>' +
                 '<a class="site-contact-dialog-action site-contact-dialog-phone-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="Llamar al 683 176 820" title="Llamar al 683 176 820">Llamar</a>' +
               '</div>' +
               '<div class="site-contact-dialog-item site-contact-dialog-email-item">' +
