@@ -4777,3 +4777,240 @@ main,
   }
 }
 
+
+/* =====================================================================
+   [REF CSS-CONTACT-DIALOG-01] POPUP DE CONTACTO DEL MENÚ
+   ===================================================================== */
+body.site-contact-dialog-open{
+  overflow:hidden;
+}
+
+.site-contact-dialog[hidden]{
+  display:none!important;
+}
+
+.site-contact-dialog{
+  position:fixed;
+  inset:0;
+  z-index:5050;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  font-family:var(--sans);
+}
+
+.site-contact-dialog-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(17,16,14,.58);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+}
+
+.site-contact-dialog-panel{
+  position:relative;
+  z-index:1;
+  width:min(570px,100%);
+  max-height:calc(100vh - 48px);
+  overflow:auto;
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid rgba(201,170,99,.72);
+  box-shadow:0 30px 90px rgba(0,0,0,.28);
+  padding:34px;
+}
+
+.site-contact-dialog-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink);
+  font-size:1.55rem;
+  line-height:1;
+  cursor:pointer;
+}
+
+.site-contact-dialog-close:hover,
+.site-contact-dialog-close:focus-visible{
+  outline:none;
+  border-color:var(--gold-dark);
+}
+
+.site-contact-dialog-head{
+  padding:2px 58px 24px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.site-contact-dialog-kicker{
+  display:block;
+  margin:0 0 8px;
+  color:var(--gold-dark);
+  font-size:.69rem;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.site-contact-dialog-head h2{
+  font-family:var(--serif);
+  font-size:clamp(2rem,5vw,3rem);
+  font-weight:500;
+  line-height:1.05;
+}
+
+.site-contact-dialog-head p{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:.88rem;
+}
+
+.site-contact-dialog-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.site-contact-dialog-item{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:7px 18px;
+  align-items:center;
+  padding:22px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.site-contact-dialog-item>span{
+  grid-column:1 / -1;
+  color:var(--gold-dark);
+  font-size:.67rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.site-contact-dialog-item>strong{
+  min-width:0;
+  overflow-wrap:anywhere;
+  font-family:var(--serif);
+  font-size:1.22rem;
+  font-weight:500;
+}
+
+.site-contact-dialog-action{
+  min-height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 14px;
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:white;
+  font-size:.67rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:background .2s ease,transform .2s ease;
+}
+
+.site-contact-dialog-action:hover,
+.site-contact-dialog-action:focus-visible{
+  outline:none;
+  background:#2a2824;
+  transform:translateY(-1px);
+}
+
+.site-contact-dialog-action[aria-disabled="true"]{
+  display:none;
+}
+
+.site-contact-dialog-schedule{
+  display:block;
+  padding-bottom:0;
+  border-bottom:0;
+}
+
+.site-contact-dialog-schedule>span{
+  display:block;
+  margin-bottom:14px;
+}
+
+.site-contact-dialog-schedule>div{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:7px 0;
+}
+
+.site-contact-dialog-schedule>div strong,
+.site-contact-dialog-schedule>div b{
+  font-family:var(--sans);
+  font-size:.83rem;
+  line-height:1.4;
+}
+
+.site-contact-dialog-schedule>div strong{
+  font-weight:500;
+}
+
+.site-contact-dialog-schedule>div b{
+  font-weight:600;
+  text-align:right;
+}
+
+.site-contact-dialog-schedule small{
+  display:block;
+  margin-top:12px;
+  color:var(--muted);
+  font-size:.76rem;
+}
+
+@media(max-width:820px){
+  .site-contact-dialog{
+    padding:16px;
+  }
+
+  .site-contact-dialog-panel{
+    width:100%;
+    max-height:calc(100vh - 32px);
+    padding:28px 20px calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .site-contact-dialog-close{
+    top:14px;
+    right:14px;
+  }
+
+  .site-contact-dialog-head{
+    padding-right:52px;
+  }
+
+  .site-contact-dialog-item{
+    grid-template-columns:1fr auto;
+    padding:20px 0;
+  }
+
+  .site-contact-dialog-item>strong{
+    font-size:1.08rem;
+  }
+
+  .site-contact-dialog-action{
+    min-height:40px;
+    padding:0 12px;
+  }
+
+  .site-contact-dialog-schedule>div{
+    align-items:flex-start;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .site-contact-dialog-action{
+    transition:none;
+  }
+}
