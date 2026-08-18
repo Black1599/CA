@@ -145,7 +145,7 @@
       '<section class="ca-consent-banner" id="caConsentBanner" aria-label="Preferencias de privacidad" hidden>' +
         '<div class="ca-consent-banner-inner">' +
           '<div class="ca-consent-copy">' +
-            '<span class="ca-consent-kicker">Privacidad</span>' +
+            '<span class="ca-consent-kicker">Cookies</span>' +
             '<p>Utilizamos cookies propias y de terceros para analizar el uso de la web y ofrecer determinados servicios. Puedes aceptar, rechazar o configurar su uso.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
@@ -259,18 +259,9 @@
     }
   }
 
-  /* Convierte únicamente "Cookies" del texto actual del footer en un acceso
-     permanente al configurador. Aviso legal y Privacidad se enlazarán cuando
-     estén creadas sus páginas definitivas. */
+  /* Los enlaces legales se incluyen directamente en el HTML.
+     Aquí solo se conecta el botón permanente «Cookies» con el configurador. */
   function installFooterSettingsLinks(){
-    Array.prototype.forEach.call(
-      document.querySelectorAll('.footer-legal span'),
-      function(element){
-        if ((element.textContent || '').trim() !== 'Aviso legal · Privacidad · Cookies') return;
-        element.innerHTML = 'Aviso legal <span aria-hidden="true">·</span> Privacidad <span aria-hidden="true">·</span> <button class="ca-cookie-settings-link" type="button" data-cookie-settings>Cookies</button>';
-      }
-    );
-
     Array.prototype.forEach.call(
       document.querySelectorAll('[data-cookie-settings]'),
       function(button){ button.addEventListener('click', openSettings, false); }
