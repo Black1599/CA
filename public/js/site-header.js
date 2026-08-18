@@ -112,7 +112,7 @@
             '<header class="site-contact-dialog-head">' +
               '<span class="site-contact-dialog-kicker">Contacto</span>' +
               '<h2 id="siteContactDialogTitle">Carandell Advocats</h2>' +
-              '<p>Atención directa con el despacho.</p>' +
+              '<p>Atención con cita previa.</p>' +
             '</header>' +
             '<div class="site-contact-dialog-list">' +
               '<div class="site-contact-dialog-item">' +
@@ -128,7 +128,6 @@
                 '<span>Horario de oficina</span>' +
                 '<div><strong>Lunes a jueves</strong><b>10:00–13:00 · 16:00–18:00</b></div>' +
                 '<div><strong>Viernes</strong><b>10:00–13:00</b></div>' +
-                '<small>Atención con cita previa.</small>' +
               '</div>' +
             '</div>' +
           '</section>' +
