@@ -160,7 +160,7 @@
       '<div class="ca-consent-settings" id="caConsentSettings" role="dialog" aria-modal="true" aria-labelledby="caConsentSettingsTitle" hidden>' +
         '<div class="ca-consent-settings-panel">' +
           '<div class="ca-consent-settings-head">' +
-            '<div><span class="ca-consent-kicker">Privacidad</span><h2 id="caConsentSettingsTitle">Configurar preferencias</h2></div>' +
+            '<div><span class="ca-consent-kicker">Cookies</span><h2 id="caConsentSettingsTitle">Configurar preferencias</h2></div>' +
             '<button class="ca-consent-close" data-consent-close type="button" aria-label="Cerrar configuración">×</button>' +
           '</div>' +
           '<div class="ca-consent-category">' +
