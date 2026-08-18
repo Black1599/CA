@@ -149,8 +149,8 @@
             '<p>Utilizamos cookies propias y de terceros para analizar el uso de la web y ofrecer determinados servicios. Puedes aceptar, rechazar o configurar su uso.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
-            '<button class="ca-consent-button" data-consent-reject type="button">Rechazar</button>' +
             '<button class="ca-consent-button" data-consent-accept type="button">Aceptar</button>' +
+            '<button class="ca-consent-button" data-consent-reject type="button">Rechazar</button>' +
             '<button class="ca-consent-button ca-consent-configure" data-consent-configure type="button">Configurar</button>' +
           '</div>' +
         '</div>' +

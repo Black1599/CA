@@ -308,7 +308,7 @@
    [REF JS-HEADER-CONSENT-01] CARGA DEL GESTOR DE PRIVACIDAD
    =====================================================================
    Todas las páginas actuales cargan site-header.js. Desde aquí se añaden
-   consent.css y consent.js usando la propia ruta del script como referencia,
+   consent.css y consent.js?v=20260818-orden1 usando la propia ruta del script como referencia,
    por lo que funciona tanto en GitHub Pages como en el futuro dominio/CDmon.
    ===================================================================== */
 (function(){
@@ -321,7 +321,7 @@
   var consentStyleUrl;
 
   try {
-    consentScriptUrl = new URL('consent.js?v=20260818-legal2', loader.src).href;
+    consentScriptUrl = new URL('consent.js?v=20260818-orden1', loader.src).href;
     consentStyleUrl = new URL('../css/consent.css?v=20260818-legal2', loader.src).href;
   } catch (error) {
     return;
