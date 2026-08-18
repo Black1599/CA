@@ -5,8 +5,8 @@
    ESTADO ACTUAL (agosto 2026)
    - Google Maps: opcional. El iframe no se carga hasta que el usuario acepta
      la categoría "Contenido externo".
-   - Google Analytics / GA4: NO instalado todavía.
-   - Meta Pixel: estructura preparada pero DESACTIVADA y sin Pixel ID.
+   - Google Analytics / GA4: NO instalado todavía. La estructura de
+     consentimiento queda preparada para incorporarlo más adelante.
 
    IMPORTANTE PARA EL FUTURO
    Si se añade un nuevo servicio o cambia una finalidad, incrementa
@@ -18,16 +18,12 @@
   var STORAGE_KEY = 'ca_consent_preferences';
   var CONSENT_VERSION = 1;
 
-  /* Servicios previstos. Ningún recurso de Meta se carga mientras enabled=false. */
+  /* Servicios actualmente integrados. Google Analytics se añadirá cuando
+     se disponga del identificador de medición y de los textos legales definitivos. */
   var SERVICE_CONFIG = {
     googleMaps: {
       enabled: true,
       category: 'external'
-    },
-    metaPixel: {
-      enabled: false,
-      category: 'marketing',
-      pixelId: ''
     }
   };
 
@@ -35,7 +31,6 @@
     version: CONSENT_VERSION,
     external: false,
     analytics: false,
-    marketing: false,
     decided: false,
     updatedAt: null
   };
@@ -63,7 +58,6 @@
       version: CONSENT_VERSION,
       external: stored.external === true,
       analytics: stored.analytics === true,
-      marketing: stored.marketing === true,
       decided: true,
       updatedAt: stored.updatedAt || null
     };
@@ -74,7 +68,6 @@
       version: CONSENT_VERSION,
       external: nextState.external === true,
       analytics: nextState.analytics === true,
-      marketing: nextState.marketing === true,
       decided: true,
       updatedAt: new Date().toISOString()
     };
@@ -103,7 +96,6 @@
       version: state.version,
       external: state.external,
       analytics: state.analytics,
-      marketing: state.marketing,
       decided: state.decided,
       updatedAt: state.updatedAt
     };
@@ -139,31 +131,8 @@
     });
   }
 
-  /* ------------------------------------------------------------------
-     META PIXEL — PREPARADO, PERO NO ACTIVO
-     ------------------------------------------------------------------
-     Cuando se decida utilizar Meta Ads:
-       1. introducir el Pixel ID;
-       2. cambiar enabled a true;
-       3. implementar/activar su loader;
-       4. actualizar Privacidad y Cookies;
-       5. incrementar CONSENT_VERSION.
-
-     La función queda como punto único de integración. Actualmente no crea
-     scripts, cookies, peticiones ni conexiones con Meta.
-     ------------------------------------------------------------------ */
-  function updateMetaPixel(){
-    if (!SERVICE_CONFIG.metaPixel.enabled) return;
-    if (!SERVICE_CONFIG.metaPixel.pixelId) return;
-    if (!hasConsent('marketing')) return;
-
-    /* Integración deliberadamente desactivada hasta disponer del Pixel ID
-       y de los textos legales definitivos para publicidad/marketing. */
-  }
-
   function applyConsent(){
     updateGoogleMaps();
-    updateMetaPixel();
   }
 
   /* ------------------------------------------------------------------
@@ -205,7 +174,7 @@
               '<span aria-hidden="true"></span>' +
             '</label>' +
           '</div>' +
-          '<p class="ca-consent-settings-note">Google Analytics y Meta Pixel no están activos actualmente. Si en el futuro se incorporan nuevas finalidades o servicios, se actualizará esta configuración y se solicitará de nuevo el consentimiento cuando corresponda.</p>' +
+          '<p class="ca-consent-settings-note">Google Analytics no está activo actualmente. Cuando se incorpore, se actualizará esta configuración y se solicitará de nuevo el consentimiento cuando corresponda.</p>' +
           '<div class="ca-consent-settings-actions">' +
             '<button class="ca-consent-button ca-consent-configure" data-consent-settings-reject type="button">Rechazar opcionales</button>' +
             '<button class="ca-consent-button" data-consent-save type="button">Guardar preferencias</button>' +
@@ -226,11 +195,11 @@
     var rejectSettings = settings.querySelector('[data-consent-settings-reject]');
 
     accept.addEventListener('click', function(){
-      writeState({ external:true, analytics:false, marketing:false });
+      writeState({ external:true, analytics:false });
     }, false);
 
     reject.addEventListener('click', function(){
-      writeState({ external:false, analytics:false, marketing:false });
+      writeState({ external:false, analytics:false });
     }, false);
 
     configure.addEventListener('click', openSettings, false);
@@ -238,14 +207,13 @@
 
     rejectSettings.addEventListener('click', function(){
       if (externalToggle) externalToggle.checked = false;
-      writeState({ external:false, analytics:false, marketing:false });
+      writeState({ external:false, analytics:false });
     }, false);
 
     save.addEventListener('click', function(){
       writeState({
         external: !!(externalToggle && externalToggle.checked),
-        analytics:false,
-        marketing:false
+        analytics:false
       });
     }, false);
 
@@ -324,7 +292,7 @@
     applyConsent();
   }
 
-  /* API preparada para futuras integraciones (GA4, Meta Pixel, etc.). */
+  /* API preparada para la futura integración de Google Analytics 4. */
   window.CAConsent = {
     getPreferences: getPublicState,
     hasConsent: hasConsent,
