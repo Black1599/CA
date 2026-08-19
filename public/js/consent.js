@@ -13,6 +13,7 @@
 
   var STORAGE_KEY = 'ca_consent_preferences';
   var CONSENT_VERSION = 2;
+  var CONSENT_MAX_AGE_MS = 24 * 30.4375 * 24 * 60 * 60 * 1000; // 24 meses aprox.
   var GA4_MEASUREMENT_ID = ''; // Ejemplo: G-XXXXXXXXXX. No inventar este dato.
 
   var SERVICE_CONFIG = {
@@ -61,12 +62,22 @@
 
     if (!stored || stored.version !== CONSENT_VERSION || stored.decided !== true) return null;
 
+    var updatedAt = stored.updatedAt ? Date.parse(stored.updatedAt) : NaN;
+    var expired = !Number.isFinite(updatedAt) || (Date.now() - updatedAt) >= CONSENT_MAX_AGE_MS;
+
+    if (expired) {
+      try { window.localStorage.removeItem(STORAGE_KEY); }
+      catch (error) {}
+      removeAnalyticsCookies();
+      return null;
+    }
+
     return {
       version: CONSENT_VERSION,
       external: stored.external === true,
       analytics: stored.analytics === true,
       decided: true,
-      updatedAt: stored.updatedAt || null
+      updatedAt: stored.updatedAt
     };
   }
 
@@ -203,7 +214,7 @@
         '<div class="ca-consent-banner-inner">' +
           '<div class="ca-consent-copy">' +
             '<span class="ca-consent-kicker">Cookies y privacidad</span>' +
-            '<p>Utilizamos tecnologías necesarias para el funcionamiento de la web y, con tu consentimiento, tecnologías opcionales para obtener estadísticas de uso y cargar contenido externo.</p>' +
+            '<p>Utilizamos tecnologías propias necesarias para el funcionamiento de la web y, con tu consentimiento, tecnologías de terceros para obtener estadísticas de uso y cargar contenido externo.</p>' +
             '<p class="ca-consent-copy-secondary">Puedes <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> tus preferencias. Más información en nuestra <a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>Política de Cookies</strong></a>.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
