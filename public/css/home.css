@@ -5147,3 +5147,137 @@ body.site-contact-dialog-open{
     touch-action:manipulation;
   }
 }
+
+
+/* =====================================================================
+   [REF CSS-HOME-HERO-PC-REDESIGN-01] PORTADA PC: COLUMNA IZQUIERDA
+   =====================================================================
+   Reorganiza únicamente la columna izquierda de la portada en ordenador:
+   - conserva íntegramente el texto, con una pausa visual tras la 1.ª frase;
+   - agrupa el contacto y el horario para eliminar espacios excesivos;
+   - convierte la llamada en un bloque principal del mismo ancho que el horario;
+   - mantiene intacta la fotografía de la derecha y el diseño móvil.
+   ===================================================================== */
+.hero-intro-break{display:none;}
+
+@media(min-width:821px){
+  .hero-info .hero-copy{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:stretch !important;
+    gap:0 !important;
+    min-height:0 !important;
+    padding-top:28px !important;
+    padding-right:20px !important;
+    padding-bottom:28px !important;
+    padding-left:6px !important;
+  }
+
+  .hero-info .hero-copy > .eyebrow{
+    margin:0 0 16px !important;
+  }
+
+  .hero-info .hero-copy > h1{
+    width:100% !important;
+    max-width:650px !important;
+    margin:0 !important;
+  }
+
+  .hero-intro-break{
+    display:block !important;
+    content:"";
+    margin-top:.72em;
+  }
+
+  /* El bloque de llamada se acerca al texto y queda visualmente unido al horario. */
+  .hero-info .hero-copy > .hero-actions{
+    display:block !important;
+    width:100% !important;
+    max-width:650px !important;
+    margin:26px 0 13px !important;
+    align-self:stretch !important;
+  }
+
+  .hero-info #heroContactActions .hero-call-card{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:78px !important;
+    margin:0 !important;
+    padding:0 26px !important;
+    display:grid !important;
+    grid-template-columns:auto 1fr !important;
+    align-items:center !important;
+    gap:22px !important;
+    border:1px solid rgba(201,170,99,.88) !important;
+    background:#171715 !important;
+    color:#fff !important;
+    box-shadow:0 14px 34px rgba(25,22,17,.10) !important;
+    text-transform:none !important;
+    letter-spacing:0 !important;
+    transform:none !important;
+  }
+
+  .hero-info #heroContactActions .hero-call-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:var(--gold);
+  }
+
+  .hero-info #heroContactActions .hero-call-card{
+    position:relative !important;
+    overflow:hidden !important;
+  }
+
+  .hero-call-card-label{
+    color:var(--gold) !important;
+    font-family:var(--sans) !important;
+    font-size:.72rem !important;
+    font-weight:650 !important;
+    line-height:1 !important;
+    letter-spacing:.16em !important;
+    text-transform:uppercase !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-call-card-number{
+    justify-self:end !important;
+    color:#fff !important;
+    font-family:var(--sans) !important;
+    font-size:clamp(1.2rem,1.5vw,1.5rem) !important;
+    font-weight:600 !important;
+    line-height:1 !important;
+    letter-spacing:.025em !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-info .hero-copy > .hero-schedule.hero-schedule-desktop{
+    width:100% !important;
+    max-width:650px !important;
+    margin:0 !important;
+    align-self:stretch !important;
+  }
+
+  .hero-info .hero-copy > .desktop-hero-rule{
+    display:none !important;
+  }
+}
+
+@media(max-width:820px){
+  .hero-intro-break{display:none !important;}
+
+  /* En móvil se conserva el aspecto del botón existente aunque el HTML
+     contenga la estructura enriquecida utilizada en la portada de PC. */
+  #heroContactActions .hero-call-card-label,
+  #heroContactActions .hero-call-card-number{
+    display:inline !important;
+    font:inherit !important;
+    color:inherit !important;
+    letter-spacing:inherit !important;
+    text-transform:inherit !important;
+  }
+}
