@@ -4356,10 +4356,10 @@ main,
   }
 
   /* ---------------------------------------------------------------
-     PIE DE LA HOME: «Aviso legal · Privacidad · Cookies» centrado
-     exactamente en el eje horizontal. Solo afecta a la página inicial.
+     PIE UNIFICADO: enlaces legales centrados exactamente en el eje horizontal
+     y la misma distribución en la home, páginas legales, blog y artículos.
      --------------------------------------------------------------- */
-  body:not(.blog-page) .site-footer-compact .footer-legal{
+  .site-footer-compact .footer-legal{
     display:grid !important;
     grid-template-columns:1fr auto 1fr !important;
     align-items:center !important;
@@ -4367,17 +4367,17 @@ main,
     gap:18px !important;
   }
 
-  body:not(.blog-page) .site-footer-compact .footer-legal > span:first-child{
+  .site-footer-compact .footer-legal > span:first-child{
     justify-self:start !important;
   }
 
-  body:not(.blog-page) .site-footer-compact .footer-legal > span:nth-child(2){
+  .site-footer-compact .footer-legal > .footer-legal-links{
     justify-self:center !important;
     text-align:center !important;
     white-space:nowrap !important;
   }
 
-  body:not(.blog-page) .site-footer-compact .footer-blog-link{
+  .site-footer-compact .footer-blog-link{
     justify-self:end !important;
   }
 }
@@ -5045,4 +5045,15 @@ body.site-contact-dialog-open{
   .site-contact-dialog-action{
     transition:none;
   }
+}
+
+
+/* =====================================================================
+   [REF CSS-MARIA-JUSTIFY-01] FORMACIÓN DE MARIA: TEXTO JUSTIFICADO
+   ===================================================================== */
+.maria-profile-card-inner > p:not(.maria-profile-role){
+  text-align:justify;
+  text-justify:inter-word;
+  -webkit-hyphens:auto;
+  hyphens:auto;
 }

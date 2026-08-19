@@ -315,3 +315,19 @@ body.legal-page .site-footer{
     font-size:.68rem;
   }
 }
+
+
+/* =====================================================================
+   [REF CSS-LEGAL-JUSTIFY-01] TEXTO INTERIOR JUSTIFICADO
+   =====================================================================
+   Se justifican los párrafos y listados del contenido legal. Los títulos,
+   tablas y fichas de datos conservan su alineación propia para legibilidad.
+   ===================================================================== */
+.legal-section-body > p,
+.legal-section-body > ul > li,
+.legal-section-body > ol > li{
+  text-align:justify;
+  text-justify:inter-word;
+  -webkit-hyphens:auto;
+  hyphens:auto;
+}
