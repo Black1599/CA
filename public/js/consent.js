@@ -321,11 +321,11 @@
   }
 
   function installFooterSettingsLinks(){
-    var isBlog = window.location.pathname.indexOf('/blog/') !== -1;
-    var prefix = isBlog ? '../' : '';
-    var legalHref = prefix + 'aviso-legal.html';
-    var privacyHref = prefix + 'privacidad.html';
-    var cookiesHref = prefix + 'politica-cookies.html';
+    /* Las tres páginas legales se resuelven siempre desde la raíz real del sitio.
+       Así el mismo pie funciona igual en portada, blog, artículos y móvil. */
+    var legalHref = siteUrl('aviso-legal.html');
+    var privacyHref = siteUrl('privacidad.html');
+    var cookiesHref = siteUrl('politica-cookies.html');
 
     Array.prototype.forEach.call(document.querySelectorAll('.footer-legal'), function(footer){
       var group = footer.querySelector('.footer-legal-links');

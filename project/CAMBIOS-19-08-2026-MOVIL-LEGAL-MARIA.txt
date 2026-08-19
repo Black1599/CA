@@ -1,0 +1,7 @@
+Cambios:
+- Móvil: texto descriptivo de Formación y experiencia de Maria Carandell justificado explícitamente.
+- Pie móvil: Aviso legal, Privacidad, Cookies y Configurar cookies sincronizados con la versión PC.
+- Los enlaces legales se resuelven desde la raíz del sitio para funcionar también en blog y artículos.
+- Se fuerza pointer-events/touch-action en enlaces legales móviles para evitar bloqueos táctiles.
+- Se actualizan versiones de caché de site-header.js, consent.js y consent.css.
+- No se modifica la lógica de consentimiento ni el contenido legal.
