@@ -321,7 +321,7 @@
   var consentStyleUrl;
 
   try {
-    consentScriptUrl = new URL('consent.js?v=20260819-legal4', loader.src).href;
+    consentScriptUrl = new URL('consent.js?v=20260819-banner1', loader.src).href;
     consentStyleUrl = new URL('../css/consent.css?v=20260819-legal4', loader.src).href;
   } catch (error) {
     return;

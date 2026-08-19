@@ -203,8 +203,8 @@
         '<div class="ca-consent-banner-inner">' +
           '<div class="ca-consent-copy">' +
             '<span class="ca-consent-kicker">Cookies y privacidad</span>' +
-            '<p>Utilizamos tecnologías necesarias para el funcionamiento de la web y para recordar tus preferencias. Con tu consentimiento, usamos <strong>Google Analytics</strong> para obtener estadísticas de uso y permitimos la carga de contenido externo de <strong>Google Maps</strong>.</p>' +
-            '<p class="ca-consent-copy-secondary">Puedes <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> las tecnologías opcionales y modificar tu elección en cualquier momento. Consulta nuestra <a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>Política de Cookies</strong></a> para obtener más información.</p>' +
+            '<p>Utilizamos tecnologías necesarias para el funcionamiento de la web y, con tu consentimiento, tecnologías opcionales para obtener estadísticas de uso y cargar contenido externo.</p>' +
+            '<p class="ca-consent-copy-secondary">Puedes <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> tus preferencias. Más información en nuestra <a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>Política de Cookies</strong></a>.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
             '<button class="ca-consent-button" data-consent-accept type="button">Aceptar</button>' +
