@@ -5155,7 +5155,7 @@ body.site-contact-dialog-open{
    Reorganiza únicamente la columna izquierda de la portada en ordenador:
    - conserva íntegramente el texto, con una pausa visual tras la 1.ª frase;
    - agrupa el contacto y el horario para eliminar espacios excesivos;
-   - convierte la llamada en un bloque principal del mismo ancho que el horario;
+   - replica en el teléfono el mismo lenguaje visual del cuadro de horario;
    - mantiene intacta la fotografía de la derecha y el diseño móvil.
    ===================================================================== */
 .hero-intro-break{display:none;}
@@ -5199,59 +5199,77 @@ body.site-contact-dialog-open{
     align-self:stretch !important;
   }
 
+  /* Teléfono: replica el lenguaje visual del cuadro de horario. */
   .hero-info #heroContactActions .hero-call-card{
     width:100% !important;
     min-width:0 !important;
-    min-height:78px !important;
+    min-height:0 !important;
     margin:0 !important;
-    padding:0 26px !important;
-    display:grid !important;
-    grid-template-columns:auto 1fr !important;
-    align-items:center !important;
-    gap:22px !important;
-    border:1px solid rgba(201,170,99,.88) !important;
-    background:#171715 !important;
-    color:#fff !important;
-    box-shadow:0 14px 34px rgba(25,22,17,.10) !important;
+    padding:24px 27px 23px !important;
+    display:block !important;
+    box-sizing:border-box !important;
+    border:1px solid rgba(201,170,99,.62) !important;
+    background:rgba(255,255,255,.62) !important;
+    color:#151514 !important;
+    box-shadow:0 12px 32px rgba(31,27,20,.045) !important;
     text-transform:none !important;
     letter-spacing:0 !important;
     transform:none !important;
+    overflow:visible !important;
+  }
+
+  .hero-info #heroContactActions .hero-call-card:hover,
+  .hero-info #heroContactActions .hero-call-card:focus{
+    background:rgba(255,255,255,.62) !important;
+    color:#151514 !important;
+    transform:none !important;
+    box-shadow:0 12px 32px rgba(31,27,20,.045) !important;
   }
 
   .hero-info #heroContactActions .hero-call-card::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:4px;
-    background:var(--gold);
+    display:none !important;
   }
 
-  .hero-info #heroContactActions .hero-call-card{
-    position:relative !important;
-    overflow:hidden !important;
+  .hero-call-card-heading{
+    display:flex !important;
+    align-items:center !important;
+    width:100% !important;
+    gap:15px !important;
+    margin:0 0 21px !important;
+    padding:0 !important;
   }
 
-  .hero-call-card-label{
-    color:var(--gold) !important;
+  .hero-call-card-heading > span{
+    flex:0 0 auto !important;
+    color:var(--gold-dark) !important;
     font-family:var(--sans) !important;
-    font-size:.72rem !important;
+    font-size:.82rem !important;
     font-weight:650 !important;
-    line-height:1 !important;
-    letter-spacing:.16em !important;
+    line-height:1.2 !important;
+    letter-spacing:.15em !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
   }
 
+  .hero-call-card-heading > i{
+    display:block !important;
+    flex:1 1 auto !important;
+    height:1px !important;
+    background:rgba(201,170,99,.58) !important;
+  }
+
   .hero-call-card-number{
-    justify-self:end !important;
-    color:#fff !important;
+    display:block !important;
+    width:100% !important;
+    margin:0 !important;
+    color:#151514 !important;
     font-family:var(--sans) !important;
-    font-size:clamp(1.2rem,1.5vw,1.5rem) !important;
+    font-size:1.125rem !important;
     font-weight:600 !important;
-    line-height:1 !important;
-    letter-spacing:.025em !important;
+    font-style:normal !important;
+    line-height:1.2 !important;
+    letter-spacing:0 !important;
+    text-align:center !important;
     white-space:nowrap !important;
   }
 
