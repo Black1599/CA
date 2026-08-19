@@ -5058,3 +5058,43 @@ body.site-contact-dialog-open{
   -webkit-hyphens:auto;
   hyphens:auto;
 }
+
+/* =====================================================================
+   [REF CSS-MARIA-MARGEN-LINEA-01] FORMACIÓN DE MARIA: MÁRGENES SIMÉTRICOS
+   =====================================================================
+   El contenido queda centrado dentro del marco dorado: la distancia entre
+   el texto y la línea dorada es exactamente la misma a izquierda y derecha.
+   Se amplía además el aire lateral respecto de la versión anterior.
+   ===================================================================== */
+@media(min-width:821px){
+  .maria-profile-carousel-desktop .maria-profile-card-inner{
+    padding-left:84px;
+    padding-right:84px;
+  }
+
+  .maria-profile-carousel-desktop .maria-profile-role,
+  .maria-profile-carousel-desktop .maria-profile-card-inner>p:not(.maria-profile-role){
+    width:100%;
+    max-width:none;
+  }
+}
+
+@media(max-width:820px){
+  .maria-profile-carousel-mobile .maria-profile-card-inner{
+    padding-left:44px;
+    padding-right:44px;
+  }
+
+  .maria-profile-carousel-mobile .maria-profile-role,
+  .maria-profile-carousel-mobile .maria-profile-card-inner>p:not(.maria-profile-role){
+    width:100%;
+    max-width:none;
+  }
+}
+
+@media(max-width:380px){
+  .maria-profile-carousel-mobile .maria-profile-card-inner{
+    padding-left:38px;
+    padding-right:38px;
+  }
+}
