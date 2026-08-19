@@ -1,0 +1,9 @@
+CARANDELL ADVOCATS — ACTUALIZACIÓN LEGAL 19/08/2026
+
+- public/aviso-legal.html: sustituido por el Aviso Legal adjunto (10 apartados).
+- public/privacidad.html: nueva Política de Privacidad adjunta (11 apartados).
+- public/politica-cookies.html: nueva Política de Cookies adjunta (7 apartados).
+- Pie de página: enlaces directos Aviso legal · Privacidad · Cookies · Configurar cookies.
+- Banner: Google Analytics y Google Maps separados por categorías.
+- Configuración: necesarias siempre activas; Analytics y Maps independientes; retirar consentimiento; guardar preferencias.
+- Las tres páginas legales incluyen navegación visible entre Aviso legal / Privacidad / Cookies.

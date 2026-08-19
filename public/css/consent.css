@@ -260,14 +260,15 @@
   width:100%;
 }
 
-/* Aviso legal y Cookies mantienen el aspecto discreto del pie. */
-.footer-legal-link{
+/* Aviso legal y Cookies conservan el mismo aspecto tipográfico del footer. */
+.ca-footer-legal-link{
   color:inherit;
+  font:inherit;
   text-decoration:none;
 }
 
-.footer-legal-link:hover,
-.footer-legal-link:focus-visible{
+.ca-footer-legal-link:hover,
+.ca-footer-legal-link:focus-visible{
   text-decoration:underline;
   text-underline-offset:3px;
   outline:none;
@@ -440,3 +441,34 @@
     transition:none;
   }
 }
+
+
+/* [REF CSS-CONSENT-LEGAL3-01] Texto final de cookies + categorías separadas */
+.ca-consent-copy p + p{margin-top:8px;}
+.ca-consent-copy strong{font-weight:600;color:var(--ca-consent-ink);}
+.ca-consent-policy-link{
+  color:inherit;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+.ca-consent-policy-link:hover,
+.ca-consent-policy-link:focus-visible{color:var(--ca-consent-ink);outline:none;}
+.ca-consent-settings-subtitle{
+  margin:7px 0 0;
+  color:var(--ca-consent-muted);
+  font-size:.8rem;
+}
+.ca-consent-settings-intro{
+  padding:18px 0 2px;
+  color:var(--ca-consent-muted);
+  font-size:.82rem;
+  line-height:1.55;
+}
+.ca-consent-settings-intro p{margin:0;}
+.ca-consent-settings-intro p + p{margin-top:9px;}
+.ca-consent-settings-actions .ca-consent-configure{grid-column:auto;}
+
+
+.footer-legal-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 6px;}
+.footer-legal-link:hover,.footer-legal-link:focus-visible{text-decoration:underline;text-underline-offset:3px;outline:none;}
