@@ -4644,7 +4644,8 @@ main,
   }
 
   .maria-profile-carousel-desktop .maria-profile-card-inner{
-    padding:52px 48px 68px;
+    /* Márgenes laterales iguales: el bloque queda centrado y el texto mantiene la justificación. */
+    padding:52px 64px 68px;
   }
 
   .maria-profile-carousel-desktop .maria-profile-card h3{
@@ -4700,7 +4701,7 @@ main,
   }
 
   .maria-profile-carousel-mobile .maria-profile-card-inner{
-    padding:31px 31px 60px;
+    padding:31px 36px 60px;
     justify-content:center;
   }
 
@@ -4752,7 +4753,7 @@ main,
 
 @media(max-width:380px){
   .maria-profile-carousel-mobile .maria-profile-card-inner{
-    padding:27px 25px 56px;
+    padding:27px 28px 56px;
   }
 
   .maria-profile-carousel-mobile .maria-profile-card h3{
