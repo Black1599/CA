@@ -5186,8 +5186,8 @@ body.site-contact-dialog-open{
 
   .hero-intro-break{
     display:block !important;
-    content:"";
-    margin-top:.72em;
+    width:100% !important;
+    height:.55em !important;
   }
 
   /* El bloque de llamada se acerca al texto y queda visualmente unido al horario. */
@@ -5195,7 +5195,7 @@ body.site-contact-dialog-open{
     display:block !important;
     width:100% !important;
     max-width:650px !important;
-    margin:26px 0 13px !important;
+    margin:36px 0 22px !important;
     align-self:stretch !important;
   }
 
