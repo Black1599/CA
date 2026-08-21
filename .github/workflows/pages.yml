@@ -1,4 +1,4 @@
-name: Limpiar proyecto y publicar Pages
+name: Publicar GitHub Pages
 
 on:
   push:
@@ -6,93 +6,39 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 concurrency:
   group: github-pages
   cancel-in-progress: false
 
 jobs:
-  preparar:
+  desplegar:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v6
 
-      - name: Comprobar estructura nueva
+      - name: Comprobar estructura pública
         shell: bash
         run: |
           set -e
-
           test -f public/index.html
           test -d public/assets
           test -d public/blog
+          test -d public/cat
+          test -d public/cat/blog
           test -d public/css
           test -d public/js
           test -f public/robots.txt
           test -f public/sitemap.xml
-          test -f public/llms.txt
-          test -f public/llms-full.txt
-
-          test -d docs
-          test -d project/templates
-          test -d project/design
-
-          echo "La estructura nueva está completa."
-
-      - name: Limpiar estructura antigua
-        shell: bash
-        run: |
-          set -e
-
-          # Conservar .nojekyll dentro de la web pública
-          if [ -f ".nojekyll" ] && [ ! -f "public/.nojekyll" ]; then
-            cp .nojekyll public/.nojekyll
-          fi
-
-          # Eliminar carpetas antiguas duplicadas de la raíz
-          git rm -rf --ignore-unmatch assets
-          git rm -rf --ignore-unmatch blog
-          git rm -rf --ignore-unmatch css
-          git rm -rf --ignore-unmatch js
-          git rm -rf --ignore-unmatch plantillas
-
-          # Eliminar archivos web antiguos duplicados
-          git rm --ignore-unmatch index.html
-          git rm --ignore-unmatch index.html.md
-          git rm --ignore-unmatch robots.txt
-          git rm --ignore-unmatch sitemap.xml
-          git rm --ignore-unmatch llms.txt
-          git rm --ignore-unmatch llms-full.txt
-          git rm --ignore-unmatch .nojekyll
-
-          # Eliminar documentación antigua duplicada
-          git rm --ignore-unmatch GUIA_RAPIDA_CODIGO.md
-          git rm --ignore-unmatch LEEME.md
-
-          # Eliminar archivos que ya habíamos decidido descartar
-          git rm --ignore-unmatch VERSION.txt
-          git rm --ignore-unmatch MANUAL_TECNICO_CARANDELL_ADVOCATS.pdf
-          git rm --ignore-unmatch CAMBIOS_*.txt
-
-          git add public/.nojekyll 2>/dev/null || true
-
-      - name: Guardar limpieza
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A
-
-          if ! git diff --cached --quiet; then
-            git commit -m "Limpiar estructura antigua del proyecto"
-            git push
-          fi
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
@@ -102,19 +48,6 @@ jobs:
         with:
           path: public
 
-  desplegar:
-    needs: preparar
-    runs-on: ubuntu-latest
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
       - name: Publicar GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
