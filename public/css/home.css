@@ -5299,3 +5299,8 @@ body.site-contact-dialog-open{
     text-transform:inherit !important;
   }
 }
+
+
+/* Selector ES/CAT: identifica el idioma activo sin alterar la distribución. */
+.site-language-button span{opacity:.58;transition:opacity .2s ease;}
+.site-language-button span[aria-current="true"]{opacity:1;}

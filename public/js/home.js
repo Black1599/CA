@@ -187,7 +187,7 @@
       slides.forEach(function(_, index){
         var button = document.createElement('button');
         button.type = 'button';
-        button.setAttribute('aria-label', 'Mostrar reseña ' + (index + 1));
+        button.setAttribute('aria-label', ((document.documentElement.lang || 'es').toLowerCase().indexOf('ca') === 0 ? 'Mostrar ressenya ' : 'Mostrar reseña ') + (index + 1));
         button.addEventListener('click', function(){
           showReview(index, true);
         }, false);

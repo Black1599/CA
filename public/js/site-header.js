@@ -55,6 +55,16 @@
     var menuPanel = document.querySelector('.site-menu-panel');
     var languageButton = document.querySelector('.site-language-button');
     var brand = document.querySelector('.shared-header-brand');
+    var currentLanguage = (document.documentElement.lang || 'es').toLowerCase().indexOf('ca') === 0 ? 'ca' : 'es';
+    var copy = currentLanguage === 'ca' ? {
+      contact:'Contacte', appointment:'Atenció amb cita prèvia.', phone:'Telèfon', call:'Trucar', email:'Correu',
+      schedule:'Horari d’oficina', weekdays:'Dilluns a dijous', friday:'Divendres', close:'Tancar contacte',
+      contactAria:'Dades de contacte de Carandell Advocats', callAria:'Trucar al 683 176 820'
+    } : {
+      contact:'Contacto', appointment:'Atención con cita previa.', phone:'Teléfono', call:'Llamar', email:'Correo',
+      schedule:'Horario de oficina', weekdays:'Lunes a jueves', friday:'Viernes', close:'Cerrar contacto',
+      contactAria:'Datos de contacto de Carandell Advocats', callAria:'Llamar al 683 176 820'
+    };
 
     /* [REF JS-HEADER-MENU-01] Cambia el estado visual y accesible del menú. */
     function setMenu(open) {
@@ -107,27 +117,27 @@
       var markup = '' +
         '<div class="site-contact-dialog" id="siteContactDialog" role="dialog" aria-modal="true" aria-labelledby="siteContactDialogTitle" hidden>' +
           '<div class="site-contact-dialog-backdrop" data-contact-close></div>' +
-          '<section class="site-contact-dialog-panel" aria-label="Datos de contacto de Carandell Advocats">' +
-            '<button class="site-contact-dialog-close" data-contact-close type="button" aria-label="Cerrar contacto">×</button>' +
+          '<section class="site-contact-dialog-panel" aria-label="' + copy.contactAria + '">' +
+            '<button class="site-contact-dialog-close" data-contact-close type="button" aria-label="' + copy.close + '">×</button>' +
             '<header class="site-contact-dialog-head">' +
-              '<span class="site-contact-dialog-kicker">Contacto</span>' +
+              '<span class="site-contact-dialog-kicker">' + copy.contact + '</span>' +
               '<h2 id="siteContactDialogTitle">Carandell Advocats</h2>' +
-              '<p>Atención con cita previa.</p>' +
+              '<p>' + copy.appointment + '</p>' +
             '</header>' +
             '<div class="site-contact-dialog-list">' +
               '<div class="site-contact-dialog-item">' +
-                '<span>Teléfono</span>' +
+                '<span>' + copy.phone + '</span>' +
                 '<strong class="site-contact-dialog-phone">683 176 820</strong>' +
-                '<a class="site-contact-dialog-action site-contact-dialog-phone-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="Llamar al 683 176 820" title="Llamar al 683 176 820">Llamar</a>' +
+                '<a class="site-contact-dialog-action site-contact-dialog-phone-action" data-copy-phone="+34683176820" href="tel:+34683176820" aria-label="' + copy.callAria + '" title="' + copy.callAria + '">' + copy.call + '</a>' +
               '</div>' +
               '<div class="site-contact-dialog-item site-contact-dialog-email-item">' +
-                '<span>Correo</span>' +
+                '<span>' + copy.email + '</span>' +
                 '<strong class="site-contact-dialog-email">info@carandelladvocats.com</strong>' +
               '</div>' +
               '<div class="site-contact-dialog-item site-contact-dialog-schedule">' +
-                '<span>Horario de oficina</span>' +
-                '<div><strong>Lunes a jueves</strong><b>10:00–13:00 · 16:00–18:00</b></div>' +
-                '<div><strong>Viernes</strong><b>10:00–13:00</b></div>' +
+                '<span>' + copy.schedule + '</span>' +
+                '<div><strong>' + copy.weekdays + '</strong><b>10:00–13:00 · 16:00–18:00</b></div>' +
+                '<div><strong>' + copy.friday + '</strong><b>10:00–13:00</b></div>' +
               '</div>' +
             '</div>' +
           '</section>' +
@@ -293,12 +303,11 @@
     updatePhoneAccessibilityState();
     window.addEventListener('resize', updatePhoneAccessibilityState, false);
 
-    /* [REF JS-HEADER-LANGUAGE-01] Selector provisional: todavía no cambia idioma. */
+    /* [REF JS-HEADER-LANGUAGE-01] Selector ES/CAT: abre la versión equivalente de la página. */
     if (languageButton) {
       languageButton.addEventListener('click', function () {
-        window.alert(
-          'La versión completa en catalán se incorporará más adelante.'
-        );
+        var target = languageButton.getAttribute('data-language-href');
+        if (target) window.location.href = target;
       }, false);
     }
   });
@@ -321,8 +330,8 @@
   var consentStyleUrl;
 
   try {
-    consentScriptUrl = new URL('consent.js?v=20260819-consent24m1', loader.src).href;
-    consentStyleUrl = new URL('../css/consent.css?v=20260819-mobilelegal1', loader.src).href;
+    consentScriptUrl = new URL('consent.js?v=20260821-bilingue1', loader.src).href;
+    consentStyleUrl = new URL('../css/consent.css?v=20260821-bilingue1', loader.src).href;
   } catch (error) {
     return;
   }

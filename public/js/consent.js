@@ -15,6 +15,28 @@
   var CONSENT_VERSION = 2;
   var CONSENT_MAX_AGE_MS = 24 * 30.4375 * 24 * 60 * 60 * 1000; // 24 meses aprox.
   var GA4_MEASUREMENT_ID = ''; // Ejemplo: G-XXXXXXXXXX. No inventar este dato.
+  var currentLanguage = (document.documentElement.lang || 'es').toLowerCase().indexOf('ca') === 0 ? 'ca' : 'es';
+  var ui = currentLanguage === 'ca' ? {
+    privacy:'Cookies i privacitat', banner:'Utilitzem tecnologies pròpies necessàries per al funcionament de la web i, amb el teu consentiment, tecnologies de tercers per obtenir estadístiques d’ús i carregar contingut extern.',
+    choices:'Pots <strong>acceptar</strong>, <strong>rebutjar</strong> o <strong>configurar</strong> les teves preferències. Més informació a la nostra ', policy:'Política de Cookies',
+    accept:'Acceptar', reject:'Rebutjar', configure:'Configurar', settings:'Configurar cookies', choose:'Tria les teves preferències', close:'Tancar configuració',
+    intro1:'Pots decidir quines tecnologies opcionals permets utilitzar. Les tecnologies necessàries romanen sempre actives perquè permeten recordar les teves preferències de privacitat.',
+    intro2:'Pots modificar o retirar el teu consentiment en qualsevol moment. Per a més informació, consulta la nostra ', necessary:'Necessàries', always:'Sempre actives',
+    necessaryText:'Permeten recordar les teves preferències de privacitat i garantir les funcions bàsiques necessàries de la web. No s’utilitzen amb finalitats publicitàries ni d’anàlisi.',
+    analyticsText:'Ens permet obtenir estadístiques sobre l’ús de la web i conèixer, de manera agregada, com interactuen les persones usuàries amb els seus continguts. Només s’activa si hi dones el teu consentiment.',
+    allowAnalytics:'Permetre Google Analytics', mapsText:'Permet carregar el mapa interactiu de Google Maps disponible a la web. Si no ho autoritzes, el mapa no es carregarà i no s’establirà aquesta connexió amb Google.',
+    allowMaps:'Permetre Google Maps', withdraw:'Retirar consentiment', save:'Desar preferències', legal:'Avís legal', privacyLink:'Privacitat', cookies:'Cookies', settingsLink:'Configurar cookies'
+  } : {
+    privacy:'Cookies y privacidad', banner:'Utilizamos tecnologías propias necesarias para el funcionamiento de la web y, con tu consentimiento, tecnologías de terceros para obtener estadísticas de uso y cargar contenido externo.',
+    choices:'Puedes <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> tus preferencias. Más información en nuestra ', policy:'Política de Cookies',
+    accept:'Aceptar', reject:'Rechazar', configure:'Configurar', settings:'Configurar cookies', choose:'Elige tus preferencias', close:'Cerrar configuración',
+    intro1:'Puedes decidir qué tecnologías opcionales permites utilizar. Las tecnologías necesarias permanecen siempre activas porque permiten recordar tus preferencias de privacidad.',
+    intro2:'Puedes modificar o retirar tu consentimiento en cualquier momento. Para más información, consulta nuestra ', necessary:'Necesarias', always:'Siempre activas',
+    necessaryText:'Permiten recordar tus preferencias de privacidad y garantizar las funciones básicas necesarias de la web. No se utilizan con fines publicitarios ni de análisis.',
+    analyticsText:'Nos permite obtener estadísticas sobre el uso de la web y conocer, de forma agregada, cómo interactúan las personas usuarias con sus contenidos. Solo se activa si das tu consentimiento.',
+    allowAnalytics:'Permitir Google Analytics', mapsText:'Permite cargar el mapa interactivo de Google Maps disponible en la web. Si no lo autorizas, el mapa no se cargará y no se establecerá esa conexión con Google.',
+    allowMaps:'Permitir Google Maps', withdraw:'Retirar consentimiento', save:'Guardar preferencias', legal:'Aviso legal', privacyLink:'Privacidad', cookies:'Cookies', settingsLink:'Configurar cookies'
+  };
 
   var SERVICE_CONFIG = {
     googleAnalytics: { enabled: true, category: 'analytics' },
@@ -207,20 +229,20 @@
   function createInterface(){
     if (document.getElementById('caConsentBanner')) return;
 
-    var policyUrl = siteUrl('politica-cookies.html');
+    var policyUrl = siteUrl(currentLanguage === 'ca' ? 'cat/politica-cookies.html' : 'politica-cookies.html');
 
     var bannerMarkup = '' +
-      '<section class="ca-consent-banner" id="caConsentBanner" aria-label="Cookies y privacidad" hidden>' +
+      '<section class="ca-consent-banner" id="caConsentBanner" aria-label="' + ui.privacy + '" hidden>' +
         '<div class="ca-consent-banner-inner">' +
           '<div class="ca-consent-copy">' +
-            '<span class="ca-consent-kicker">Cookies y privacidad</span>' +
-            '<p>Utilizamos tecnologías propias necesarias para el funcionamiento de la web y, con tu consentimiento, tecnologías de terceros para obtener estadísticas de uso y cargar contenido externo.</p>' +
-            '<p class="ca-consent-copy-secondary">Puedes <strong>aceptar</strong>, <strong>rechazar</strong> o <strong>configurar</strong> tus preferencias. Más información en nuestra <a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>Política de Cookies</strong></a>.</p>' +
+            '<span class="ca-consent-kicker">' + ui.privacy + '</span>' +
+            '<p>' + ui.banner + '</p>' +
+            '<p class="ca-consent-copy-secondary">' + ui.choices + '<a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>' + ui.policy + '</strong></a>.</p>' +
           '</div>' +
           '<div class="ca-consent-actions">' +
-            '<button class="ca-consent-button" data-consent-accept type="button">Aceptar</button>' +
-            '<button class="ca-consent-button" data-consent-reject type="button">Rechazar</button>' +
-            '<button class="ca-consent-button ca-consent-configure" data-consent-configure type="button">Configurar</button>' +
+            '<button class="ca-consent-button" data-consent-accept type="button">' + ui.accept + '</button>' +
+            '<button class="ca-consent-button" data-consent-reject type="button">' + ui.reject + '</button>' +
+            '<button class="ca-consent-button ca-consent-configure" data-consent-configure type="button">' + ui.configure + '</button>' +
           '</div>' +
         '</div>' +
       '</section>';
@@ -229,34 +251,34 @@
       '<div class="ca-consent-settings" id="caConsentSettings" role="dialog" aria-modal="true" aria-labelledby="caConsentSettingsTitle" hidden>' +
         '<div class="ca-consent-settings-panel">' +
           '<div class="ca-consent-settings-head">' +
-            '<div><span class="ca-consent-kicker">Cookies y privacidad</span><h2 id="caConsentSettingsTitle">Configurar cookies</h2><p class="ca-consent-settings-subtitle">Elige tus preferencias</p></div>' +
-            '<button class="ca-consent-close" data-consent-close type="button" aria-label="Cerrar configuración">×</button>' +
+            '<div><span class="ca-consent-kicker">' + ui.privacy + '</span><h2 id="caConsentSettingsTitle">' + ui.settings + '</h2><p class="ca-consent-settings-subtitle">' + ui.choose + '</p></div>' +
+            '<button class="ca-consent-close" data-consent-close type="button" aria-label="' + ui.close + '">×</button>' +
           '</div>' +
           '<div class="ca-consent-settings-intro">' +
-            '<p>Puedes decidir qué tecnologías opcionales permites utilizar. Las tecnologías necesarias permanecen siempre activas porque permiten recordar tus preferencias de privacidad.</p>' +
-            '<p>Puedes modificar o retirar tu consentimiento en cualquier momento. Para más información, consulta nuestra <a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>Política de Cookies</strong></a>.</p>' +
+            '<p>' + ui.intro1 + '</p>' +
+            '<p>' + ui.intro2 + '<a class="ca-consent-policy-link" href="' + policyUrl + '"><strong>' + ui.policy + '</strong></a>.</p>' +
           '</div>' +
           '<div class="ca-consent-category">' +
-            '<div><h3>Necesarias</h3><p>Permiten recordar tus preferencias de privacidad y garantizar las funciones básicas necesarias de la web. No se utilizan con fines publicitarios ni de análisis.</p></div>' +
-            '<span class="ca-consent-always-on">Siempre activas</span>' +
+            '<div><h3>' + ui.necessary + '</h3><p>' + ui.necessaryText + '</p></div>' +
+            '<span class="ca-consent-always-on">' + ui.always + '</span>' +
           '</div>' +
           '<div class="ca-consent-category">' +
-            '<div><h3>Google Analytics</h3><p>Nos permite obtener estadísticas sobre el uso de la web y conocer, de forma agregada, cómo interactúan las personas usuarias con sus contenidos. Solo se activa si das tu consentimiento.</p></div>' +
-            '<label class="ca-consent-switch" aria-label="Permitir Google Analytics">' +
+            '<div><h3>Google Analytics</h3><p>' + ui.analyticsText + '</p></div>' +
+            '<label class="ca-consent-switch" aria-label="' + ui.allowAnalytics + '">' +
               '<input id="caConsentAnalytics" type="checkbox"/>' +
               '<span aria-hidden="true"></span>' +
             '</label>' +
           '</div>' +
           '<div class="ca-consent-category">' +
-            '<div><h3>Google Maps</h3><p>Permite cargar el mapa interactivo de Google Maps disponible en la web. Si no lo autorizas, el mapa no se cargará y no se establecerá esa conexión con Google.</p></div>' +
-            '<label class="ca-consent-switch" aria-label="Permitir Google Maps">' +
+            '<div><h3>Google Maps</h3><p>' + ui.mapsText + '</p></div>' +
+            '<label class="ca-consent-switch" aria-label="' + ui.allowMaps + '">' +
               '<input id="caConsentExternal" type="checkbox"/>' +
               '<span aria-hidden="true"></span>' +
             '</label>' +
           '</div>' +
           '<div class="ca-consent-settings-actions">' +
-            '<button class="ca-consent-button ca-consent-configure" data-consent-withdraw type="button">Retirar consentimiento</button>' +
-            '<button class="ca-consent-button" data-consent-save type="button">Guardar preferencias</button>' +
+            '<button class="ca-consent-button ca-consent-configure" data-consent-withdraw type="button">' + ui.withdraw + '</button>' +
+            '<button class="ca-consent-button" data-consent-save type="button">' + ui.save + '</button>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -267,37 +289,20 @@
     analyticsToggle = document.getElementById('caConsentAnalytics');
     externalToggle = document.getElementById('caConsentExternal');
 
-    banner.querySelector('[data-consent-accept]').addEventListener('click', function(){
-      writeState({ external:true, analytics:true });
-    }, false);
-
-    banner.querySelector('[data-consent-reject]').addEventListener('click', function(){
-      writeState({ external:false, analytics:false });
-    }, false);
-
+    banner.querySelector('[data-consent-accept]').addEventListener('click', function(){ writeState({ external:true, analytics:true }); }, false);
+    banner.querySelector('[data-consent-reject]').addEventListener('click', function(){ writeState({ external:false, analytics:false }); }, false);
     banner.querySelector('[data-consent-configure]').addEventListener('click', openSettings, false);
     settings.querySelector('[data-consent-close]').addEventListener('click', function(){ closeSettings(true); }, false);
-
     settings.querySelector('[data-consent-withdraw]').addEventListener('click', function(){
       if (analyticsToggle) analyticsToggle.checked = false;
       if (externalToggle) externalToggle.checked = false;
       writeState({ external:false, analytics:false });
     }, false);
-
     settings.querySelector('[data-consent-save]').addEventListener('click', function(){
-      writeState({
-        external: !!(externalToggle && externalToggle.checked),
-        analytics: !!(analyticsToggle && analyticsToggle.checked)
-      });
+      writeState({ external: !!(externalToggle && externalToggle.checked), analytics: !!(analyticsToggle && analyticsToggle.checked) });
     }, false);
-
-    settings.addEventListener('click', function(event){
-      if (event.target === settings) closeSettings(true);
-    }, false);
-
-    document.addEventListener('keydown', function(event){
-      if (event.key === 'Escape' && settings && !settings.hidden) closeSettings(true);
-    }, false);
+    settings.addEventListener('click', function(event){ if (event.target === settings) closeSettings(true); }, false);
+    document.addEventListener('keydown', function(event){ if (event.key === 'Escape' && settings && !settings.hidden) closeSettings(true); }, false);
   }
 
   function showBanner(){
@@ -332,33 +337,21 @@
   }
 
   function installFooterSettingsLinks(){
-    /* Las tres páginas legales se resuelven siempre desde la raíz real del sitio.
-       Así el mismo pie funciona igual en portada, blog, artículos y móvil. */
-    var legalHref = siteUrl('aviso-legal.html');
-    var privacyHref = siteUrl('privacidad.html');
-    var cookiesHref = siteUrl('politica-cookies.html');
+    var legalHref = siteUrl(currentLanguage === 'ca' ? 'cat/avis-legal.html' : 'aviso-legal.html');
+    var privacyHref = siteUrl(currentLanguage === 'ca' ? 'cat/privacitat.html' : 'privacidad.html');
+    var cookiesHref = siteUrl(currentLanguage === 'ca' ? 'cat/politica-cookies.html' : 'politica-cookies.html');
 
     Array.prototype.forEach.call(document.querySelectorAll('.footer-legal'), function(footer){
       var group = footer.querySelector('.footer-legal-links');
-
-      if (!group) {
-        Array.prototype.some.call(footer.querySelectorAll('span'), function(element){
-          if ((element.textContent || '').trim() !== 'Aviso legal · Privacidad · Cookies') return false;
-          group = element;
-          group.classList.add('footer-legal-links');
-          return true;
-        });
-      }
-
       if (group) {
         group.innerHTML =
-          '<a class="footer-legal-link" href="' + legalHref + '">Aviso legal</a> ' +
+          '<a class="footer-legal-link" href="' + legalHref + '">' + ui.legal + '</a> ' +
           '<span aria-hidden="true">·</span> ' +
-          '<a class="footer-legal-link" href="' + privacyHref + '">Privacidad</a> ' +
+          '<a class="footer-legal-link" href="' + privacyHref + '">' + ui.privacyLink + '</a> ' +
           '<span aria-hidden="true">·</span> ' +
-          '<a class="footer-legal-link" href="' + cookiesHref + '">Cookies</a> ' +
+          '<a class="footer-legal-link" href="' + cookiesHref + '">' + ui.cookies + '</a> ' +
           '<span aria-hidden="true">·</span> ' +
-          '<button class="ca-cookie-settings-link" type="button" data-cookie-settings>Configurar cookies</button>';
+          '<button class="ca-cookie-settings-link" type="button" data-cookie-settings>' + ui.settingsLink + '</button>';
       }
     });
 
