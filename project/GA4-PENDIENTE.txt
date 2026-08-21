@@ -1,16 +1,14 @@
-CARANDELL ADVOCATS — GOOGLE ANALYTICS 4
+GOOGLE ANALYTICS 4 — PENDIENTE DE ID REAL
 
-La interfaz de consentimiento ya incluye una categoría independiente para Google Analytics y el código está preparado para cargar GA4 únicamente después del consentimiento.
+La web está preparada para cargar GA4 únicamente después del consentimiento expreso.
 
-Falta un único dato que no puede inventarse: el ID de medición real de Google Analytics 4 (formato G-XXXXXXXXXX).
+Pendiente al crear/configurar la propiedad de Google Analytics:
+1. Obtener el identificador real de medición con formato G-XXXXXXXXXX.
+2. Sustituir en public/js/consent.js:
+   var GA4_MEASUREMENT_ID = '';
+   por el identificador real.
+3. Probar Aceptar, Rechazar, Configurar y Retirar consentimiento en ES y CAT.
+4. Confirmar en DevTools que Analytics no se carga antes del consentimiento.
+5. Confirmar en GA4 que las páginas /ca/ se registran correctamente con el mismo flujo web.
 
-Cuando esté disponible, editar:
-  public/js/consent.js
-
-y sustituir:
-  var GA4_MEASUREMENT_ID = '';
-
-por:
-  var GA4_MEASUREMENT_ID = 'G-XXXXXXXXXX';
-
-No es necesario cambiar la Política de Privacidad, la Política de Cookies ni el diseño del panel si la configuración final coincide con lo descrito en ellas.
+No inventar ni publicar un ID provisional.
