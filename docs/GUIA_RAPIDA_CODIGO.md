@@ -54,17 +54,24 @@ Para cambios visuales prueba estos anchos: `375`, `390`, `820`, `1366/1440` y `1
 
 ## Nuevo artículo
 
-Usa `project/templates/articulo-blog.html`. La plantilla ya contiene favicon, cabecera, pie, CSS, JavaScript, metadatos sociales y Schema.org.
+Usa `project/templates/articulo-blog.html` para la versión ES. La plantilla ya contiene favicon, cabecera, pie, CSS, JavaScript, metadatos sociales y Schema.org.
 
 Antes de publicar:
 
 1. cambia todos los campos marcados como `CAMBIAR`;
-2. cambia `noindex,nofollow` por `index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1`;
-3. añade la tarjeta al listado con `project/templates/tarjeta-blog.html`;
-4. crea el `.html.md`;
-5. actualiza `public/blog/index.html.md`, `public/sitemap.xml`, `public/llms.txt` y `public/llms-full.txt`;
-6. prueba PC y móvil.
+2. crea y revisa la versión ES en `public/blog/`;
+3. crea la versión CAT equivalente en `public/cat/blog/`, con su slug CAT;
+4. enlaza ambas versiones mediante `hreflang` y `data-language-href`;
+5. cambia `noindex,nofollow` por `index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1`;
+6. añade las tarjetas a los dos índices del blog;
+7. crea los `.html.md` ES y CAT;
+8. actualiza `public/sitemap.xml`, los dos índices `.html.md`, `llms.txt` y `llms-full.txt` de ambos idiomas;
+9. prueba PC y móvil.
 
-Aviso estándar:
+Aviso estándar ES:
 
 > Este contenido tiene carácter informativo y no sustituye el asesoramiento jurídico individualizado.
+
+Aviso estándar CAT:
+
+> Aquest contingut té caràcter informatiu i no substitueix l’assessorament jurídic individualitzat.

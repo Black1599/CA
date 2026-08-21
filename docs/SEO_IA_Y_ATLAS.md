@@ -3,10 +3,10 @@
 ## Qué se ha añadido
 
 - `public/robots.txt`: permite `OAI-SearchBot` para ChatGPT Search y bloquea `GPTBot` para entrenamiento.
-- `public/sitemap.xml`: lista las páginas públicas.
+- `public/sitemap.xml`: lista las páginas públicas ES y CAT e incluye alternates `hreflang`.
 - `public/llms.txt`: resumen experimental en Markdown para sistemas de IA.
 - `public/llms-full.txt`: contexto textual ampliado.
-- versiones `.md` de las páginas principales.
+- versiones `.md` de las páginas principales y artículos en ES y CAT.
 - URL canonical, Open Graph, metadatos para compartir y Schema.org.
 - etiquetas ARIA, enlace para saltar al contenido, foco visible y estados accesibles.
 
@@ -27,6 +27,15 @@ Disallow: /
 ```
 
 Esta separación permite la búsqueda de ChatGPT sin conceder automáticamente permiso para entrenamiento. Se puede cambiar más adelante.
+
+
+## Estructura bilingüe
+
+- ES se publica desde `public/`.
+- CAT se publica desde `public/cat/`.
+- Cada HTML incluye `hreflang="es"`, `hreflang="ca"` y `x-default`.
+- El código técnico del idioma CAT es `ca`; la carpeta pública y el selector visual usan `cat` / `CAT`.
+- CSS, JavaScript, imágenes y fuentes son recursos compartidos y no se duplican dentro de `public/cat/`.
 
 ## Aviso sobre la URL actual de GitHub Pages
 
