@@ -34,7 +34,7 @@
 <!-- Los estilos generales mantienen la estética de la web principal. -->
 <link href="../css/home.css?v=20260821-bilingue1" rel="stylesheet"/>
 <!-- Los estilos específicos de esta sección se encuentran aquí. -->
-<link href="../css/blog.css?v=20260819-footer1" rel="stylesheet"/>
+<link href="../css/blog.css?v=20260821-search1" rel="stylesheet"/>
 <!-- [REF SEO-AI-META-01] CANONICAL, ROBOTS, OPEN GRAPH Y METADATOS PARA BUSCADORES/IA. --><link href="https://black1599.github.io/CA/blog/" rel="canonical"/><link href="../llms.txt" rel="alternate" title="Resumen del sitio para sistemas de IA" type="text/plain"/><meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/><meta content="Carandell Advocats" name="author"/><meta content="es_ES" property="og:locale"/><meta content="website" property="og:type"/><meta content="Carandell Advocats" property="og:site_name"/><meta content="Blog jurídico | Carandell Advocats" property="og:title"/><meta content="Artículos jurídicos de Carandell Advocats sobre vivienda, sucesiones, derecho laboral y otras cuestiones legales, explicados de forma clara y rigurosa." property="og:description"/><meta content="https://black1599.github.io/CA/blog/" property="og:url"/><meta content="https://black1599.github.io/CA/assets/images/recepcion.jpg" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Blog jurídico | Carandell Advocats" name="twitter:title"/><meta content="Artículos jurídicos de Carandell Advocats sobre vivienda, sucesiones, derecho laboral y otras cuestiones legales, explicados de forma clara y rigurosa." name="twitter:description"/><meta content="https://black1599.github.io/CA/assets/images/recepcion.jpg" name="twitter:image"/><!-- [REF SEO-AI-SCHEMA-01] DATOS ESTRUCTURADOS SCHEMA.ORG PARA BUSCADORES E IA. --><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [
@@ -111,6 +111,17 @@
 </section>
 <!-- [REF HTML-BLOG-LIST-01] LISTADO: las tarjetas se ordenan dentro de .blog-post-list. -->
 <section aria-labelledby="ultimos-articulos" class="blog-list-section">
+<!-- [REF HTML-BLOG-SEARCH-01] BUSCADOR: filtra publicaciones por título, categoría y contenido. -->
+<div class="blog-search-row">
+<form class="blog-search-box" data-blog-search-form data-search-language="es" role="search">
+<label for="blog-search-input-es">Buscar en el blog</label>
+<div class="blog-search-control">
+<input id="blog-search-input-es" data-blog-search-input type="search" inputmode="search" autocomplete="off" placeholder="Buscar por tema, palabra clave o contenido…" aria-describedby="blog-search-status-es"/>
+<button data-blog-search-clear type="button" aria-label="Borrar búsqueda" title="Borrar búsqueda">×</button>
+</div>
+<p class="blog-search-status" id="blog-search-status-es" data-blog-search-status aria-live="polite"></p>
+</form>
+</div>
 <div class="blog-section-heading">
 <h2 id="ultimos-articulos">Últimas publicaciones</h2>
 </div>
@@ -143,6 +154,7 @@
 <!-- Comportamiento de la cabecera del blog. -->
 <!-- JAVASCRIPT COMPARTIDO: controla menú, idiomas y desplazamientos. -->
 <script defer="" src="../js/site-header.js?v=20260821-bilingue1"></script><!-- JAVASCRIPT DEL BLOG: cabecera y barra de llamada móvil. -->
+<script defer="" src="../js/blog-search.js?v=20260821-search1"></script>
 <script defer="" src="../js/blog.js"></script>
 </body>
 </html>
